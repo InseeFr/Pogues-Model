@@ -8,14 +8,15 @@ import org.exist.xquery.FunctionDef;
 
 public class PoguesModule extends AbstractInternalModule {
 
-	public final static String NAMESPACE_URI = "http://id.insee.fr/apps/pogues";
-	public final static String PREFIX = "pogues";
+	public final static String NAMESPACE_URI = "http://id.insee.fr/apps/pogues-model";
+	public final static String PREFIX = "pogmod";
 	public final static String DESCRIPTION = "Format converters for Pogues";
 	public final static String EXIST_VERSION = "2.1";
 
 	private final static FunctionDef[] functions = {
 	    new FunctionDef(JSONToXMLFunction.J2X_SIGNATURE, JSONToXMLFunction.class),
-	    new FunctionDef(XMLToJSONFunction.X2J_SIGNATURE, XMLToJSONFunction.class)
+	    new FunctionDef(XMLToJSONFunction.X2J_SIGNATURE, XMLToJSONFunction.class),
+	    new FunctionDef(EchoTestFunction.ECHO_SIGNATURE, EchoTestFunction.class)
 	};
 
 	public PoguesModule(Map<String, List<? extends Object>> parameters) {
