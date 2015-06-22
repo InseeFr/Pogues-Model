@@ -9,17 +9,16 @@ import javax.xml.bind.Marshaller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.persistence.jaxb.MarshallerProperties;
 
 import fr.insee.pogues.model.CodeList;
 import fr.insee.pogues.model.Questionnaire;
 import fr.insee.pogues.model.SequenceType;
 
-public class JSONSerializer {
+public class XMLSerializer {
 
-	public JSONSerializer() { }
+	public XMLSerializer() { }
 
-	private static final Logger logger = LogManager.getLogger(JSONSerializer.class);
+	private static final Logger logger = LogManager.getLogger(XMLSerializer.class);
 
 	public String serialize(Questionnaire questionnaire) throws JAXBException, UnsupportedEncodingException {
 
@@ -29,13 +28,8 @@ public class JSONSerializer {
 
 		JAXBContext context = JAXBContext.newInstance(Questionnaire.class);
 		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
-
-		// Set it to true if you need to include the JSON root element in the JSON output
-		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
-		// Set it to true if you need the JSON output to formatted
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		// Marshal the questionnaire object to JSON and put the output in a string
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		marshaller.marshal(questionnaire, baos);
@@ -52,17 +46,12 @@ public class JSONSerializer {
 
 		JAXBContext context = JAXBContext.newInstance(SequenceType.class);
 		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
-
-		// Set it to true if you need to include the JSON root element in the JSON output
-		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
-		// Set it to true if you need the JSON output to formatted
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		// Marshal the sequence object to JSON and put the output in a string
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		marshaller.marshal(sequence, baos);
-	
+
 		return baos.toString("UTF-8");
 	}
 
@@ -74,18 +63,15 @@ public class JSONSerializer {
 
 		JAXBContext context = JAXBContext.newInstance(CodeList.class);
 		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
-
-		// Set it to true if you need to include the JSON root element in the JSON output
-		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
-		// Set it to true if you need the JSON output to formatted
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		// Marshal the code list object to JSON and put the output in a string
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		marshaller.marshal(codeList, baos);
 	
 		return baos.toString("UTF-8");
 	}
+
+
 
 }

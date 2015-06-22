@@ -31,8 +31,8 @@ public class QuestionnaireFactory {
 		questionnaire.setSurvey(survey);
 
 		// Create a sequence of level 0 and borrow its children
-		SequenceFactory factory = new SequenceFactory();
-		SequenceType sequence = factory.createSequence(1);
+		SequenceFactory sequenceFactory = new SequenceFactory();
+		SequenceType sequence = sequenceFactory.createSequence(1);
 		questionnaire.getChildren().addAll(sequence.getChildren());
 
 		// Create a component group
@@ -40,12 +40,14 @@ public class QuestionnaireFactory {
 		group.setId("PENDING_COMPONENTS");
 		group.setName("Questions waiting to be created");
 		group.getLabel().add("Label for pending components group");
-		SequenceType groupComponentContainer = factory.createSequence(99);
+		SequenceType groupComponentContainer = sequenceFactory.createSequence(99);
 		group.getMember().addAll(groupComponentContainer.getChildren());
 		questionnaire.getComponentGroup().add(group);
 
-		return questionnaire;
-		
-	}
+		// Create a code list container with one code list and one code list specification
+		CodeListFactory codeListFactory = new CodeListFactory();
+		questionnaire.setCodeLists(codeListFactory.createCodeLists());
 
+		return questionnaire;
+	}
 }

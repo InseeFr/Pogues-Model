@@ -6,7 +6,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import fr.insee.pogues.conversion.JSONSerializer;
+import fr.insee.pogues.conversion.XMLSerializer;
 import fr.insee.pogues.mock.CodeListFactory;
 import fr.insee.pogues.mock.QuestionnaireFactory;
 import fr.insee.pogues.mock.SequenceFactory;
@@ -14,7 +14,7 @@ import fr.insee.pogues.model.CodeList;
 import fr.insee.pogues.model.Questionnaire;
 import fr.insee.pogues.model.SequenceType;
 
-public class JSONSerializerTest {
+public class XMLSerializerTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -26,14 +26,16 @@ public class JSONSerializerTest {
 		QuestionnaireFactory factory = new QuestionnaireFactory();
 		Questionnaire fakeQuestionnaire = factory.createQuestionnaire();
 
+		fakeQuestionnaire.setCodeLists(null);
+
 		long startTime = System.currentTimeMillis();
 
-		JSONSerializer serializer = new JSONSerializer();
-		String jsonQuestionnaire = serializer.serialize(fakeQuestionnaire);
+		XMLSerializer serializer = new XMLSerializer();
+		String xmlQuestionnaire = serializer.serialize(fakeQuestionnaire);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
 
-		FileUtils.writeStringToFile(new File("src/test/resources/questionnaire.json"), jsonQuestionnaire, "UTF-8");
+		FileUtils.writeStringToFile(new File("src/test/resources/questionnaire-ser.xml"), xmlQuestionnaire, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
 	}
 
@@ -45,12 +47,12 @@ public class JSONSerializerTest {
 
 		long startTime = System.currentTimeMillis();
 
-		JSONSerializer serializer = new JSONSerializer();
-		String jsonSequence = serializer.serialize(fakeSequence);
+		XMLSerializer serializer = new XMLSerializer();
+		String xmlSequence = serializer.serialize(fakeSequence);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
 
-		FileUtils.writeStringToFile(new File("src/test/resources/sequence-ser.json"), jsonSequence, "UTF-8");
+		FileUtils.writeStringToFile(new File("src/test/resources/sequence-ser.xml"), xmlSequence, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
 	}
 
@@ -62,12 +64,12 @@ public class JSONSerializerTest {
 
 		long startTime = System.currentTimeMillis();
 
-		JSONSerializer serializer = new JSONSerializer();
-		String jsonCodeList = serializer.serialize(fakeCodeList);
+		XMLSerializer serializer = new XMLSerializer();
+		String xmlCodeList = serializer.serialize(fakeCodeList);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
 
-		FileUtils.writeStringToFile(new File("src/test/resources/codelist-ser.json"), jsonCodeList, "UTF-8");
+		FileUtils.writeStringToFile(new File("src/test/resources/codelist-ser.xml"), xmlCodeList, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
 	}
 

@@ -1,0 +1,32 @@
+{
+   "CodeList" : {
+      "id" : "CL_7437",
+      "Name" : "Code list CL_7437",
+      "Label" : "Label for code list number CL_7437",
+      "Code" : [ {
+         "Value" : "CL_7437_0",
+         "Label" : "Label for code number CL_7437_0"
+      }, {
+         "Value" : "CL_7437_1",
+         "Label" : "Label for code number CL_7437_1"
+      }, {
+         "Value" : "CL_7437_2",
+         "Label" : "Label for code number CL_7437_2"
+      }, {
+         "Value" : "CL_7437_3",
+         "Label" : "Label for code number CL_7437_3"
+      }, {
+         "Value" : "CL_7437_4",
+         "Label" : "Label for code number CL_7437_4"
+      }, {
+         "Value" : "CL_7437_5",
+         "Label" : "Label for code number CL_7437_5"
+      }, {
+         "Value" : "CL_7437_6",
+         "Label" : "Label for code number CL_7437_6"
+      }, {
+         "Value" : "CL_7437_7",
+         "Label" : "Label for code number CL_7437_7"
+      } ]
+   }
+}

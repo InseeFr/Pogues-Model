@@ -8,7 +8,7 @@
             <xs:sequence>
                 <xs:element name="Name" type="xs:token"/>
             </xs:sequence>
-            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="id" type="xs:ID" use="required"/>
             <xs:attribute name="agency" type="xs:token"/>
         </xs:complexType>
     </xs:element>
@@ -20,6 +20,14 @@
                     <xs:sequence>
                         <xs:element ref="Survey"/>
                         <xs:element ref="ComponentGroup" minOccurs="0" maxOccurs="unbounded"/>
+                        <xs:element name="CodeLists" minOccurs="0">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element ref="CodeList" minOccurs="0" maxOccurs="unbounded"/>
+                                    <xs:element ref="CodeListSpecification" minOccurs="0" maxOccurs="unbounded"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
                     </xs:sequence>
                     <xs:attribute name="agency" type="xs:token"/>
                 </xs:extension>
@@ -35,7 +43,7 @@
             <xs:element name="Control" type="ControlType" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="GoTo" type="GoToType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="id" type="xs:ID"/>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
     </xs:complexType>
 
     <xs:element name="ComponentGroup">
@@ -46,7 +54,7 @@
                 <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element name="Member" type="ComponentType" maxOccurs="unbounded"/>
             </xs:sequence>
-            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="id" type="xs:ID" use="required"/>
         </xs:complexType>
     </xs:element>
 
@@ -64,7 +72,7 @@
 
     <xs:complexType name="ResponseType">
         <xs:sequence>
-            <xs:element name="PredefinedLabel" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="CodeListReference" type="xs:IDREF" minOccurs="0"/>
             <xs:element name="Datatype" type="DatatypeType"/>
             <xs:element name="Value" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -106,7 +114,7 @@
             <xs:element name="Expression" type="ExpressionType"/>
             <xs:element name="FailMessage" type="xs:string" minOccurs="0"/>
         </xs:sequence>
-        <xs:attribute name="id" type="xs:ID"/>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
         <xs:attribute name="criticity" type="ControlCriticityEnum"/>
     </xs:complexType>
 
@@ -120,7 +128,7 @@
                 <xs:element name="Next" type="GoToType"/>
             </xs:choice>
         </xs:sequence>
-        <xs:attribute name="id" type="xs:ID"/>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="ExpressionType">
@@ -128,6 +136,33 @@
             <xs:extension base="xs:string"/>
         </xs:simpleContent>
     </xs:complexType>
+
+    <xs:element name="CodeList">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Name" type="xs:token"/>
+                <xs:element name="Label" type="xs:token"/>
+                <xs:element name="Code" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Value" type="xs:token"/>
+                            <xs:element name="Label" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID" use="required"/>
+        </xs:complexType> 
+    </xs:element>
+
+    <xs:element name="CodeListSpecification">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uri" type="xs:anyURI"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID" use="required"/>
+        </xs:complexType> 
+    </xs:element>
 
     <!-- Data types -->
 
@@ -177,7 +212,6 @@
             <xs:enumeration value="DATE"/>
         </xs:restriction>
     </xs:simpleType>
-
 
     <xs:simpleType name="ControlCriticityEnum">
         <xs:restriction base="xs:token">

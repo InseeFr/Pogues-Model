@@ -1,0 +1,4 @@
+2015-06-22 18:18:37,384 [main] DEBUG (JSONSerializer.java [serialize]:51) - Serializing sequence FSQ_2 
+2015-06-22 18:18:50,890 [main] DEBUG (XMLSerializer.java [serialize]:45) - Serializing sequence FSQ_2 
+2015-06-22 18:19:04,134 [main] DEBUG (XMLSerializer.java [serialize]:62) - Serializing code list CL_5950 
+2015-06-22 18:19:19,225 [main] DEBUG (JSONSerializer.java [serialize]:73) - Serializing code list CL_138 

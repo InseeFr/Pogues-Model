@@ -13,6 +13,8 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.persistence.jaxb.UnmarshallerProperties;
 
 import fr.insee.pogues.model.Questionnaire;
@@ -20,6 +22,8 @@ import fr.insee.pogues.model.Questionnaire;
 public class JSONToXMLTranslator {
 
 	public JSONToXMLTranslator() {}
+
+	private static final Logger logger = LogManager.getLogger(JSONToXMLTranslator.class);
 
 	public String translate(File jsonFile) throws JAXBException, UnsupportedEncodingException {
 
@@ -41,6 +45,8 @@ public class JSONToXMLTranslator {
 
 		if (jsonStream == null) return null;
 
+		logger.debug("Preparing to translate from JSON to XML");
+
 		JAXBContext context = JAXBContext.newInstance(Questionnaire.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, "application/json");
@@ -58,7 +64,9 @@ public class JSONToXMLTranslator {
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		marshaller.marshal(questionnaire, baos);
-	
+
+		logger.debug("Translation complete");
+
 		return baos.toString("UTF-8");
 	}
 
