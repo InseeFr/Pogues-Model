@@ -1,4 +1,6 @@
 target/
+logs/
+src/test/resources/
 .settings/
 .project
 .classpath

@@ -1,8 +1,8 @@
 package fr.insee.pogues.mock;
 
-import fr.insee.pogues.model.CodeList;
+import fr.insee.pogues.model.CodeLists;
 import fr.insee.pogues.model.CodeListSpecification;
-import fr.insee.pogues.model.Questionnaire.CodeLists;
+import fr.insee.pogues.model.CodeList;
 
 public class CodeListFactory {
 
@@ -52,12 +52,12 @@ public class CodeListFactory {
 		CodeLists codeLists = new CodeLists();
 
 		if (codeListNumber >= 1) {
-			for (int codeListIndex = 0; codeListIndex <= codeListNumber; codeListIndex++) {
+			for (int codeListIndex = 0; codeListIndex < codeListNumber; codeListIndex++) {
 				codeLists.getCodeList().add(this.createCodeList());
 			}
 		}
 		if (codeListSpecificationNumber >= 1) {
-			for (int codeListSpecificationIndex = 0; codeListSpecificationIndex <= codeListNumber; codeListSpecificationIndex++) {
+			for (int codeListSpecificationIndex = 0; codeListSpecificationIndex < codeListSpecificationNumber; codeListSpecificationIndex++) {
 				codeLists.getCodeListSpecification().add(this.createCodeListSpecification());
 			}
 		}
@@ -67,8 +67,6 @@ public class CodeListFactory {
 
 	public CodeLists createCodeLists() {
 
-		return createCodeLists(1, 0);
+		return createCodeLists(1, 2);
 	}
-
-
 }

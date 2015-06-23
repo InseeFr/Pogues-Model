@@ -36,8 +36,8 @@ public class SequenceFactory {
 		for (int childIndex = 0; childIndex <= numberOfChildren; childIndex++) {
 			int childNumber = number * 10 + childIndex;
 			boolean childIsSequence = (depth <= ONLY_SEQUENCES_DEPTH) || ((depth != ONLY_QUESTIONS_DEPTH) && (Math.random() < 0.5));
-			if (childIsSequence) sequence.getChildren().add((this.createSequence(childNumber)));
-			else sequence.getChildren().add(questionFactory.createQuestion(childNumber));
+			if (childIsSequence) sequence.getChild().add((this.createSequence(childNumber)));
+			else sequence.getChild().add(questionFactory.createQuestion(childNumber));
 		}
 
 		return sequence;

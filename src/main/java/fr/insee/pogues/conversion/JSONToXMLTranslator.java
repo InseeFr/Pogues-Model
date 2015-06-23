@@ -50,9 +50,10 @@ public class JSONToXMLTranslator {
 		JAXBContext context = JAXBContext.newInstance(Questionnaire.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, "application/json");
-		unmarshaller.setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, false);
+		unmarshaller.setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, true);
 
 		Questionnaire questionnaireNoRoot = unmarshaller.unmarshal(jsonStream, Questionnaire.class).getValue();
+		logger.debug("Questionnaire unmarshalled from JSON source, questionnaire id:" + questionnaireNoRoot.getId());
 
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");

@@ -11,6 +11,7 @@ import fr.insee.pogues.mock.CodeListFactory;
 import fr.insee.pogues.mock.QuestionnaireFactory;
 import fr.insee.pogues.mock.SequenceFactory;
 import fr.insee.pogues.model.CodeList;
+import fr.insee.pogues.model.CodeLists;
 import fr.insee.pogues.model.Questionnaire;
 import fr.insee.pogues.model.SequenceType;
 
@@ -26,7 +27,7 @@ public class XMLSerializerTest {
 		QuestionnaireFactory factory = new QuestionnaireFactory();
 		Questionnaire fakeQuestionnaire = factory.createQuestionnaire();
 
-		fakeQuestionnaire.setCodeLists(null);
+		//fakeQuestionnaire.setCodeLists(null);
 
 		long startTime = System.currentTimeMillis();
 
@@ -73,4 +74,20 @@ public class XMLSerializerTest {
 		System.out.println("Serialization time: " + elapsedTime);
 	}
 
+	@Test
+	public void testCodeLists() throws Exception {
+
+		CodeListFactory factory = new CodeListFactory();
+		CodeLists fakeCodeLists = factory.createCodeLists();
+
+		long startTime = System.currentTimeMillis();
+
+		XMLSerializer serializer = new XMLSerializer();
+		String xmlCodeLists = serializer.serialize(fakeCodeLists);
+
+		long elapsedTime = System.currentTimeMillis() - startTime;
+
+		FileUtils.writeStringToFile(new File("src/test/resources/codelists-ser.xml"), xmlCodeLists, "UTF-8");
+		System.out.println("Serialization time: " + elapsedTime);
+	}
 }

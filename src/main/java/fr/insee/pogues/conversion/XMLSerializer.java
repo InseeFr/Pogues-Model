@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import fr.insee.pogues.model.CodeList;
+import fr.insee.pogues.model.CodeLists;
 import fr.insee.pogues.model.Questionnaire;
 import fr.insee.pogues.model.SequenceType;
 
@@ -72,6 +73,22 @@ public class XMLSerializer {
 		return baos.toString("UTF-8");
 	}
 
+	public String serialize(CodeLists codeLists) throws JAXBException, UnsupportedEncodingException {
+
+		if (codeLists == null) return "";
+
+		logger.debug("Serializing CodeLists object");
+
+		JAXBContext context = JAXBContext.newInstance(CodeLists.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		marshaller.marshal(codeLists, baos);
+	
+		return baos.toString("UTF-8");
+	}
 
 
 }
