@@ -170,14 +170,22 @@
 
     <xs:complexType name="DatatypeType" abstract="true">
         <xs:attribute name="typeName" type="DatatypeTypeEnum" use="required"/>
+        <xs:attribute name="visualizationHint" type="xs:token"/>
+    </xs:complexType>
+    
+    <xs:complexType name="BooleanDatatypeType">
+        <xs:complexContent>
+            <xs:extension base="DatatypeType"/>
+        </xs:complexContent>
     </xs:complexType>
 
-    <xs:complexType name="TextDatatypeType">
+    <xs:complexType name="DateDatatypeType">
         <xs:complexContent>
             <xs:extension base="DatatypeType">
                 <xs:sequence>
-                    <xs:element name="MaxLength" type="xs:positiveInteger" minOccurs="0"/>
-                    <xs:element name="Pattern" type="xs:token" minOccurs="0"/>
+                    <xs:element name="Minimum" type="xs:integer" minOccurs="0"/>
+                    <xs:element name="Maximum" type="xs:integer" minOccurs="0"/>
+                    <xs:element name="Format" type="xs:token" minOccurs="0"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -195,13 +203,12 @@
         </xs:complexContent>
     </xs:complexType>
 
-    <xs:complexType name="DateDatatypeType">
+    <xs:complexType name="TextDatatypeType">
         <xs:complexContent>
             <xs:extension base="DatatypeType">
                 <xs:sequence>
-                    <xs:element name="Minimum" type="xs:integer" minOccurs="0"/>
-                    <xs:element name="Maximum" type="xs:integer" minOccurs="0"/>
-                    <xs:element name="Format" type="xs:token" minOccurs="0"/>
+                    <xs:element name="MaxLength" type="xs:positiveInteger" minOccurs="0"/>
+                    <xs:element name="Pattern" type="xs:token" minOccurs="0"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -209,9 +216,10 @@
 
     <xs:simpleType name="DatatypeTypeEnum">
         <xs:restriction base="xs:token">
+            <xs:enumeration value="BOOLEAN"/>
+            <xs:enumeration value="DATE"/>
             <xs:enumeration value="NUMERIC"/>
             <xs:enumeration value="TEXT"/>
-            <xs:enumeration value="DATE"/>
         </xs:restriction>
     </xs:simpleType>
 
