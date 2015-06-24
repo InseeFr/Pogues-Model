@@ -115,10 +115,10 @@
         <xs:sequence>
             <xs:element name="Description" type="xs:string" minOccurs="0"/>
             <xs:element name="Expression" type="ExpressionType"/>
-            <xs:element name="IfTrue" type="ComponentType"/>
+            <xs:element name="IfTrue" type="xs:token"/> <!-- Could be a REFID to a component -->
             <xs:choice minOccurs="0">
-                <xs:element name="IfFalse" type="ComponentType"/>
-                <xs:element name="Next" type="GoToType"/>
+                <xs:element name="IfFalse" type="xs:token"/> <!-- Could be a REFID to a component -->
+                <xs:element name="Next" type="xs:token"/> <!-- Could be a REFID to a go-to -->
             </xs:choice>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID" use="required"/>

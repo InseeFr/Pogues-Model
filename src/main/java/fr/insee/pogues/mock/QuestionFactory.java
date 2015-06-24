@@ -19,7 +19,7 @@ public class QuestionFactory {
 		QuestionType question = this.createQuestionOnly(number);
 		componentFactory.fleshoutComponent(question);
 
-		question.getResponse().add(responseFactory.createReponse());
+		question.getResponse().add(responseFactory.createResponse());
 
 		return question;
 		
@@ -36,10 +36,8 @@ public class QuestionFactory {
 		question.getLabel().add("Label for question number " + number);
 
 		// For now response is mandatory, so we just create a simple text response
-		question.getResponse().add(responseFactory.createSimpleTextReponse());
+		question.getResponse().add(responseFactory.createSimpleTextResponse());
 
 		return question;
-		
 	}
-
 }

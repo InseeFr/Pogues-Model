@@ -14,7 +14,7 @@ public class ResponseFactory {
 
 	}
 
-	public ResponseType createSimpleTextReponse() {
+	public ResponseType createSimpleTextResponse() {
 
 		ResponseType response = new ResponseType();
 		response.setSimple(true);
@@ -28,7 +28,7 @@ public class ResponseFactory {
 		
 	}
 
-	public ResponseType createReponse() {
+	public ResponseType createResponse() {
 
 		ResponseType response = new ResponseType();
 		response.setSimple(true);

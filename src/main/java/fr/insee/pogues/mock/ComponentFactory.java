@@ -49,11 +49,10 @@ public class ComponentFactory {
 
 		// Add a go-to (30% of cases if component is a question)
 		if ((Math.random() < 0.3) && (component instanceof QuestionType)) {
-			QuestionFactory factory = new QuestionFactory();
 			GoToType goTo = new GoToType();
 			goTo.setId("GTO_" + baseId);
 			goTo.setDescription("Description for go-to GTO_0");
-			goTo.setIfTrue(factory.createQuestionOnly(baseId));
+			goTo.setIfTrue("REF_TO_COMPONENT");
 			ExpressionType expression = new ExpressionType();
 			expression.setValue("/Questionnaire/Sequence[1]/Sequence[2]/Question[1]/NumericResponse[1]/VariableName[1]");
 			goTo.setExpression(expression);

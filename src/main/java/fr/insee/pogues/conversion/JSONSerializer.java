@@ -12,7 +12,9 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 
 import fr.insee.pogues.model.CodeList;
+import fr.insee.pogues.model.QuestionType;
 import fr.insee.pogues.model.Questionnaire;
+import fr.insee.pogues.model.ResponseType;
 import fr.insee.pogues.model.SequenceType;
 
 public class JSONSerializer {
@@ -87,5 +89,50 @@ public class JSONSerializer {
 	
 		return baos.toString("UTF-8");
 	}
+
+	public String serialize(QuestionType question) throws JAXBException, UnsupportedEncodingException {
+
+		if (question == null) return "";
+
+		logger.debug("Serializing question " + question.getId());
+
+		JAXBContext context = JAXBContext.newInstance(QuestionType.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
+
+		// Set it to true if you need to include the JSON root element in the JSON output
+		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
+		// Set it to true if you need the JSON output to formatted
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		// Marshal the code list object to JSON and put the output in a string
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		marshaller.marshal(question, baos);
+	
+		return baos.toString("UTF-8");
+	}
+
+	public String serialize(ResponseType response) throws JAXBException, UnsupportedEncodingException {
+
+		if (response == null) return "";
+
+		logger.debug("Serializing a Response object");
+
+		JAXBContext context = JAXBContext.newInstance(ResponseType.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
+
+		// Set it to true if you need to include the JSON root element in the JSON output
+		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
+		// Set it to true if you need the JSON output to formatted
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		// Marshal the code list object to JSON and put the output in a string
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		marshaller.marshal(response, baos);
+	
+		return baos.toString("UTF-8");
+	}
+
 
 }
