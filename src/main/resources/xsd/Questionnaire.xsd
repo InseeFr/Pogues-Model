@@ -65,7 +65,7 @@
 
     <xs:complexType name="ResponseType">
         <xs:sequence>
-            <xs:element name="CodeListReference" type="xs:IDREF" minOccurs="0"/>
+            <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
             <xs:element name="Datatype" type="DatatypeType"/>
             <xs:element name="Value" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>

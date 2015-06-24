@@ -44,7 +44,7 @@ public class ResponseFactory {
 			if (Math.random() < 0.25) {
 				int numberOfLabels = (int) Math.floor(Math.random() * 4) + 1;
 				for (int labelIndex = 1; labelIndex <= numberOfLabels; labelIndex++) {
-					response.setCodeListReference(new String("CL1")); // TODO Validate the use of IDREF (JAXB transforms them into Objects)
+					response.setCodeListReference("CL1");
 				}
 			}
 			
