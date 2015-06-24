@@ -2,6 +2,9 @@ package fr.insee.pogues.mock;
 
 import java.math.BigInteger;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import fr.insee.pogues.model.SequenceType;
 
 public class SequenceFactory {
@@ -10,14 +13,23 @@ public class SequenceFactory {
 	public static int ONLY_QUESTIONS_DEPTH = 3;
 	public static int MAX_CHILDREN_NUMBER = 5;
 
-	public SequenceFactory() {
+	private static final Logger logger = LogManager.getLogger(SequenceFactory.class);
 
-	}
+	public SequenceFactory() {}
 
+	/**
+	 * Creates a sequence with a given number.
+	 * 
+	 * @param number The sequence number (will be used to build the id).
+	 * @return A <code>SequenceType</code> object.
+	 */
 	public SequenceType createSequence(int number) {
 
 		if (number <= 0) return null;
 
+		logger.debug("Creating sequence number " + number);
+
+		// The sequence depth is calculated as the length of the number
 		int depth = String.valueOf(number).length();
 		if (depth > ONLY_QUESTIONS_DEPTH) return null;
 
@@ -33,6 +45,8 @@ public class SequenceFactory {
 		componentFactory.fleshoutComponent(sequence);
 
 		int numberOfChildren = (int) Math.floor(Math.random() * (MAX_CHILDREN_NUMBER + 1));
+		logger.debug("Sequence "+ sequence.getId() + " fleshed out, number of children to be added: " + numberOfChildren);
+
 		for (int childIndex = 0; childIndex <= numberOfChildren; childIndex++) {
 			int childNumber = number * 10 + childIndex;
 			boolean childIsSequence = (depth <= ONLY_SEQUENCES_DEPTH) || ((depth != ONLY_QUESTIONS_DEPTH) && (Math.random() < 0.5));
@@ -41,7 +55,5 @@ public class SequenceFactory {
 		}
 
 		return sequence;
-		
 	}
-
 }

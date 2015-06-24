@@ -1,5 +1,8 @@
 package fr.insee.pogues.mock;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import fr.insee.pogues.model.ComponentGroup;
 import fr.insee.pogues.model.Questionnaire;
 import fr.insee.pogues.model.SequenceType;
@@ -7,15 +10,17 @@ import fr.insee.pogues.model.Survey;
 
 public class QuestionnaireFactory {
 
-	public QuestionnaireFactory() {
+	private static final Logger logger = LogManager.getLogger(QuestionnaireFactory.class);
 
-	}
+	public QuestionnaireFactory() {}
 
 	public Questionnaire createQuestionnaire() {
 
 		Questionnaire questionnaire = new Questionnaire();
 
 		String questionnaireNumber =  String.format("%03d", (int) Math.floor(Math.random() * 1000));
+
+		logger.debug("Creating questionnaire number " + questionnaireNumber);
 
 		questionnaire.setId("FQ_" + questionnaireNumber);
 		questionnaire.setName("Fake questionnaire number " + questionnaireNumber);
@@ -29,6 +34,7 @@ public class QuestionnaireFactory {
 		survey.setName("Fake survey number " + surveyNumber);
 		survey.setAgency("fr.insee");
 		questionnaire.setSurvey(survey);
+		logger.debug("Survey added to questionnaire number " + questionnaireNumber);
 
 		// Create a sequence of level 0 and borrow its children
 		SequenceFactory sequenceFactory = new SequenceFactory();
@@ -43,10 +49,13 @@ public class QuestionnaireFactory {
 		SequenceType groupComponentContainer = sequenceFactory.createSequence(99);
 		group.getMember().addAll(groupComponentContainer.getChild());
 		questionnaire.getComponentGroup().add(group);
+		logger.debug("Component group added to questionnaire number " + questionnaireNumber);
 
 		// Create a code list container with one code list and one code list specification
 		CodeListFactory codeListFactory = new CodeListFactory();
 		questionnaire.setCodeLists(codeListFactory.createCodeLists());
+
+		logger.debug("Code list container added to questionnaire number " + questionnaireNumber);
 
 		return questionnaire;
 	}

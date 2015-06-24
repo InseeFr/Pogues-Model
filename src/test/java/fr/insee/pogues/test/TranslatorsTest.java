@@ -12,8 +12,7 @@ import fr.insee.pogues.conversion.XMLToJSONTranslator;
 public class TranslatorsTest {
 
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
+	public static void setUpBeforeClass() throws Exception {}
 
 	@Test
 	public void testQuestionnaireJSONToXML() throws Exception {
@@ -42,5 +41,4 @@ public class TranslatorsTest {
 		FileUtils.writeStringToFile(new File("src/test/resources/questionnaire-loop.json"), jsonQuestionnaire, "UTF-8");
 		System.out.println("Conversion time: " + elapsedTime);
 	}
-
 }

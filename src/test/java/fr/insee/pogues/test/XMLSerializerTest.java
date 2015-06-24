@@ -27,7 +27,7 @@ public class XMLSerializerTest {
 		QuestionnaireFactory factory = new QuestionnaireFactory();
 		Questionnaire fakeQuestionnaire = factory.createQuestionnaire();
 
-		//fakeQuestionnaire.setCodeLists(null);
+		fakeQuestionnaire.setCodeLists(null);
 
 		long startTime = System.currentTimeMillis();
 

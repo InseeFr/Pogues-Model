@@ -1,22 +1,27 @@
 package fr.insee.pogues.mock;
 
-import fr.insee.pogues.model.CodeLists;
-import fr.insee.pogues.model.CodeListSpecification;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import fr.insee.pogues.model.CodeList;
+import fr.insee.pogues.model.CodeListSpecification;
+import fr.insee.pogues.model.CodeLists;
 
 public class CodeListFactory {
 
 	public static int MAX_CODE_NUMBER = 7;
 
-	public CodeListFactory() {
+	private static final Logger logger = LogManager.getLogger(CodeListFactory.class);
 
-	}
+	public CodeListFactory() {}
 
 	public CodeList createCodeList() {
 
 		CodeList codeList = new CodeList();
 
 		String listId = "CL_" + (int) Math.floor(Math.random() * 10000);
+
+		logger.debug("Creating code list " + listId);
 
 		codeList.setId(listId);
 		codeList.setName("Code list " + listId);
@@ -30,6 +35,7 @@ public class CodeListFactory {
 
 			codeList.getCode().add(code);
 		}
+		logger.debug("Number of codes in list: " + numberOfCodes);
 
 		return codeList;
 	}
@@ -40,6 +46,8 @@ public class CodeListFactory {
 
 		String specId = "CLS_" + (int) Math.floor(Math.random() * 10000);
 
+		logger.debug("Creating code list specification " + specId);
+
 		codeListSpecification.setId(specId);
 		codeListSpecification.setUri("http://id.insee.fr/codes/" + specId.toLowerCase());
 
@@ -48,6 +56,8 @@ public class CodeListFactory {
 	}
 
 	public CodeLists createCodeLists(int codeListNumber, int codeListSpecificationNumber) {
+
+		logger.debug("Creating (" + codeListNumber + "," + codeListSpecificationNumber + ") CodeLists object");
 
 		CodeLists codeLists = new CodeLists();
 
