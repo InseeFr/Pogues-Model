@@ -50,7 +50,7 @@ public class JSONToXMLFunction extends BasicFunction {
 		} catch (UnsupportedEncodingException | JAXBException e) {
 			logger.error("Error during the JSON -> XML conversion: " + e.getMessage());
 			// This is a proprietary error code
-			throw new XPathException(new ErrorCodes.ErrorCode("XPOG001", "Error parsing JSON."), "Error during the JSON -> XML conversion", e);
+			throw new XPathException(new ErrorCodes.ErrorCode("XPOG001", "Error parsing JSON."), "Error during the JSON -> XML conversion: " + e.getMessage(), e);
 		}
 
 		logger.debug("Questionnaire conversion performed");

@@ -49,7 +49,7 @@ public class XMLToJSONFunction extends BasicFunction {
 			jsonQuestionnaire = translator.translate(args[0].itemAt(0).getStringValue());
 		} catch (UnsupportedEncodingException | JAXBException e) {
 			logger.error("Error during the XML -> JSON conversion: " + e.getMessage());
-			throw new XPathException(ErrorCodes.EXXQDY0002, "Error during the XML -> JSON conversion", e);
+			throw new XPathException(ErrorCodes.EXXQDY0002, "Error during the XML -> JSON conversion: " + e.getMessage(), e);
 		}
 
 		logger.debug("Questionnaire conversion performed");
