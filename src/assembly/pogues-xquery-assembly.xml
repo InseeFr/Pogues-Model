@@ -2,7 +2,7 @@
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
 
-    <id>pogues-xquery-module</id>
+	<id>xquery-module</id>
     <formats>
         <format>jar</format>
     </formats>
@@ -23,7 +23,10 @@
     </fileSets>
     <dependencySets>
     	<dependencySet>
-    		<unpack>false</unpack> <!-- false is the default -->
+    		<excludes>
+    			<exclude>org.glassfish.jersey.core</exclude>
+    			<exclude>org.glassfish.hk2</exclude>
+    		</excludes>
     	</dependencySet>
     </dependencySets>
     <includeBaseDirectory>false</includeBaseDirectory>

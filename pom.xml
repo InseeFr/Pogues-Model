@@ -113,10 +113,11 @@
 				<version>2.5.4</version>
 				<configuration>
 					<descriptors>
-						<descriptor>src/assembly/pogues-assembly.xml</descriptor>
+						<descriptor>src/assembly/pogues-xquery-assembly.xml</descriptor>
+						<descriptor>src/assembly/pogues-rest-assembly.xml</descriptor>
 					</descriptors>
-					<finalName>pogues-model-xquery-module-${project.version}</finalName>
-					<appendAssemblyId>false</appendAssemblyId>
+					<finalName>pogues-model-${project.version}</finalName>
+					<appendAssemblyId>true</appendAssemblyId>
 				</configuration>
 				<executions>
 					<execution>
