@@ -29,7 +29,10 @@ public class QuestionnaireTranslator {
     		logger.error("Null or empty content received, returning BAD REQUEST response");
     		return Response.status(Status.BAD_REQUEST).build();
     	}
-    	logger.debug("Trying to translate to XML questionnaire " + jsonQuestionnaire.substring(0, 30));
+    	if (logger.isDebugEnabled()) {
+        	String jsonStart = (jsonQuestionnaire.length() < 30) ? jsonQuestionnaire : jsonQuestionnaire.substring(0, 30);
+        	logger.debug("Trying to translate to XML questionnaire starting with " + jsonStart);
+    	}
     	String xmlQuestionnaire;
     	try {
     		JSONToXMLTranslator translator = new JSONToXMLTranslator();
@@ -51,7 +54,10 @@ public class QuestionnaireTranslator {
     		logger.error("Null or empty content received, returning BAD REQUEST response");
     		return Response.status(Status.BAD_REQUEST).build();
     	}
-    	logger.debug("Trying to translate to JSON questionnaire " + xmlQuestionnaire.substring(0, 50));
+    	if (logger.isDebugEnabled()) {
+    		String xmlStart = (xmlQuestionnaire.length() < 50) ? xmlQuestionnaire : xmlQuestionnaire.substring(0, 50);
+        	logger.debug("Trying to translate to JSON questionnaire starting with " + xmlStart);
+    	}
     	String jsonQuestionnaire;
     	try {
     		XMLToJSONTranslator translator = new XMLToJSONTranslator();
@@ -61,7 +67,5 @@ public class QuestionnaireTranslator {
     		return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
     	}
     	return Response.status(Status.OK).entity(jsonQuestionnaire).build();	
-    	
     }
-
 }

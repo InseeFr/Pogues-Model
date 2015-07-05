@@ -9,12 +9,17 @@
       <param-name>jersey.config.server.provider.packages</param-name>
       <param-value>fr.insee.pogues.rest</param-value>
     </init-param>
+    <init-param>
+      <param-name>jersey.config.server.tracing.type</param-name>
+      <param-value>ON_DEMAND</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jersey.config.server.provider.classnames</param-name>
+      <param-value>org.glassfish.jersey.filter.LoggingFilter</param-value>
+    </init-param>
   </filter>
   <filter-mapping>
     <filter-name>jersey-filter</filter-name>
-    <url-pattern>/translator/*</url-pattern>
+    <url-pattern>/*</url-pattern>
   </filter-mapping>
-  
-
-  
 </web-app>

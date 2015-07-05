@@ -17,16 +17,20 @@
     		<directory>${basedir}/target/classes/fr</directory>
     		<excludes>
     			<exclude>insee/pogues/mock/</exclude>
+    			<exclude>insee/pogues/rest/</exclude>
     		</excludes>
     		<outputDirectory>fr</outputDirectory>
     	</fileSet>
     </fileSets>
     <dependencySets>
     	<dependencySet>
-    		<excludes>
-    			<exclude>org.glassfish.jersey.core</exclude>
-    			<exclude>org.glassfish.hk2</exclude>
-    		</excludes>
+    		<includes>
+    			<include>org.eclipse.persistence:*</include>
+    			<include>org.apache.logging.log4j:*</include>
+    			<include>commons-io:*</include>
+    			<include>javax.validation:validation-api</include>
+    			<include>org.glassfish:javax.json</include>
+       		</includes>
     	</dependencySet>
     </dependencySets>
     <includeBaseDirectory>false</includeBaseDirectory>

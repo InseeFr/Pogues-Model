@@ -11,16 +11,13 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import fr.insee.pogues.conversion.JSONToXMLTranslator;
-import fr.insee.pogues.conversion.XMLToJSONTranslator;
-
-@Path("echo")
+@Path("/echo")
 public class EchoTestService {
 
 	private static final Logger logger = LogManager.getLogger(EchoTestService.class);
 
     @POST
-    @Path("json")
+    @Path("/json")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response echoJSON(String jsonContent) {
@@ -29,13 +26,14 @@ public class EchoTestService {
     		logger.error("Null or empty content received, returning BAD REQUEST response");
     		return Response.status(Status.BAD_REQUEST).build();
     	}
-    	logger.debug("Echoing JSON contents starting with " + jsonContent.substring(0, 30));
+    	String jsonStart = (jsonContent.length() < 30) ? jsonContent : jsonContent.substring(0, 30);
+    	logger.debug("Echoing JSON contents starting with " + jsonStart);
 
     	return Response.status(Status.OK).entity(jsonContent).build();	
     }
 
     @POST
-    @Path("xml-json")
+    @Path("/xml")
     @Produces(MediaType.APPLICATION_XML)
     @Consumes(MediaType.APPLICATION_XML)
     public Response echoXML(String xmlContent) {
@@ -44,9 +42,10 @@ public class EchoTestService {
     		logger.error("Null or empty content received, returning BAD REQUEST response");
     		return Response.status(Status.BAD_REQUEST).build();
     	}
-    	logger.debug("Echoing XML contents starting with " + xmlContent.substring(0, 50));
+    	String xmlStart = (xmlContent.length() < 50) ? xmlContent : xmlContent.substring(0, 50);
+    	logger.debug("Echoing XML contents starting with " + xmlStart);
 
-    	return Response.status(Status.OK).entity(xmlContent).build();		
+    	return Response.status(Status.OK).entity(xmlContent).build();	
     }
 
 }
