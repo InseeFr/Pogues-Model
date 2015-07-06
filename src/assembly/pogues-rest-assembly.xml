@@ -12,6 +12,10 @@
             <source>src/main/webapp/web.xml</source>
             <outputDirectory>WEB-INF</outputDirectory>
         </file>
+        <file>
+            <source>src/main/resources/log4j2.xml</source>
+            <outputDirectory>WEB-INF/classes</outputDirectory>
+        </file>
     </files>
     <fileSets>
         <fileSet>
