@@ -19,7 +19,7 @@ public class TranslatorsTest {
 
 		long startTime = System.currentTimeMillis();
 
-		JSONToXMLTranslator translator = new JSONToXMLTranslator();
+		JSONToXMLTranslator translator = new JSONToXMLTranslator(true);
 		String xmlQuestionnaire = translator.translate(new File("src/test/resources/questionnaire.json"));
 
 		long elapsedTime = System.currentTimeMillis() - startTime;

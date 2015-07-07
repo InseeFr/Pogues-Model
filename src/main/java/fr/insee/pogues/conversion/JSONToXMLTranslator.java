@@ -21,7 +21,15 @@ import fr.insee.pogues.model.Questionnaire;
 
 public class JSONToXMLTranslator {
 
-	public JSONToXMLTranslator() {}
+	private boolean monitored;
+
+	public JSONToXMLTranslator() {
+		this(false);
+	}
+
+	public JSONToXMLTranslator(boolean monitored) {
+		this.monitored = monitored;
+	}
 
 	private static final Logger logger = LogManager.getLogger(JSONToXMLTranslator.class);
 
@@ -51,6 +59,7 @@ public class JSONToXMLTranslator {
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, "application/json");
 		unmarshaller.setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, true);
+		if (monitored) unmarshaller.setListener(new UnmarshallLogger());
 
 		Questionnaire questionnaireNoRoot = unmarshaller.unmarshal(jsonStream, Questionnaire.class).getValue();
 		logger.debug("Questionnaire unmarshalled from JSON source, questionnaire id:" + questionnaireNoRoot.getId());
@@ -71,4 +80,16 @@ public class JSONToXMLTranslator {
 		return baos.toString("UTF-8");
 	}
 
+	private class UnmarshallLogger extends Unmarshaller.Listener {
+
+		@Override
+		public void beforeUnmarshal(Object target, Object parent) {
+			logger.debug("Before unmarshalling object " + target);
+		}
+
+		@Override
+		public void afterUnmarshal(Object target, Object parent) {
+			logger.debug("After unmarshalling object " + target);
+		}
+	}
 }

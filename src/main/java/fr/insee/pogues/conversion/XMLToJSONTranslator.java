@@ -19,7 +19,15 @@ import fr.insee.pogues.model.Questionnaire;
 
 public class XMLToJSONTranslator {
 
-	public XMLToJSONTranslator() {}
+	private boolean monitored;
+
+	public XMLToJSONTranslator() {
+		this(false);
+	}
+
+	public XMLToJSONTranslator(boolean monitored) {
+		this.monitored = monitored;
+	}
 
 	private static final Logger logger = LogManager.getLogger(XMLToJSONTranslator.class);
 
@@ -47,6 +55,7 @@ public class XMLToJSONTranslator {
 
 		JAXBContext context = JAXBContext.newInstance(Questionnaire.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
+		if (monitored) unmarshaller.setListener(new UnmarshallLogger());
 
 		Questionnaire questionnaire = (Questionnaire) unmarshaller.unmarshal(xmlStream);
 
@@ -61,5 +70,18 @@ public class XMLToJSONTranslator {
 		logger.debug("Translation complete");
 
 		return baos.toString("UTF-8");
+	}
+
+	private class UnmarshallLogger extends Unmarshaller.Listener {
+
+		@Override
+		public void beforeUnmarshal(Object target, Object parent) {
+			logger.debug("Before unmarshalling object " + target);
+		}
+
+		@Override
+		public void afterUnmarshal(Object target, Object parent) {
+			logger.debug("After unmarshalling object " + target);
+		}
 	}
 }
