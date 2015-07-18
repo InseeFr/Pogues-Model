@@ -98,6 +98,7 @@
             <xs:enumeration value="INSTRUCTION"/>
             <xs:enumeration value="COMMENT"/>
             <xs:enumeration value="HELP"/>
+            <xs:enumeration value="WARNING"/>
         </xs:restriction>
     </xs:simpleType>
 
