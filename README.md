@@ -16,7 +16,7 @@ The "Pogues model" project contains the schema, the support classes for creating
 
 Changing the model is done in two steps, that can also be realized in an IDE like Eclipse:
 * modification of the schema
-  * edit `src/main/resources/xsd/Questinnaire.xsd` to make the desired changes,
+  * edit `src/main/resources/xsd/Questionnaire.xsd` to make the desired changes,
   * save the file.
 * production of the output artifacts
   * open a command line at the project root and run `mvn package -DskipTests`
@@ -31,7 +31,7 @@ Under Eclipse or equivalent, running the `generate-sources` Maven goal will show
 So the slightly longer story for changing the model is:
 
 * modification of the schema
-  * edit `src/main/resources/xsd/Questinnaire.xsd` to make the desired changes,
+  * edit `src/main/resources/xsd/Questionnaire.xsd` to make the desired changes,
   * change the impacted Java classes accordingly
   * save the files.
 * production of the output artifacts
