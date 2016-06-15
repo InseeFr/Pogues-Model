@@ -90,7 +90,7 @@
             <xs:element name="Text" type="xs:string"/>
         </xs:sequence>
         <xs:attribute name="type" type="DeclarationTypeEnum"/>
-        <xs:attribute name="disjoinable" type="xs:boolean"/> <!-- or isolable -->
+        <xs:attribute name="position" type="DeclarationPositionEnum"/>
     </xs:complexType>
 
     <xs:simpleType name="DeclarationTypeEnum">
@@ -99,6 +99,15 @@
             <xs:enumeration value="COMMENT"/>
             <xs:enumeration value="HELP"/>
             <xs:enumeration value="WARNING"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="DeclarationPositionEnum">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="AFTER_QUESTION_TEXT"/>
+            <xs:enumeration value="AFTER_RESPONSE"/>
+            <xs:enumeration value="BEFORE_QUESTION_TEXT"/>
+            <xs:enumeration value="DETACHABLE"/>
         </xs:restriction>
     </xs:simpleType>
 
