@@ -3,6 +3,7 @@ package fr.insee.pogues.mock;
 import fr.insee.pogues.model.ComponentType;
 import fr.insee.pogues.model.ControlCriticityEnum;
 import fr.insee.pogues.model.ControlType;
+import fr.insee.pogues.model.DeclarationPositionEnum;
 import fr.insee.pogues.model.DeclarationType;
 import fr.insee.pogues.model.DeclarationTypeEnum;
 import fr.insee.pogues.model.ExpressionType;
@@ -29,7 +30,7 @@ public class ComponentFactory {
 		// Add a declaration
 		DeclarationType declaration = new DeclarationType();
 		declaration.setType(DeclarationTypeEnum.INSTRUCTION);
-		declaration.setDisjoinable(false);
+		declaration.setPosition(DeclarationPositionEnum.BEFORE_QUESTION_TEXT);
 		declaration.setText("Instruction for component " + component.getId());
 		component.getDeclaration().add(declaration);
 
