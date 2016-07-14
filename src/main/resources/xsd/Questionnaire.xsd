@@ -78,6 +78,11 @@
     <xs:sequence>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
       <xs:element name="Label" type="xs:string" minOccurs="0"/>
+      <xs:element name="TotalLabel" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Indicates if the dimension has a 'total' item and if yes the corresponding label</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
     <xs:attribute name="type" type="DimensionTypeEnum" use="required"/>
     <xs:attribute name="dynamic" type="xs:token" use="required">
