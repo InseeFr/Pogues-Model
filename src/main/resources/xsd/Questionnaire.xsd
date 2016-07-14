@@ -66,7 +66,6 @@
   </xs:complexType>
 
   <xs:complexType name="ResponseStructureType">
-    <!-- Plutôt une QuestionStructureType -->
     <xs:sequence>
       <xs:element name="Dimension" type="DimensionType" maxOccurs="unbounded"/>
       <xs:element name="Attribute" type="AttributeType" minOccurs="0" maxOccurs="unbounded"/>
@@ -78,8 +77,7 @@
   <xs:complexType name="DimensionType">
     <xs:sequence>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
-      <xs:element name="Label" type="xs:string" maxOccurs="unbounded"/>
-      <!-- (nillable ?) -->
+      <xs:element name="Label" type="xs:string" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="type" type="DimensionTypeEnum" use="required"/>
     <xs:attribute name="dynamic" type="xs:token" use="required">
