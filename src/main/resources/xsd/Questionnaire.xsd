@@ -140,7 +140,7 @@
         <xs:sequence>
           <xs:element name="Child" type="ComponentType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="depth" type="xs:positiveInteger"/>
+        <xs:attribute name="depth" type="xs:nonNegativeInteger"/>
         <xs:attribute name="genericName" type="xs:token"/>
       </xs:extension>
     </xs:complexContent>
