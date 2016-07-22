@@ -246,7 +246,7 @@
 
   <xs:complexType name="DatatypeType" abstract="true">
     <xs:attribute name="typeName" type="DatatypeTypeEnum" use="required"/>
-    <xs:attribute name="visualizationHint" type="xs:token"/>
+    <xs:attribute name="visualizationHint" type="VisualizationHintEnum"/>
   </xs:complexType>
 
   <xs:complexType name="BooleanDatatypeType">
@@ -304,6 +304,14 @@
       <xs:enumeration value="INFO"/>
       <xs:enumeration value="WARN"/>
       <xs:enumeration value="ERROR"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="VisualizationHintEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CHECKBOX"/>
+      <xs:enumeration value="DROPDOWN"/>
+      <xs:enumeration value="RADIO"/>
     </xs:restriction>
   </xs:simpleType>
 
