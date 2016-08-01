@@ -60,8 +60,6 @@
           <xs:element name="ResponseStructure" type="ResponseStructureType" minOccurs="0"/>
         </xs:sequence>
         <xs:attribute name="type" type="QuestionTypeEnum"/>
-        <xs:attribute name="open" type="xs:boolean"/>
-        <xs:attribute name="simple" type="xs:boolean"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
