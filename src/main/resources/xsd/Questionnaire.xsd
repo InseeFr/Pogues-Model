@@ -59,6 +59,7 @@
           <xs:element name="Response" type="ResponseType" maxOccurs="unbounded"/>
           <xs:element name="ResponseStructure" type="ResponseStructureType" minOccurs="0"/>
         </xs:sequence>
+        <xs:attribute name="type" type="QuestionTypeEnum"/>
         <xs:attribute name="open" type="xs:boolean"/>
         <xs:attribute name="simple" type="xs:boolean"/>
       </xs:extension>
@@ -304,6 +305,15 @@
       <xs:enumeration value="INFO"/>
       <xs:enumeration value="WARN"/>
       <xs:enumeration value="ERROR"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="QuestionTypeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="SIMPLE"/>
+      <xs:enumeration value="SINGLE"/>
+      <xs:enumeration value="MULTIPLE"/>
+      <xs:enumeration value="TABLE"/>
     </xs:restriction>
   </xs:simpleType>
 
