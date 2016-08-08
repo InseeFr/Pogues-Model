@@ -61,7 +61,7 @@
           <xs:element name="Response" type="ResponseType" maxOccurs="unbounded"/>
           <xs:element name="ResponseStructure" type="ResponseStructureType" minOccurs="0"/>
         </xs:sequence>
-        <xs:attribute name="type" type="QuestionTypeEnum"/>
+        <xs:attribute name="questionType" type="QuestionTypeEnum"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -85,7 +85,7 @@
         </xs:annotation>
       </xs:element>
     </xs:sequence>
-    <xs:attribute name="type" type="DimensionTypeEnum" use="required"/>
+    <xs:attribute name="dimensionType" type="DimensionTypeEnum" use="required"/>
     <xs:attribute name="dynamic" type="xs:token" use="required">
       <xs:annotation>
         <xs:documentation>'0': no constraint; 'm-': min m, no max; '-n': no min, n max; 'm-n': m min, n max</xs:documentation>
@@ -161,7 +161,7 @@
     <xs:sequence>
       <xs:element name="Text" type="xs:string"/>
     </xs:sequence>
-    <xs:attribute name="type" type="DeclarationTypeEnum"/>
+    <xs:attribute name="declarationType" type="DeclarationTypeEnum"/>
     <xs:attribute name="position" type="DeclarationPositionEnum"/>
   </xs:complexType>
 
