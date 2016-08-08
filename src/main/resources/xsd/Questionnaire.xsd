@@ -321,8 +321,8 @@
   <xs:simpleType name="QuestionTypeEnum">
     <xs:restriction base="xs:token">
       <xs:enumeration value="SIMPLE"/>
-      <xs:enumeration value="SINGLE"/>
-      <xs:enumeration value="MULTIPLE"/>
+      <xs:enumeration value="SINGLE_CHOICE"/>
+      <xs:enumeration value="MULTIPLE_CHOICE"/>
       <xs:enumeration value="TABLE"/>
     </xs:restriction>
   </xs:simpleType>
