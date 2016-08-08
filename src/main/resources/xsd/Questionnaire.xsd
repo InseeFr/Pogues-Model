@@ -130,9 +130,19 @@
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
       <xs:element name="Datatype" type="DatatypeType"/>
       <xs:element name="Value" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="NonResponseModality" type="NonResponseModalityType" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="simple" type="xs:boolean"/>
     <xs:attribute name="mandatory" type="xs:boolean"/>
+  </xs:complexType>
+
+  <xs:complexType name="NonResponseModalityType">
+    <xs:sequence>
+      <xs:element name="Label" type="xs:token"/>
+      <xs:element name="Value" type="xs:anyType"/>
+      <xs:element name="Invite" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="firstIntentionDisplay" type="xs:boolean" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="SequenceType">
