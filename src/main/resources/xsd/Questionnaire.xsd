@@ -46,7 +46,9 @@
         <xs:element name="Name" type="xs:token"/>
         <xs:element name="Label" type="xs:token" maxOccurs="unbounded"/>
         <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element name="Member" type="ComponentType" maxOccurs="unbounded"/>
+        <xs:element name="Member" type="ComponentType" minOccurs="0" maxOccurs="unbounded"/>
+        <!-- Could be a REFID -->
+        <xs:element name="MemberReference" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attribute name="id" type="xs:ID" use="required"/>
     </xs:complexType>
