@@ -29,7 +29,7 @@ public class ComponentFactory {
 
 		// Add a declaration
 		DeclarationType declaration = new DeclarationType();
-		declaration.setType(DeclarationTypeEnum.INSTRUCTION);
+		declaration.setDeclarationType(DeclarationTypeEnum.INSTRUCTION);
 		declaration.setPosition(DeclarationPositionEnum.BEFORE_QUESTION_TEXT);
 		declaration.setText("Instruction for component " + component.getId());
 		component.getDeclaration().add(declaration);
