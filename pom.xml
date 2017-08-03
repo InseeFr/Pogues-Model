@@ -5,8 +5,20 @@
 	<artifactId>pogues-model</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1</version>
-	<name>Classes and converters for the Pogues model</name>
+	<name>Pogues Model</name>
+	<description>Classes and converters for the Pogues model</description>
 	<url>http://www.insee.fr</url>
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/InseeFr/Pogues-Model/issues</url>
+	</issueManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
@@ -138,7 +150,20 @@
 						<phase>none</phase>
 					</execution>
 				</executions>
-			</plugin>			
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
