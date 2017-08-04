@@ -79,6 +79,7 @@
 				<executions>
 					<execution>
 						<id>xjc</id>
+						<phase>generate-sources</phase>
 						<goals>
 							<goal>xjc</goal>
 						</goals>
@@ -101,21 +102,21 @@
 				<executions>
 					<execution>
 						<id>copy-resources</id>
-						<phase>process-sources</phase>
+						<phase>process-resources</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
 							<outputDirectory>target/generated-sources/jaxb/fr/insee/pogues/model</outputDirectory>
-							<resources>          
+							<resources>
 								<resource>
 									<directory>src/main/resources/jaxb</directory>
 									<includes>
 										<include>jaxb.properties</include>
 									</includes>
 								</resource>
-							</resources>              
-						</configuration>            
+							</resources>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -141,26 +142,45 @@
 				</executions>
 			</plugin>
 			<!-- Prevents the default JAR from being created -->
+			<!--<plugin>-->
+				<!--<artifactId>maven-jar-plugin</artifactId>-->
+				<!--<version>2.6</version>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>default-jar</id>-->
+						<!--<phase>none</phase>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-gpg-plugin</artifactId>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>sign-artifacts</id>-->
+						<!--<phase>verify</phase>-->
+						<!--<goals>-->
+							<!--<goal>sign</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
 			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.6</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.7</version>
 				<executions>
 					<execution>
-						<id>default-jar</id>
-						<phase>none</phase>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
 						<goals>
-							<goal>sign</goal>
+							<goal>add-source</goal>
 						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-sources</source>
+							</sources>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
