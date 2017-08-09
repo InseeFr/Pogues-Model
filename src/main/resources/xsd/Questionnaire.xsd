@@ -68,6 +68,38 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <!-- Variables -->
+
+  <xs:complexType name="VariableType" abstract="true">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:token"/>
+      <xs:element name="Label" type="xs:token"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="CollectedVariableType">
+    <xs:complexContent>
+      <xs:extension base="VariableType"/>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CalculatedVariableType">
+    <xs:complexContent>
+      <xs:extension base="VariableType">
+        <xs:sequence>
+          <xs:element name="Formula" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ExternalVariableType">
+    <xs:complexContent>
+      <xs:extension base="VariableType"/>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="ResponseStructureType">
     <xs:sequence>
       <xs:element name="Dimension" type="DimensionType" maxOccurs="unbounded"/>
