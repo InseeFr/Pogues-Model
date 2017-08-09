@@ -231,14 +231,7 @@
       <xs:sequence>
         <xs:element name="Name" type="xs:token"/>
         <xs:element name="Label" type="xs:token"/>
-        <xs:element name="Code" minOccurs="0" maxOccurs="unbounded">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="Value" type="xs:token"/>
-              <xs:element name="Label" type="xs:string"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element name="Code" type="CodeType" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attribute name="id" type="xs:ID" use="required"/>
     </xs:complexType>
@@ -254,6 +247,14 @@
       <xs:attribute name="id" type="xs:ID" use="required"/>
     </xs:complexType>
   </xs:element>
+
+  <xs:complexType name="CodeType">
+    <xs:sequence>
+      <xs:element name="Value" type="xs:token"/>
+      <xs:element name="Label" type="xs:string"/>
+      <xs:element name="Parent" type="xs:token" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
 
   <!-- Data types -->
 
