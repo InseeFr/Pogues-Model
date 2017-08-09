@@ -23,6 +23,13 @@
             <xs:element ref="DataCollection" maxOccurs="unbounded"/>
             <xs:element ref="ComponentGroup" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element ref="CodeLists" minOccurs="0"/>
+            <xs:element name="Variables" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Variable" type= "VariableType" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
           </xs:sequence>
           <xs:attribute name="agency" type="xs:token"/>
           <xs:attribute name="final" type="xs:boolean"/>
@@ -88,7 +95,7 @@
     <xs:complexContent>
       <xs:extension base="VariableType">
         <xs:sequence>
-          <xs:element name="Formula" type="xs:string"/>
+          <xs:element name="Formula" type="ExpressionType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
