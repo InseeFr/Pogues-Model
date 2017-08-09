@@ -165,6 +165,7 @@
       <xs:element name="Datatype" type="DatatypeType"/>
       <xs:element name="Value" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="NonResponseModality" type="NonResponseModalityType" minOccurs="0"/>
+      <xs:element name="CollectedVariable" type="CollectedVariableType"/>
     </xs:sequence>
     <xs:attribute name="simple" type="xs:boolean"/>
     <xs:attribute name="mandatory" type="xs:boolean"/>
