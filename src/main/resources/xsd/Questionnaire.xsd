@@ -24,6 +24,7 @@
             <xs:element ref="CodeLists" minOccurs="0"/>
           </xs:sequence>
           <xs:attribute name="agency" type="xs:token"/>
+          <xs:attribute name="final" type="xs:boolean"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
