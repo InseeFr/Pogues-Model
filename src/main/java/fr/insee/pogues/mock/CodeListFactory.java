@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import fr.insee.pogues.model.CodeList;
 import fr.insee.pogues.model.CodeListSpecification;
 import fr.insee.pogues.model.CodeLists;
+import fr.insee.pogues.model.CodeType;
 
 public class CodeListFactory {
 
@@ -29,11 +30,10 @@ public class CodeListFactory {
 
 		int numberOfCodes = (int) Math.floor(Math.random() * (MAX_CODE_NUMBER + 1));
 		for (int codeIndex = 0; codeIndex <= numberOfCodes; codeIndex++) {
-			CodeList.Code code = new CodeList.Code();
-			code.setLabel("Label for code number " + listId + "_" + codeIndex);
-			code.setValue(listId + "_" + codeIndex);
-
-			codeList.getCode().add(code);
+			CodeType codeType = new CodeType(); 
+			codeType.setLabel("Label for code number " + listId + "_" + codeIndex);
+			codeType.setValue(listId + "_" + codeIndex);
+			codeList.getCode().add(codeType);
 		}
 		logger.debug("Number of codes in list: " + numberOfCodes);
 

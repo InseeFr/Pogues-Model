@@ -4,9 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import fr.insee.pogues.model.ComponentGroup;
+import fr.insee.pogues.model.DataCollection;
 import fr.insee.pogues.model.Questionnaire;
 import fr.insee.pogues.model.SequenceType;
-import fr.insee.pogues.model.Survey;
 
 public class QuestionnaireFactory {
 
@@ -29,11 +29,13 @@ public class QuestionnaireFactory {
 
 		// Creation of the fake survey
 		String surveyNumber =  String.format("%02d", (int) Math.floor(Math.random() * 100));
-		Survey survey = new Survey();
-		survey.setId("FS_" + surveyNumber);
-		survey.setName("Fake survey number " + surveyNumber);
-		survey.setAgency("fr.insee");
-		questionnaire.setSurvey(survey);
+		DataCollection dataCollection = new DataCollection();
+		dataCollection.setId("FS_" + surveyNumber);
+		dataCollection.setName("Fake survey number " + surveyNumber);
+		dataCollection.setAgency("fr.insee");
+		dataCollection.setUri("http://ddi:fr.insee:DataCollection.INSEE-FAKE-DC-1.1");
+		questionnaire.getDataCollection().add(dataCollection);
+		
 		logger.debug("Survey added to questionnaire number " + questionnaireNumber);
 
 		// Create a sequence of level 0 and borrow its children
