@@ -1,6 +1,7 @@
 target/
 logs/
-src/test/resources/
+src/test/resources/*.json
+src/test/resources/*.xml
 .settings/
 .project
 .classpath
