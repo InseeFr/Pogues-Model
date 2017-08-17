@@ -141,30 +141,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Prevents the default JAR from being created -->
-			<!--<plugin>-->
-				<!--<artifactId>maven-jar-plugin</artifactId>-->
-				<!--<version>2.6</version>-->
-				<!--<executions>-->
-					<!--<execution>-->
-						<!--<id>default-jar</id>-->
-						<!--<phase>none</phase>-->
-					<!--</execution>-->
-				<!--</executions>-->
-			<!--</plugin>-->
-			<!--<plugin>-->
-				<!--<groupId>org.apache.maven.plugins</groupId>-->
-				<!--<artifactId>maven-gpg-plugin</artifactId>-->
-				<!--<executions>-->
-					<!--<execution>-->
-						<!--<id>sign-artifacts</id>-->
-						<!--<phase>verify</phase>-->
-						<!--<goals>-->
-							<!--<goal>sign</goal>-->
-						<!--</goals>-->
-					<!--</execution>-->
-				<!--</executions>-->
-			<!--</plugin>-->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
