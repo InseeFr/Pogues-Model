@@ -15,11 +15,11 @@ public class JSONDeserializerTest {
 		long startTime = System.currentTimeMillis();
 
 		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserialize("src/test/resources/questionnaire.json");
+		Questionnaire questionnaire = deserializer.deserialize("src/main/resources/examples/fr.insee-POPO-QPO-DOC.json");
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
 
-		assertEquals(questionnaire.getId(), "FQ_036");
+		assertEquals("fr.insee-POPO-QPO-DOC",questionnaire.getId());
 		System.out.println("Serialization time: " + elapsedTime);
 	}
 

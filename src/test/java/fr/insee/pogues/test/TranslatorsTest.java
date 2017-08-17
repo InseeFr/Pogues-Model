@@ -20,11 +20,11 @@ public class TranslatorsTest {
 		long startTime = System.currentTimeMillis();
 
 		JSONToXMLTranslator translator = new JSONToXMLTranslator(true);
-		String xmlQuestionnaire = translator.translate(new File("src/test/resources/questionnaire.json"));
+		String xmlQuestionnaire = translator.translate(new File("src/main/resources/examples/fr.insee-POPO-QPO-DOC.json"));
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
 
-		FileUtils.writeStringToFile(new File("src/test/resources/questionnaire.xml"), xmlQuestionnaire, "UTF-8");
+		FileUtils.writeStringToFile(new File("src/test/resources/fr.insee-POPO-QPO-DOC-out.xml"), xmlQuestionnaire, "UTF-8");
 		System.out.println("Conversion time: " + elapsedTime);
 	}
 
@@ -34,11 +34,11 @@ public class TranslatorsTest {
 		long startTime = System.currentTimeMillis();
 
 		XMLToJSONTranslator translator = new XMLToJSONTranslator();
-		String jsonQuestionnaire = translator.translate(new File("src/test/resources/questionnaire.xml"));
+		String jsonQuestionnaire = translator.translate(new File("src/main/resources/examples/fr.insee-POPO-QPO-DOC.xml"));
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
 
-		FileUtils.writeStringToFile(new File("src/test/resources/questionnaire-loop.json"), jsonQuestionnaire, "UTF-8");
+		FileUtils.writeStringToFile(new File("src/test/resources/fr.insee-POPO-QPO-DOC-out.json"), jsonQuestionnaire, "UTF-8");
 		System.out.println("Conversion time: " + elapsedTime);
 	}
 }

@@ -1,0 +1,2587 @@
+<Questionnaire xmlns="http://xml.insee.fr/schema/applis/pogues"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xml.insee.fr/schema/applis/pogues file:/src/main/resources/xsd/Questionnaire.xsd"
+    id="fr.insee-POPO-QPO-DOC" depth="0" genericName="QUESTIONNAIRE" agency="fr.insee">
+    <Name>DOC</Name>
+    <Label>Je suis le titre du questionnaire</Label>
+    <Child xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ir6cju1z" depth="1"
+        genericName="MODULE" xsi:type="SequenceType">
+        <Name>SIMPLE</Name>
+        <Label>Module des questions ouvertes : je suis le libellé du module</Label>
+        <Declaration declarationType="INSTRUCTION">
+            <Text>Ceci est une déclaration de type consigne. </Text>
+        </Declaration>
+        <Child id="iwm8qg8x" depth="2" genericName="SUBMODULE" xsi:type="SequenceType">
+            <Name>INTRODUCTI</Name>
+            <Label>Introduction : je suis le libellé du paragraphe</Label>
+            <Declaration declarationType="INSTRUCTION">
+                <Text>Ce questionnaire est un exemple de ce qu'il est possible de faire en utilisant
+                    les outils Eno et Pogues. Il se découpe en plusieurs modules (un module par
+                    page), regroupant les différents types de questions. Dans chaque module, vous
+                    trouverez la description des questions de chaque type, ainsi que des exemples
+                    tirés de questionnaires Insee. ​ </Text>
+            </Declaration>
+            <Child id="iwm8r0ba" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>COCHEZ</Name>
+                <Label>##{"label":"Cochez la case pour afficher la suite du
+                    questionnaire\n","conditions":[]} Cochez la case pour afficher la suite du
+                    questionnaire</Label>
+                <GoTo id="iwnegyn6">
+                    <Expression>${S1-S1-Q1-R1}='' or ${S1-S1-Q1-R1}='0' </Expression>
+                    <IfTrue>isg13cuk</IfTrue>
+                </GoTo>
+                <Response mandatory="false">
+                    <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable1</CollectedVariableReference>
+                </Response>
+            </Child>
+        </Child>
+        <Child id="ir6co0qf" depth="2" genericName="SUBMODULE" xsi:type="SequenceType">
+            <Name>MODULE_TEXTE</Name>
+            <Label>Sous-module : questions de type texte</Label>
+            <Child id="ir6cqzev" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>TEXTE_LONG</Name>
+                <Label>##{"label":"Je suis le libellé de la question de type texte de longueur
+                    supérieure à 250 caractères\n","conditions":[]} Je suis le libellé de la
+                    question de type texte de longueur supérieure à 250 caractères</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Je suis le texte de la consigne </Text>
+                </Declaration>
+                <Response mandatory="false">
+                    <Datatype typeName="TEXT" xsi:type="TextDatatypeType">
+                        <MaxLength>250</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable2</CollectedVariableReference>
+                </Response>
+            </Child>
+            <Child id="ir6cm77g" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>TEXTE_COURT</Name>
+                <Label>##{"label":"Je suis le libellé de la question de type texte de longueur
+                    inférieure à 200 caractères","conditions":[]} Je suis le libellé de la question
+                    de type texte de longueur inférieure à 200 caractères</Label>
+                <Response mandatory="false">
+                    <Datatype typeName="TEXT" xsi:type="TextDatatypeType">
+                        <MaxLength>150</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable3</CollectedVariableReference>
+                </Response>
+            </Child>
+        </Child>
+        <Child id="ir6cruy6" depth="2" genericName="SUBMODULE" xsi:type="SequenceType">
+            <Name>MODULE_NUM</Name>
+            <Label>Sous-module : questions de type numérique</Label>
+            <Child id="ir6cifax" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>NUM_ENTIER</Name>
+                <Label>##{"label":"Je suis le libellé de la question de type numérique
+                    entier","conditions":[]} Je suis le libellé de la question de type numérique
+                    entier</Label>
+                <Response mandatory="false">
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                        <Maximum>120</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable4</CollectedVariableReference>
+                </Response>
+            </Child>
+            <Child id="ir6cmuqa" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>NUM_DECIMAL</Name>
+                <Label>##{"label":"Je suis le libellé de la question de type numérique
+                    décimal","conditions":[]} Je suis le libellé de la question de type numérique
+                    décimal</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Je suis le texte de la consigne </Text>
+                </Declaration>
+                <Response mandatory="false">
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                        <Decimals>1</Decimals>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable5</CollectedVariableReference>
+                </Response>
+            </Child>
+        </Child>
+        <Child id="ir6ctbkt" depth="2" genericName="SUBMODULE" xsi:type="SequenceType">
+            <Name>SOUSMODULE</Name>
+            <Label>Sous-module : questions de type date et durée</Label>
+            <Child id="ir6ct69u" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>SIMPLE_DATE</Name>
+                <Label>##{"label":"Je suis le libellé de la question de type date au format
+                    JJ/MM/AAAA","conditions":[]} Je suis le libellé de la question de type date au
+                    format JJ/MM/AAAA</Label>
+                <Response mandatory="false">
+                    <Datatype typeName="DATE" xsi:type="DateDatatypeType">
+                        <Format/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable6</CollectedVariableReference>
+                </Response>
+            </Child>
+        </Child>
+        <Child id="isg1kh8l" depth="2" genericName="SUBMODULE" xsi:type="SequenceType">
+            <Name>SOUSMODULE</Name>
+            <Label>Sous modules : question booléen</Label>
+            <Child id="isg1hh9m" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>BOOL</Name>
+                <Label>##{"label":"Je suis le libellé de la question simple de type
+                    booléen","conditions":[]} Je suis le libellé de la question simple de type
+                    booléen</Label>
+                <Response mandatory="false">
+                    <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable7</CollectedVariableReference>
+                </Response>
+            </Child>
+        </Child>
+        <Child id="iwnfdy97" depth="2" genericName="SUBMODULE" xsi:type="SequenceType">
+            <Name>EXEMPLES</Name>
+            <Label>Exemples</Label>
+            <Child id="iwm6shxx" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>ACT_PRIN</Name>
+                <Label>##{"label":"Veuillez indiquer l'activité principale de l'entreprise sous son
+                    appellation usuelle","conditions":[]} Veuillez indiquer l'activité principale de
+                    l'entreprise sous son appellation usuelle</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>(par exemple : commerce de fruits et légumes, boulangerie, charcuterie
+                        artisanale ou industrielle, commerce de détail de meubles...) </Text>
+                </Declaration>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Exemple tiré de l'enquête sectorielle annuelle </Text>
+                </Declaration>
+                <Response mandatory="false">
+                    <Datatype typeName="TEXT" xsi:type="TextDatatypeType">
+                        <MaxLength>200</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable8</CollectedVariableReference>
+                </Response>
+            </Child>
+            <Child id="iwm8woim" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>PROFESSION</Name>
+                <Label>##{"label":"Indiquez le plus précisément possible la profession exercée dans
+                    votre emploi actuel","conditions":[]} Indiquez le plus précisément possible la
+                    profession exercée dans votre emploi actuel</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Soyez très précis sur votre métier : « Caissière » (et non « employée »),
+                        « Fleuriste » (et non « Commerçant »), « Professeur des écoles» </Text>
+                </Declaration>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Question issue de l'enquête EVA 2016 </Text>
+                </Declaration>
+                <Response mandatory="false">
+                    <Datatype typeName="TEXT" xsi:type="TextDatatypeType">
+                        <MaxLength>200</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable9</CollectedVariableReference>
+                </Response>
+            </Child>
+            <Child id="iw7ux0w8" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>QUELESTLEM</Name>
+                <Label>##{"label":"Quel est le montant total des investissements réalisés dans votre
+                    entreprise ?","conditions":[]} Quel est le montant total des investissements
+                    réalisés dans votre entreprise ?</Label>
+                <Response mandatory="false">
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                        <Maximum>999999999</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable10</CollectedVariableReference>
+                </Response>
+            </Child>
+            <Child id="iwm8v2g4" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>SALAIRE</Name>
+                <Label>##{"label":"Quel était le montant net de votre salaire mensuel correspondant
+                    à cet emploi en mars 2016 ?","conditions":[]} Quel était le montant net de votre
+                    salaire mensuel correspondant à cet emploi en mars 2016 ?</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Question issue de l'enquête EVA 2016 </Text>
+                </Declaration>
+                <Response mandatory="false">
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Maximum>99999</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable11</CollectedVariableReference>
+                </Response>
+            </Child>
+            <Child id="iwm8t2p5" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>CLOT</Name>
+                <Label>##{"label":"Quelle est la date de clôture du dernier exercice comptable clos
+                    ?","conditions":[]} Quelle est la date de clôture du dernier exercice comptable
+                    clos ?</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Définition de l'exercice comptable sur lequel porte ce questionnaire : Les
+                        informations à fournir se rapportent à votre exercice comptable 2015. ​
+                        Votre exercice comptable 2015 doit être clôturé entre le 1er juin 2015 et le
+                        31 mai 2016. ​ Si vous avez clotûré deux exercices sur cette période,
+                        prendre celui qui a leplus de mois en 2015. ​ Vous devez également répondre
+                        à l'énquête si votre entreprise a cessé son activité : en 2015 et a plus de
+                        6 mois d'activité ; en 2016. </Text>
+                </Declaration>
+                <Response mandatory="false">
+                    <Datatype typeName="TEXT" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable12</CollectedVariableReference>
+                </Response>
+            </Child>
+            <Child id="iwm99upn" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>DEPUISQUEL</Name>
+                <Label>##{"label":"Depuis quelle date travailliez-vous dans cette entreprise / dans
+                    la fonction publique ?","conditions":[]} Depuis quelle date travailliez-vous
+                    dans cette entreprise / dans la fonction publique ?</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Question issue de l'enquête EVA 2016 </Text>
+                </Declaration>
+                <Response mandatory="false">
+                    <Datatype typeName="DATE" xsi:type="DateDatatypeType">
+                        <Format/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable13</CollectedVariableReference>
+                </Response>
+            </Child>
+            <Child id="iwnevs21" questionType="SIMPLE" xsi:type="QuestionType">
+                <Name>ACT_PROD</Name>
+                <Label>##{"label":"Si votre établissement n’a pas d’activité industrielle de
+                    production ou de transformation, cochez la case ci-contre :","conditions":[]} Si
+                    votre établissement n’a pas d’activité industrielle de production ou de
+                    transformation, cochez la case ci-contre :</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Question issue de l'enquête annuelle sur les consommations d'énergie dans
+                        l'industrie (EACEI) </Text>
+                </Declaration>
+                <Response mandatory="false">
+                    <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable14</CollectedVariableReference>
+                </Response>
+            </Child>
+        </Child>
+    </Child>
+    <Child xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="isg1ikbn" depth="1"
+        genericName="MODULE" xsi:type="SequenceType">
+        <Name>SINGLE</Name>
+        <Label>Module des questions à choix unique</Label>
+        <Child id="isg13cuk" questionType="SINGLE_CHOICE" xsi:type="QuestionType">
+            <Name>SINGLE_RADIO</Name>
+            <Label>##{"label":"Je suis le libellé de la question à choix unique sous forme de bouton
+                radio","conditions":[]} Je suis le libellé de la question à choix unique sous forme
+                de bouton radio</Label>
+            <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                <Text>La consigne est après la question </Text>
+            </Declaration>
+            <Response mandatory="false">
+                <CodeListReference>isg1g6zo</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable15</CollectedVariableReference>
+            </Response>
+        </Child>
+        <Child id="isg1hq0f" questionType="SINGLE_CHOICE" xsi:type="QuestionType">
+            <Name>SINGLE_DROPDOWN</Name>
+            <Label>##{"label":"Je suis le libellé de la question à choix unique sous forme de liste
+                déroulante","conditions":[]} Je suis le libellé de la question à choix unique sous
+                forme de liste déroulante</Label>
+            <Response mandatory="false">
+                <CodeListReference>isg1g6zo</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="DROPDOWN" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable16</CollectedVariableReference>
+            </Response>
+        </Child>
+        <Child id="isg1bz8h" questionType="SINGLE_CHOICE" xsi:type="QuestionType">
+            <Name>SINGLE_CHECKBOX</Name>
+            <Label>##{"label":"Je suis le libellé de la question à choix unique sous forme de cases
+                à cocher","conditions":[]} Je suis le libellé de la question à choix unique sous
+                forme de cases à cocher</Label>
+            <Response mandatory="false">
+                <CodeListReference>isg1g6zo</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="CHECKBOX" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable17</CollectedVariableReference>
+            </Response>
+        </Child>
+        <Child id="iwnesc00" depth="2" genericName="SUBMODULE" xsi:type="SequenceType">
+            <Name>EXEMPLES</Name>
+            <Label>Exemples</Label>
+            <Child id="iw22nmhl" questionType="SINGLE_CHOICE" xsi:type="QuestionType">
+                <Name>FILTRE_INV</Name>
+                <Label>##{"label":"Avez-vous, au cours du dernier exercice comptable, investi dans
+                    des équipements spécifiquement dédiés à l’environnement : bennes, filtres, bacs
+                    de rétention, instruments de mesure de la pollution","conditions":[]} Avez-vous,
+                    au cours du dernier exercice comptable, investi dans des équipements
+                    spécifiquement dédiés à l’environnement : bennes, filtres, bacs de rétention,
+                    instruments de mesure de la pollution</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_RESPONSE">
+                    <Text>Cette question est extraite de l'enquête Antipol </Text>
+                </Declaration>
+                <Response mandatory="false">
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="CHECKBOX"
+                        xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable18</CollectedVariableReference>
+                </Response>
+            </Child>
+            <Child id="iwm6zyaq" questionType="SINGLE_CHOICE" xsi:type="QuestionType">
+                <Name>VENTES_MARCH</Name>
+                <Label>##{"label":"Vendez vous vos marchandises majoritairement\n","conditions":[]}
+                    Vendez vous vos marchandises majoritairement</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Question issue de l'enquête sectorielle annuelle (commerce) </Text>
+                </Declaration>
+                <Response mandatory="false">
+                    <CodeListReference>iwm8rneb</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="CHECKBOX"
+                        xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable19</CollectedVariableReference>
+                </Response>
+            </Child>
+            <Child id="iwm9e4pi" questionType="SINGLE_CHOICE" xsi:type="QuestionType">
+                <Name>TEMPSPLEIN</Name>
+                <Label>##{"label":"Toujours au 1er mars 2016, vous travailliez","conditions":[]}
+                    Toujours au 1er mars 2016, vous travailliez</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Question issue de l'enquête EVA 2016 </Text>
+                </Declaration>
+                <Response mandatory="false">
+                    <CodeListReference>iwm8zloc</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="CHECKBOX"
+                        xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable20</CollectedVariableReference>
+                </Response>
+            </Child>
+        </Child>
+    </Child>
+    <Child xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="isg1gytw" depth="1"
+        genericName="MODULE" xsi:type="SequenceType">
+        <Name>MULTIPLE</Name>
+        <Label>Module des questions à choix multiple</Label>
+        <Child id="isg1j5rw" questionType="MULTIPLE_CHOICE" xsi:type="QuestionType">
+            <Name>MULTIPLE_BOOL</Name>
+            <Label>##{"label":"Je suis le libellé de la question à choix multiple sous forme de
+                booléen","conditions":[]} Je suis le libellé de la question à choix multiple sous
+                forme de booléen</Label>
+            <Response>
+                <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                <CollectedVariableReference>collectedVariable21</CollectedVariableReference>
+            </Response>
+            <Response>
+                <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                <CollectedVariableReference>collectedVariable22</CollectedVariableReference>
+            </Response>
+            <Response>
+                <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                <CollectedVariableReference>collectedVariable23</CollectedVariableReference>
+            </Response>
+            <Response>
+                <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                <CollectedVariableReference>collectedVariable24</CollectedVariableReference>
+            </Response>
+            <Response>
+                <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                <CollectedVariableReference>collectedVariable25</CollectedVariableReference>
+            </Response>
+            <ResponseStructure>
+                <Dimension dimensionType="PRIMARY" dynamic="0">
+                    <CodeListReference>isg1g6zo</CodeListReference>
+                </Dimension>
+                <Dimension dimensionType="MEASURE" dynamic="0"/>
+            </ResponseStructure>
+        </Child>
+        <Child id="isg1gjjt" questionType="MULTIPLE_CHOICE" xsi:type="QuestionType">
+            <Name>MULTIPLE_RADIO</Name>
+            <Label>##{"label":"Je suis le libellé de la question à choix multiple sous forme de
+                bouton radio","conditions":[]} Je suis le libellé de la question à choix multiple
+                sous forme de bouton radio</Label>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable26</CollectedVariableReference>
+            </Response>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable27</CollectedVariableReference>
+            </Response>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable28</CollectedVariableReference>
+            </Response>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable29</CollectedVariableReference>
+            </Response>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable30</CollectedVariableReference>
+            </Response>
+            <ResponseStructure>
+                <Dimension dimensionType="PRIMARY" dynamic="0">
+                    <CodeListReference>isg1g6zo</CodeListReference>
+                </Dimension>
+                <Dimension dimensionType="MEASURE" dynamic="0"/>
+            </ResponseStructure>
+        </Child>
+        <Child id="isg20r8n" questionType="MULTIPLE_CHOICE" xsi:type="QuestionType">
+            <Name>MULTIPLE_DROPDOWN</Name>
+            <Label>##{"label":"Je suis le libellé de la question à choix multiple sous forme de
+                liste déroulante","conditions":[]} Je suis le libellé de la question à choix
+                multiple sous forme de liste déroulante</Label>
+            <Declaration declarationType="INSTRUCTION" position="BEFORE_QUESTION_TEXT">
+                <Text>La consigne est avant la question </Text>
+            </Declaration>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="DROPDOWN" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable31</CollectedVariableReference>
+            </Response>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="DROPDOWN" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable32</CollectedVariableReference>
+            </Response>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="DROPDOWN" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable33</CollectedVariableReference>
+            </Response>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="DROPDOWN" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable34</CollectedVariableReference>
+            </Response>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="DROPDOWN" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable35</CollectedVariableReference>
+            </Response>
+            <ResponseStructure>
+                <Dimension dimensionType="PRIMARY" dynamic="0">
+                    <CodeListReference>isg1g6zo</CodeListReference>
+                </Dimension>
+                <Dimension dimensionType="MEASURE" dynamic="0"/>
+            </ResponseStructure>
+        </Child>
+        <Child id="isg1uc3w" questionType="MULTIPLE_CHOICE" xsi:type="QuestionType">
+            <Name>MULTIPLE_CHECKBOX</Name>
+            <Label>##{"label":"Je suis le libellé de la question à choix multiple sous forme de
+                cases à cocher","conditions":[]} Je suis le libellé de la question à choix multiple
+                sous forme de cases à cocher</Label>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="CHECKBOX" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable36</CollectedVariableReference>
+            </Response>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="CHECKBOX" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable37</CollectedVariableReference>
+            </Response>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="CHECKBOX" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable38</CollectedVariableReference>
+            </Response>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="CHECKBOX" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable39</CollectedVariableReference>
+            </Response>
+            <Response>
+                <CodeListReference>isg1uorv</CodeListReference>
+                <Datatype typeName="TEXT" visualizationHint="CHECKBOX" xsi:type="TextDatatypeType">
+                    <MaxLength>1</MaxLength>
+                    <Pattern/>
+                </Datatype>
+                <CollectedVariableReference>collectedVariable40</CollectedVariableReference>
+            </Response>
+            <ResponseStructure>
+                <Dimension dimensionType="PRIMARY" dynamic="0">
+                    <CodeListReference>isg1g6zo</CodeListReference>
+                </Dimension>
+                <Dimension dimensionType="MEASURE" dynamic="0"/>
+            </ResponseStructure>
+        </Child>
+        <Child id="iwnevbej" depth="2" genericName="SUBMODULE" xsi:type="SequenceType">
+            <Name>EXEMPLES</Name>
+            <Label>Exemples</Label>
+            <Child id="iwm8wtis" questionType="MULTIPLE_CHOICE" xsi:type="QuestionType">
+                <Name>SITE_ENTREPRISE</Name>
+                <Label>##{"label":"Le site ou la page d’accueil de votre entreprise propose-t-il
+                    actuellement les services suivants :type de contrat suivant
+                    :\n","conditions":[]} Le site ou la page d’accueil de votre entreprise
+                    propose-t-il actuellement les services suivants :type de contrat suivant
+                    :</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Question issue de l'enquête Tic-TPE 2016 </Text>
+                </Declaration>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="CHECKBOX"
+                        xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable41</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="CHECKBOX"
+                        xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable42</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="CHECKBOX"
+                        xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable43</CollectedVariableReference>
+                </Response>
+                <ResponseStructure>
+                    <Dimension dimensionType="PRIMARY" dynamic="0">
+                        <CodeListReference>iwm8rfv5</CodeListReference>
+                    </Dimension>
+                    <Dimension dimensionType="MEASURE" dynamic="0"/>
+                </ResponseStructure>
+            </Child>
+            <Child id="iwm8xktl" questionType="MULTIPLE_CHOICE" xsi:type="QuestionType">
+                <Name>FORMATION</Name>
+                <Label>##{"label":"Depuis la fin de ces études, avez-vous suivi une ou plusieurs des
+                    formations suivantes ?","conditions":[]} Depuis la fin de ces études, avez-vous
+                    suivi une ou plusieurs des formations suivantes ?</Label>
+                <Response>
+                    <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable44</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable45</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable46</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable47</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable48</CollectedVariableReference>
+                </Response>
+                <ResponseStructure>
+                    <Dimension dimensionType="PRIMARY" dynamic="0">
+                        <CodeListReference>iwm9fhue</CodeListReference>
+                    </Dimension>
+                    <Dimension dimensionType="MEASURE" dynamic="0"/>
+                </ResponseStructure>
+            </Child>
+        </Child>
+    </Child>
+    <Child xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="isg1qnrf" depth="1"
+        genericName="MODULE" xsi:type="SequenceType">
+        <Name>TABLE</Name>
+        <Label>Module des questions sous forme de tableau</Label>
+        <Child id="isg24et5" depth="2" genericName="SUBMODULE" xsi:type="SequenceType">
+            <Name>TABLE_1A</Name>
+            <Label>Sous module des tableaux à un seul axe d'information</Label>
+            <Child id="isg1s9ho" questionType="TABLE" xsi:type="QuestionType">
+                <Name>TABLE_1A_1M</Name>
+                <Label>##{"label":"Je suis le libellé de la question tableau un axe - une
+                    mesure","conditions":[]} Je suis le libellé de la question tableau un axe - une
+                    mesure</Label>
+                <Response>
+                    <Datatype typeName="TEXT" xsi:type="TextDatatypeType">
+                        <MaxLength>20</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable49</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="TEXT" xsi:type="TextDatatypeType">
+                        <MaxLength>20</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable50</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="TEXT" xsi:type="TextDatatypeType">
+                        <MaxLength>20</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable51</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="TEXT" xsi:type="TextDatatypeType">
+                        <MaxLength>20</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable52</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="TEXT" xsi:type="TextDatatypeType">
+                        <MaxLength>20</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable53</CollectedVariableReference>
+                </Response>
+                <ResponseStructure>
+                    <Dimension dimensionType="PRIMARY" dynamic="0">
+                        <CodeListReference>isg1g6zo</CodeListReference>
+                    </Dimension>
+                    <Dimension dimensionType="MEASURE" dynamic="0">
+                        <Label>Mesure 1 texte</Label>
+                    </Dimension>
+                </ResponseStructure>
+            </Child>
+            <Child id="isg28ywr" questionType="TABLE" xsi:type="QuestionType">
+                <Name>TABLE_1A_nM</Name>
+                <Label>##{"label":"Je suis le libellé de la question tableau un axe - plusieurs
+                    mesures","conditions":[]} Je suis le libellé de la question tableau un axe -
+                    plusieurs mesures</Label>
+                <Response>
+                    <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable54</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable55</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable56</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable57</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable58</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable59</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable60</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable61</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable62</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable63</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                        <Decimals>1</Decimals>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable64</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                        <Decimals>1</Decimals>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable65</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                        <Decimals>1</Decimals>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable66</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                        <Decimals>1</Decimals>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable67</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                        <Decimals>1</Decimals>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable68</CollectedVariableReference>
+                </Response>
+                <ResponseStructure>
+                    <Dimension dimensionType="PRIMARY" dynamic="0">
+                        <CodeListReference>isg1g6zo</CodeListReference>
+                    </Dimension>
+                    <Dimension dimensionType="MEASURE" dynamic="0">
+                        <Label>Mesure simple booléen</Label>
+                    </Dimension>
+                    <Dimension dimensionType="MEASURE" dynamic="0">
+                        <Label>Mesure unique radio</Label>
+                    </Dimension>
+                    <Dimension dimensionType="MEASURE" dynamic="0">
+                        <Label>Mesure simple entier</Label>
+                    </Dimension>
+                </ResponseStructure>
+            </Child>
+            <Child id="isg1rx4a" questionType="TABLE" xsi:type="QuestionType">
+                <Name>TABLE_LIST</Name>
+                <Label>##{"label":"Je suis le libellé de la question liste","conditions":[]} Je suis
+                    le libellé de la question liste</Label>
+                <Response>
+                    <Datatype typeName="TEXT" xsi:type="TextDatatypeType">
+                        <MaxLength>50</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable69</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="DATE" xsi:type="DateDatatypeType">
+                        <Format/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable70</CollectedVariableReference>
+                </Response>
+                <ResponseStructure>
+                    <Dimension dimensionType="PRIMARY" dynamic="-"/>
+                    <Dimension dimensionType="MEASURE" dynamic="0">
+                        <Label>Mesure texte</Label>
+                    </Dimension>
+                    <Dimension dimensionType="MEASURE" dynamic="0">
+                        <Label>Mesure date</Label>
+                    </Dimension>
+                </ResponseStructure>
+            </Child>
+        </Child>
+        <Child id="iwnexpuc" depth="2" genericName="SUBMODULE" xsi:type="SequenceType">
+            <Name>EXEMPLES</Name>
+            <Label>Exemples</Label>
+            <Child id="iw22jcng" questionType="TABLE" xsi:type="QuestionType">
+                <Name>EFFECTIFSS</Name>
+                <Label>##{"label":"Effectifs salariés au 31/12/2015","conditions":[]} Effectifs
+                    salariés au 31/12/2015</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Comptez la totalité des salariés rémunérés directement par l’entreprise et
+                        inscrits à la date du 31/12/2015, y compris les dirigeants de sociétés et
+                        gérants salariés, le personnel saisonnier ou occasionnel. ​ </Text>
+                </Declaration>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Ne comptez pas le personnel rémunéré par d’autres entreprises (travail
+                        temporaire, personnel prêté par d’autres entreprises) ni les stagiaires non
+                        rémunérés. </Text>
+                </Declaration>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_RESPONSE">
+                    <Text>Cette question est extraite de l'enquête structurelle auprès des
+                        entreprises mahoraises </Text>
+                </Declaration>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable71</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable72</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable73</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable74</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType"/>
+                    <CollectedVariableReference>collectedVariable75</CollectedVariableReference>
+                </Response>
+                <ResponseStructure>
+                    <Dimension dimensionType="PRIMARY" dynamic="0">
+                        <CodeListReference>iw22xe2u</CodeListReference>
+                    </Dimension>
+                    <Dimension dimensionType="MEASURE" dynamic="0">
+                        <Label>Effectifs salariés</Label>
+                    </Dimension>
+                </ResponseStructure>
+            </Child>
+            <Child id="iwncfpwn" questionType="TABLE" xsi:type="QuestionType">
+                <Name>LISTE_PERS</Name>
+                <Label>##{"label":"Liste des personnes qui habitent ce logement\n","conditions":[]}
+                    Liste des personnes qui habitent ce logement</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_QUESTION_TEXT">
+                    <Text>Veuillez inscrire un par un les prénoms des personnes qui habitent ce
+                        logement, même une partie de la semaine y compris celles qui sont
+                        temporairement absentes au moment de l’enquête (vacances, voyage d'affaires,
+                        hospitalisation, élèves ou étudiants vivant ailleurs pour leurs études mais
+                        encore rattachés au logement, conjoints éloignés pour raisons
+                        professionnelles, enfants en garde alternée, personnes âgées en institution
+                        …) </Text>
+                </Declaration>
+                <Response>
+                    <Datatype typeName="TEXT" xsi:type="TextDatatypeType">
+                        <MaxLength>50</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable76</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>iw22fswu</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="CHECKBOX"
+                        xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable77</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="DATE" xsi:type="DateDatatypeType">
+                        <Format/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable78</CollectedVariableReference>
+                </Response>
+                <ResponseStructure>
+                    <Dimension dimensionType="PRIMARY" dynamic="-"/>
+                    <Dimension dimensionType="MEASURE" dynamic="0">
+                        <Label>Prénom</Label>
+                    </Dimension>
+                    <Dimension dimensionType="MEASURE" dynamic="0">
+                        <Label>Sexe</Label>
+                    </Dimension>
+                    <Dimension dimensionType="MEASURE" dynamic="0">
+                        <Label>Date de naissance</Label>
+                    </Dimension>
+                </ResponseStructure>
+            </Child>
+        </Child>
+        <Child id="isg1x9p9" depth="2" genericName="SUBMODULE" xsi:type="SequenceType">
+            <Name>TABLE_2A</Name>
+            <Label>Sous module des tableaux à deux axes d'information</Label>
+            <Child id="isg1v5d2" questionType="TABLE" xsi:type="QuestionType">
+                <Name>TABLE_2A_1SIMPLE</Name>
+                <Label>##{"label":"Je suis le libellé d'un tableau à deux axes 1 mesure
+                    simple","conditions":[]} Je suis le libellé d'un tableau à deux axes 1 mesure
+                    simple</Label>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable79</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable80</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable81</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable82</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable83</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable84</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable85</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable86</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable87</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable88</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable89</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable90</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable91</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable92</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable93</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable94</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable95</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable96</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable97</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>1</Minimum>
+                        <Maximum>10</Maximum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable98</CollectedVariableReference>
+                </Response>
+                <ResponseStructure>
+                    <Dimension dimensionType="PRIMARY" dynamic="0">
+                        <CodeListReference>isg1g6zo</CodeListReference>
+                    </Dimension>
+                    <Dimension dimensionType="SECONDARY" dynamic="0">
+                        <CodeListReference>isg27fpv</CodeListReference>
+                    </Dimension>
+                    <Dimension dimensionType="MEASURE" dynamic="0">
+                        <Label>Mesure nombre</Label>
+                    </Dimension>
+                </ResponseStructure>
+            </Child>
+            <Child id="isg3ixbk" questionType="TABLE" xsi:type="QuestionType">
+                <Name>JESUISLELI</Name>
+                <Label>##{"label":"Je suis le libellé d'un tableau à deux axes 1 mesure
+                    unique","conditions":[]} Je suis le libellé d'un tableau à deux axes 1 mesure
+                    unique</Label>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable99</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable100</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable101</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable102</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable103</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable104</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable105</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable106</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable107</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable108</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable109</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable110</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable111</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable112</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable113</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable114</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable115</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable116</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable117</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <CodeListReference>isg1uorv</CodeListReference>
+                    <Datatype typeName="TEXT" visualizationHint="RADIO" xsi:type="TextDatatypeType">
+                        <MaxLength>1</MaxLength>
+                        <Pattern/>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable118</CollectedVariableReference>
+                </Response>
+                <ResponseStructure>
+                    <Dimension dimensionType="PRIMARY" dynamic="0">
+                        <CodeListReference>isg1g6zo</CodeListReference>
+                    </Dimension>
+                    <Dimension dimensionType="SECONDARY" dynamic="0">
+                        <CodeListReference>isg27fpv</CodeListReference>
+                    </Dimension>
+                    <Dimension dimensionType="MEASURE" dynamic="0">
+                        <Label>Mesure unique</Label>
+                    </Dimension>
+                </ResponseStructure>
+            </Child>
+        </Child>
+        <Child id="iwnet09y" depth="2" genericName="SUBMODULE" xsi:type="SequenceType">
+            <Name>EXEMPLES</Name>
+            <Label>Exemples</Label>
+            <Child id="iw22jwft" questionType="TABLE" xsi:type="QuestionType">
+                <Name>RENSEIGNEZ</Name>
+                <Label>##{"label":"Renseignez dans le tableau ci-dessous le montant des
+                    investissements spécifiquement dédiés à l'environnement, selon leur nature et le
+                    domaine","conditions":[]} Renseignez dans le tableau ci-dessous le montant des
+                    investissements spécifiquement dédiés à l'environnement, selon leur nature et le
+                    domaine</Label>
+                <Declaration declarationType="INSTRUCTION" position="AFTER_RESPONSE">
+                    <Text>Cette question est extraite de l'enquête Antipol </Text>
+                </Declaration>
+                <Control id="iw7ukiat">
+                    <Description></Description>
+                    <Expression>(NUM(${S1-S1-Q1-R1})-(NUM(${S1-S1-Q3-R1})+NUM(${S1-S1-Q3-R2})+NUM(${S1-S1-Q3-R3})+NUM(${S1-S1-Q3-R4})+NUM(${S1-S1-Q3-R5})+NUM(${S1-S1-Q3-R6})+NUM(${S1-S1-Q3-R7})+NUM(${S1-S1-Q3-R8})+NUM(${S1-S1-Q3-R9})+NUM(${S1-S1-Q3-R10})+NUM(${S1-S1-Q3-R11})+NUM(${S1-S1-Q3-R12})+NUM(${S1-S1-Q3-R13})+NUM(${S1-S1-Q3-R14})+NUM(${S1-S1-Q3-R15})+NUM(${S1-S1-Q3-R16})+NUM(${S1-S1-Q3-R17})+NUM(${S1-S1-Q3-R18})+NUM(${S1-S1-Q3-R19})+NUM(${S1-S1-Q3-R20})+NUM(${S1-S1-Q3-R21})+NUM(${S1-S1-Q3-R22})+NUM(${S1-S1-Q3-R23})+NUM(${S1-S1-Q3-R24}))&lt;0
+                        ) and ${S1-S1-Q1-R1}!=''</Expression>
+                    <FailMessage>Le montant des investissements spécifiquement dédiés à
+                        l'environnement est supérieur au montant total des
+                        investissements.</FailMessage>
+                </Control>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable119</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable120</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable121</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable122</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable123</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable124</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable125</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable126</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable127</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable128</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable129</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable130</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable131</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable132</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable133</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable134</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable135</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable136</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable137</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable138</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable139</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable140</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable141</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable142</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable143</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable144</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable145</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable146</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable147</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable148</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable149</CollectedVariableReference>
+                </Response>
+                <Response>
+                    <Datatype typeName="NUMERIC" xsi:type="NumericDatatypeType">
+                        <Minimum>0</Minimum>
+                    </Datatype>
+                    <CollectedVariableReference>collectedVariable150</CollectedVariableReference>
+                </Response>
+                <ResponseStructure>
+                    <Dimension dimensionType="PRIMARY" dynamic="0">
+                        <CodeListReference>iw22r14q</CodeListReference>
+                    </Dimension>
+                    <Dimension dimensionType="SECONDARY" dynamic="0">
+                        <CodeListReference>iw22dla9</CodeListReference>
+                    </Dimension>
+                    <Dimension dimensionType="MEASURE" dynamic="0">
+                        <Label>Montant des investissements en Keuros</Label>
+                    </Dimension>
+                </ResponseStructure>
+            </Child>
+        </Child>
+    </Child>
+    <DataCollection id="dataCollection1" uri="http://ddi:fr.insee:DataCollection.INSEE-POPO-DC-1.1"> 
+        <Name>POPO-2017-A00</Name>
+    </DataCollection>
+    <ComponentGroup id="j3tu30jo">
+        <Name>PAGE_1</Name>
+        <Label>Components for page 1</Label>
+        <MemberReference>ir6cju1z</MemberReference>
+        <MemberReference>iwm8qg8x</MemberReference>
+        <MemberReference>iwm8r0ba</MemberReference>
+        <MemberReference>ir6co0qf</MemberReference>
+        <MemberReference>ir6cqzev</MemberReference>
+        <MemberReference>ir6cm77g</MemberReference>
+        <MemberReference>ir6cruy6</MemberReference>
+        <MemberReference>ir6cifax</MemberReference>
+        <MemberReference>ir6cmuqa</MemberReference>
+        <MemberReference>ir6ctbkt</MemberReference>
+        <MemberReference>ir6ct69u</MemberReference>
+        <MemberReference>isg1kh8l</MemberReference>
+        <MemberReference>isg1hh9m</MemberReference>
+        <MemberReference>iwnfdy97</MemberReference>
+        <MemberReference>iwm6shxx</MemberReference>
+        <MemberReference>iwm8woim</MemberReference>
+        <MemberReference>iw7ux0w8</MemberReference>
+        <MemberReference>iwm8v2g4</MemberReference>
+        <MemberReference>iwm8t2p5</MemberReference>
+        <MemberReference>iwm99upn</MemberReference>
+        <MemberReference>iwnevs21</MemberReference>
+        <MemberReference>isg1ikbn</MemberReference>
+        <MemberReference>isg13cuk</MemberReference>
+        <MemberReference>isg1hq0f</MemberReference>
+        <MemberReference>isg1bz8h</MemberReference>
+        <MemberReference>iwnesc00</MemberReference>
+        <MemberReference>iw22nmhl</MemberReference>
+        <MemberReference>iwm6zyaq</MemberReference>
+        <MemberReference>iwm9e4pi</MemberReference>
+        <MemberReference>isg1gytw</MemberReference>
+        <MemberReference>isg1j5rw</MemberReference>
+        <MemberReference>isg1gjjt</MemberReference>
+        <MemberReference>isg20r8n</MemberReference>
+        <MemberReference>isg1uc3w</MemberReference>
+        <MemberReference>iwnevbej</MemberReference>
+        <MemberReference>iwm8wtis</MemberReference>
+        <MemberReference>iwm8xktl</MemberReference>
+        <MemberReference>isg1qnrf</MemberReference>
+        <MemberReference>isg24et5</MemberReference>
+        <MemberReference>isg1s9ho</MemberReference>
+        <MemberReference>isg28ywr</MemberReference>
+        <MemberReference>isg1rx4a</MemberReference>
+        <MemberReference>iwnexpuc</MemberReference>
+        <MemberReference>iw22jcng</MemberReference>
+        <MemberReference>iwncfpwn</MemberReference>
+        <MemberReference>isg1x9p9</MemberReference>
+        <MemberReference>isg1v5d2</MemberReference>
+        <MemberReference>isg3ixbk</MemberReference>
+        <MemberReference>iwnet09y</MemberReference>
+        <MemberReference>iw22jwft</MemberReference>
+    </ComponentGroup>
+    <CodeLists>
+        <CodeList id="isg1g6zo">
+            <Name/>
+            <Label>LISTE_TEST</Label>
+            <Code>
+                <Value/>
+                <Label>choix 1</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>choix 2</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>choix 3</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>choix 4</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>choix 5</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="isg1uorv">
+            <Name/>
+            <Label>Oui_Non</Label>
+            <Code>
+                <Value/>
+                <Label>Oui</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Non</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="isg27fpv">
+            <Name/>
+            <Label>LISTE_TEST_2</Label>
+            <Code>
+                <Value/>
+                <Label>choix 6</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>choix 7</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>choix 8</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>choix 9</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iw22dla9">
+            <Name/>
+            <Label>DOMAINE</Label>
+            <Code>
+                <Value/>
+                <Label>Eaux usées</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Déchets hors radioactifs</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Protection de l’air</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Limitation des émissions de gaz à effet de serre</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Bruits et vibrations</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Sols, eaux souterraines et de surface</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Sites, paysages et biodiversité</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Autres (rayonnement, R&amp;D sur l’environnement…)</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iw22fswu">
+            <Name/>
+            <Label>L_SEXE</Label>
+            <Code>
+                <Value/>
+                <Label>Masculin</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Féminin</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iw22r14q">
+            <Name/>
+            <Label>NATURE</Label>
+            <Code>
+                <Value/>
+                <Label>Pré-traitement, traitement et élimination</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Mesure et contrôle</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Recyclage, tri et valorisation</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Prévention des pollutions</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iw22xe2u">
+            <Name/>
+            <Label>L_effectifs</Label>
+            <Code>
+                <Value/>
+                <Label>Effectifs salariés à temps plein</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Effectifs salariés à temps partiel moins de 6 mois</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Effectifs salariés à temps partiel 6 mois et plus</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Apprentis, stagiaires rémunérés</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Total</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iw25euzq">
+            <Name/>
+            <Label>L_GLACE</Label>
+            <Code>
+                <Value/>
+                <Label>vanille</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>chocolat</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>fraise</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>abricot</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>citron</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>rhum raisins</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iw25voxc">
+            <Name/>
+            <Label>L_fréquence</Label>
+            <Code>
+                <Value/>
+                <Label>Toujours</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Souvent</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Parfois</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Jamais</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iwg8titv">
+            <Name/>
+            <Label>LIST_ONE</Label>
+            <Code>
+                <Value/>
+                <Label>Item 1</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Item 2</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Item 3</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Item 4</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Item 5</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iwgdyhwp">
+            <Name/>
+            <Label/>
+        </CodeList>
+        <CodeList id="iwgdzvye">
+            <Name/>
+            <Label>weather_list</Label>
+            <Code>
+                <Value/>
+                <Label>sunny</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>cloudy</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>rainy</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>a mix of all, I'm in Brittany</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iwge4s84">
+            <Name/>
+            <Label>LIST_TWO</Label>
+            <Code>
+                <Value/>
+                <Label>item 6</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>item 7</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>item 8</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>item 9</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>item 10</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iwgebn3a">
+            <Name/>
+            <Label>EVENING</Label>
+            <Code>
+                <Value/>
+                <Label>Drink some beers</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Go to cinema</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Watch a movie at home</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Cook good meals for my friends</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Read a novel</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iwgeg7ek">
+            <Name/>
+            <Label>LIST_SEX_EN</Label>
+            <Code>
+                <Value/>
+                <Label>Man</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Woman</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iwgehiif">
+            <Name/>
+            <Label>Yes_No_EN</Label>
+            <Code>
+                <Value/>
+                <Label>Yes</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>No</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iwm8rfv5">
+            <Name/>
+            <Label>L_TIC_TPE</Label>
+            <Code>
+                <Value/>
+                <Label>La commande ou la réservation en ligne (panier virtuel) ?</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>La description de biens ou services, ou des listes de prix ?</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Des liens permettant d’accéder aux pages de l’entreprise dans les médias
+                    sociaux (Facebook, Twitter, Google+, LinkedIn, Viadeo, etc.) ?</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iwm8rneb">
+            <Name/>
+            <Label>L_ventes</Label>
+            <Code>
+                <Value/>
+                <Label>A des particuliers</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>A des professionnels ou revendeurs</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iwm8zloc">
+            <Name/>
+            <Label>L_activite</Label>
+            <Code>
+                <Value/>
+                <Label>à temps complet</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>à temps partiel 80 % ou plus</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>de mi-temps à moins de 80 %</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>moins d’un mi-temps</Label>
+            </Code>
+        </CodeList>
+        <CodeList id="iwm9fhue">
+            <Name/>
+            <Label>L_formation</Label>
+            <Code>
+                <Value/>
+                <Label>Formation financée ou organisée par l’employeur ou une agence d’intérim (hors
+                    apprentissage et contrats de professionnalisation)</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Formation donnée par une école de la 2e chance, par l’EPIDE</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Formation conseillée ou organisée par Pôle emploi, par une mission locale,
+                    une chambre des métiers, une agence de placement (APEC, INGEUS, …), (y compris
+                    ateliers de techniques de recherche d’emploi, ateliers CV)</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Une formation professionnalisante ou à but professionnel (pour trouver un
+                    emploi, améliorer votre situation, …)</Label>
+            </Code>
+            <Code>
+                <Value/>
+                <Label>Aucune de ces formations depuis la fin des études, même pour quelques
+                    jours</Label>
+            </Code>
+        </CodeList>
+    </CodeLists>
+    <Variables>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable145224542" >
+            <Name>collectedVariableName1</Name>
+            <Label>collectedVariableLabel1</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable2">
+            <Name>collectedVariableName2</Name>
+            <Label>collectedVariableLabel2</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable3">
+            <Name>collectedVariableName3</Name>
+            <Label>collectedVariableLabel3</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable4">
+            <Name>collectedVariableName4</Name>
+            <Label>collectedVariableLabel4</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable5">
+            <Name>collectedVariableName5</Name>
+            <Label>collectedVariableLabel5</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable6">
+            <Name>collectedVariableName6</Name>
+            <Label>collectedVariableLabel6</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable7">
+            <Name>collectedVariableName7</Name>
+            <Label>collectedVariableLabel7</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable8">
+            <Name>collectedVariableName8</Name>
+            <Label>collectedVariableLabel8</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable9">
+            <Name>collectedVariableName9</Name>
+            <Label>collectedVariableLabel9</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable10">
+            <Name>collectedVariableName10</Name>
+            <Label>collectedVariableLabel10</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable11">
+            <Name>collectedVariableName11</Name>
+            <Label>collectedVariableLabel11</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable12">
+            <Name>collectedVariableName12</Name>
+            <Label>collectedVariableLabel12</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable13">
+            <Name>collectedVariableName13</Name>
+            <Label>collectedVariableLabel13</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable14">
+            <Name>collectedVariableName14</Name>
+            <Label>collectedVariableLabel14</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable15">
+            <Name>collectedVariableName15</Name>
+            <Label>collectedVariableLabel15</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable16">
+            <Name>collectedVariableName16</Name>
+            <Label>collectedVariableLabel16</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable17">
+            <Name>collectedVariableName17</Name>
+            <Label>collectedVariableLabel17</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable18">
+            <Name>collectedVariableName18</Name>
+            <Label>collectedVariableLabel18</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable19">
+            <Name>collectedVariableName19</Name>
+            <Label>collectedVariableLabel19</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable20">
+            <Name>collectedVariableName20</Name>
+            <Label>collectedVariableLabel20</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable21">
+            <Name>collectedVariableName21</Name>
+            <Label>collectedVariableLabel21</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable22">
+            <Name>collectedVariableName22</Name>
+            <Label>collectedVariableLabel22</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable23">
+            <Name>collectedVariableName23</Name>
+            <Label>collectedVariableLabel23</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable24">
+            <Name>collectedVariableName24</Name>
+            <Label>collectedVariableLabel24</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable25">
+            <Name>collectedVariableName25</Name>
+            <Label>collectedVariableLabel25</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable26">
+            <Name>collectedVariableName26</Name>
+            <Label>collectedVariableLabel26</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable27">
+            <Name>collectedVariableName27</Name>
+            <Label>collectedVariableLabel27</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable28">
+            <Name>collectedVariableName28</Name>
+            <Label>collectedVariableLabel28</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable29">
+            <Name>collectedVariableName29</Name>
+            <Label>collectedVariableLabel29</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable30">
+            <Name>collectedVariableName30</Name>
+            <Label>collectedVariableLabel30</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable31">
+            <Name>collectedVariableName31</Name>
+            <Label>collectedVariableLabel31</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable32">
+            <Name>collectedVariableName32</Name>
+            <Label>collectedVariableLabel32</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable33">
+            <Name>collectedVariableName33</Name>
+            <Label>collectedVariableLabel33</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable34">
+            <Name>collectedVariableName34</Name>
+            <Label>collectedVariableLabel34</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable35">
+            <Name>collectedVariableName35</Name>
+            <Label>collectedVariableLabel35</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable36">
+            <Name>collectedVariableName36</Name>
+            <Label>collectedVariableLabel36</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable37">
+            <Name>collectedVariableName37</Name>
+            <Label>collectedVariableLabel37</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable38">
+            <Name>collectedVariableName38</Name>
+            <Label>collectedVariableLabel38</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable39">
+            <Name>collectedVariableName39</Name>
+            <Label>collectedVariableLabel39</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable40">
+            <Name>collectedVariableName40</Name>
+            <Label>collectedVariableLabel40</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable41">
+            <Name>collectedVariableName41</Name>
+            <Label>collectedVariableLabel41</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable42">
+            <Name>collectedVariableName42</Name>
+            <Label>collectedVariableLabel42</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable43">
+            <Name>collectedVariableName43</Name>
+            <Label>collectedVariableLabel43</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable44">
+            <Name>collectedVariableName44</Name>
+            <Label>collectedVariableLabel44</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable45">
+            <Name>collectedVariableName45</Name>
+            <Label>collectedVariableLabel45</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable46">
+            <Name>collectedVariableName46</Name>
+            <Label>collectedVariableLabel46</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable47">
+            <Name>collectedVariableName47</Name>
+            <Label>collectedVariableLabel47</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable48">
+            <Name>collectedVariableName48</Name>
+            <Label>collectedVariableLabel48</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable49">
+            <Name>collectedVariableName49</Name>
+            <Label>collectedVariableLabel49</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable50">
+            <Name>collectedVariableName50</Name>
+            <Label>collectedVariableLabel50</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable51">
+            <Name>collectedVariableName51</Name>
+            <Label>collectedVariableLabel51</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable52">
+            <Name>collectedVariableName52</Name>
+            <Label>collectedVariableLabel52</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable53">
+            <Name>collectedVariableName53</Name>
+            <Label>collectedVariableLabel53</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable54">
+            <Name>collectedVariableName54</Name>
+            <Label>collectedVariableLabel54</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable55">
+            <Name>collectedVariableName55</Name>
+            <Label>collectedVariableLabel55</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable56">
+            <Name>collectedVariableName56</Name>
+            <Label>collectedVariableLabel56</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable57">
+            <Name>collectedVariableName57</Name>
+            <Label>collectedVariableLabel57</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable58">
+            <Name>collectedVariableName58</Name>
+            <Label>collectedVariableLabel58</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable59">
+            <Name>collectedVariableName59</Name>
+            <Label>collectedVariableLabel59</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable60">
+            <Name>collectedVariableName60</Name>
+            <Label>collectedVariableLabel60</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable61">
+            <Name>collectedVariableName61</Name>
+            <Label>collectedVariableLabel61</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable62">
+            <Name>collectedVariableName62</Name>
+            <Label>collectedVariableLabel62</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable63">
+            <Name>collectedVariableName63</Name>
+            <Label>collectedVariableLabel63</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable64">
+            <Name>collectedVariableName64</Name>
+            <Label>collectedVariableLabel64</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable65">
+            <Name>collectedVariableName65</Name>
+            <Label>collectedVariableLabel65</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable66">
+            <Name>collectedVariableName66</Name>
+            <Label>collectedVariableLabel66</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable67">
+            <Name>collectedVariableName67</Name>
+            <Label>collectedVariableLabel67</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable68">
+            <Name>collectedVariableName68</Name>
+            <Label>collectedVariableLabel68</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable69">
+            <Name>collectedVariableName69</Name>
+            <Label>collectedVariableLabel69</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable70">
+            <Name>collectedVariableName70</Name>
+            <Label>collectedVariableLabel70</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable71">
+            <Name>collectedVariableName71</Name>
+            <Label>collectedVariableLabel71</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable72">
+            <Name>collectedVariableName72</Name>
+            <Label>collectedVariableLabel72</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable73">
+            <Name>collectedVariableName73</Name>
+            <Label>collectedVariableLabel73</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable74">
+            <Name>collectedVariableName74</Name>
+            <Label>collectedVariableLabel74</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable75">
+            <Name>collectedVariableName75</Name>
+            <Label>collectedVariableLabel75</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable76">
+            <Name>collectedVariableName76</Name>
+            <Label>collectedVariableLabel76</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable77">
+            <Name>collectedVariableName77</Name>
+            <Label>collectedVariableLabel77</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable78">
+            <Name>collectedVariableName78</Name>
+            <Label>collectedVariableLabel78</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable79">
+            <Name>collectedVariableName79</Name>
+            <Label>collectedVariableLabel79</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable80">
+            <Name>collectedVariableName80</Name>
+            <Label>collectedVariableLabel80</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable81">
+            <Name>collectedVariableName81</Name>
+            <Label>collectedVariableLabel81</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable82">
+            <Name>collectedVariableName82</Name>
+            <Label>collectedVariableLabel82</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable83">
+            <Name>collectedVariableName83</Name>
+            <Label>collectedVariableLabel83</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable84">
+            <Name>collectedVariableName84</Name>
+            <Label>collectedVariableLabel84</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable85">
+            <Name>collectedVariableName85</Name>
+            <Label>collectedVariableLabel85</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable86">
+            <Name>collectedVariableName86</Name>
+            <Label>collectedVariableLabel86</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable87">
+            <Name>collectedVariableName87</Name>
+            <Label>collectedVariableLabel87</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable88">
+            <Name>collectedVariableName88</Name>
+            <Label>collectedVariableLabel88</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable89">
+            <Name>collectedVariableName89</Name>
+            <Label>collectedVariableLabel89</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable90">
+            <Name>collectedVariableName90</Name>
+            <Label>collectedVariableLabel90</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable91">
+            <Name>collectedVariableName91</Name>
+            <Label>collectedVariableLabel91</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable92">
+            <Name>collectedVariableName92</Name>
+            <Label>collectedVariableLabel92</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable93">
+            <Name>collectedVariableName93</Name>
+            <Label>collectedVariableLabel93</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable94">
+            <Name>collectedVariableName94</Name>
+            <Label>collectedVariableLabel94</Label>
+        </Variable>        
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable95">
+            <Name>collectedVariableName95</Name>
+            <Label>collectedVariableLabel95</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable96">
+            <Name>collectedVariableName96</Name>
+            <Label>collectedVariableLabel96</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable97">
+            <Name>collectedVariableName97</Name>
+            <Label>collectedVariableLabel97</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable98">
+            <Name>collectedVariableName98</Name>
+            <Label>collectedVariableLabel98</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable99">
+            <Name>collectedVariableName99</Name>
+            <Label>collectedVariableLabel99</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable100">
+            <Name>collectedVariableName100</Name>
+            <Label>collectedVariableLabel100</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable101">
+            <Name>collectedVariableName101</Name>
+            <Label>collectedVariableLabel101</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable102">
+            <Name>collectedVariableName102</Name>
+            <Label>collectedVariableLabel102</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable103">
+            <Name>collectedVariableName103</Name>
+            <Label>collectedVariableLabel103</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable104">
+            <Name>collectedVariableName104</Name>
+            <Label>collectedVariableLabel104</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable105">
+            <Name>collectedVariableName105</Name>
+            <Label>collectedVariableLabel105</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable106">
+            <Name>collectedVariableName106</Name>
+            <Label>collectedVariableLabel106</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable107">
+            <Name>collectedVariableName107</Name>
+            <Label>collectedVariableLabel107</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable108">
+            <Name>collectedVariableName108</Name>
+            <Label>collectedVariableLabel108</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable109">
+            <Name>collectedVariableName109</Name>
+            <Label>collectedVariableLabel109</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable110">
+            <Name>collectedVariableName110</Name>
+            <Label>collectedVariableLabel110</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable111">
+            <Name>collectedVariableName111</Name>
+            <Label>collectedVariableLabel111</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable112">
+            <Name>collectedVariableName112</Name>
+            <Label>collectedVariableLabel112</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable113">
+            <Name>collectedVariableName113</Name>
+            <Label>collectedVariableLabel113</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable114">
+            <Name>collectedVariableName114</Name>
+            <Label>collectedVariableLabel114</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable115">
+            <Name>collectedVariableName115</Name>
+            <Label>collectedVariableLabel115</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable116">
+            <Name>collectedVariableName116</Name>
+            <Label>collectedVariableLabel116</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable117">
+            <Name>collectedVariableName117</Name>
+            <Label>collectedVariableLabel117</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable118">
+            <Name>collectedVariableName118</Name>
+            <Label>collectedVariableLabel118</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable119">
+            <Name>collectedVariableName119</Name>
+            <Label>collectedVariableLabel119</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable120">
+            <Name>collectedVariableName120</Name>
+            <Label>collectedVariableLabel120</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable121">
+            <Name>collectedVariableName121</Name>
+            <Label>collectedVariableLabel121</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable122">
+            <Name>collectedVariableName122</Name>
+            <Label>collectedVariableLabel122</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable123">
+            <Name>collectedVariableName123</Name>
+            <Label>collectedVariableLabel123</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable124">
+            <Name>collectedVariableName124</Name>
+            <Label>collectedVariableLabel124</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable125">
+            <Name>collectedVariableName125</Name>
+            <Label>collectedVariableLabel125</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable126">
+            <Name>collectedVariableName126</Name>
+            <Label>collectedVariableLabel126</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable127">
+            <Name>collectedVariableName127</Name>
+            <Label>collectedVariableLabel127</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable128">
+            <Name>collectedVariableName128</Name>
+            <Label>collectedVariableLabel128</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable129">
+            <Name>collectedVariableName129</Name>
+            <Label>collectedVariableLabel129</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable130">
+            <Name>collectedVariableName130</Name>
+            <Label>collectedVariableLabel130</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable131">
+            <Name>collectedVariableName131</Name>
+            <Label>collectedVariableLabel131</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable132">
+            <Name>collectedVariableName132</Name>
+            <Label>collectedVariableLabel132</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable133">
+            <Name>collectedVariableName133</Name>
+            <Label>collectedVariableLabel133</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable134">
+            <Name>collectedVariableName134</Name>
+            <Label>collectedVariableLabel134</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable135">
+            <Name>collectedVariableName135</Name>
+            <Label>collectedVariableLabel135</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable136">
+            <Name>collectedVariableName136</Name>
+            <Label>collectedVariableLabel136</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable137">
+            <Name>collectedVariableName137</Name>
+            <Label>collectedVariableLabel137</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable138">
+            <Name>collectedVariableName138</Name>
+            <Label>collectedVariableLabel138</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable139">
+            <Name>collectedVariableName139</Name>
+            <Label>collectedVariableLabel139</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable140">
+            <Name>collectedVariableName140</Name>
+            <Label>collectedVariableLabel140</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable141">
+            <Name>collectedVariableName141</Name>
+            <Label>collectedVariableLabel141</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable142">
+            <Name>collectedVariableName142</Name>
+            <Label>collectedVariableLabel142</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable143">
+            <Name>collectedVariableName143</Name>
+            <Label>collectedVariableLabel143</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable144">
+            <Name>collectedVariableName144</Name>
+            <Label>collectedVariableLabel144</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable145">
+            <Name>collectedVariableName145</Name>
+            <Label>collectedVariableLabel145</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable146">
+            <Name>collectedVariableName146</Name>
+            <Label>collectedVariableLabel146</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable147">
+            <Name>collectedVariableName147</Name>
+            <Label>collectedVariableLabel147</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable148">
+            <Name>collectedVariableName148</Name>
+            <Label>collectedVariableLabel148</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable149">
+            <Name>collectedVariableName149</Name>
+            <Label>collectedVariableLabel149</Label>
+        </Variable>
+        <Variable xsi:type="CollectedVariableType" id="collectedVariable150">
+            <Name>collectedVariableName150</Name>
+            <Label>collectedVariableLabel150</Label>
+        </Variable>        
+        <Variable xsi:type="CalculatedVariableType" id="calculatedVariable1" >
+            <Name>CalculatedVariableName1</Name>
+            <Label>CalculatedVariableLabelLabel1</Label>
+            <Formula>"CalculatedVariableFormula1"</Formula>
+        </Variable>
+        <Variable xsi:type="CalculatedVariableType" id="calculatedVariable2" >
+            <Name>CalculatedVariableName2</Name>
+            <Label>CalculatedVariableLabelLabel2</Label>
+            <Formula>"CalculatedVariableFormula2"</Formula>
+        </Variable>
+        <Variable xsi:type="ExternalVariableType" id="externalVariable1" >
+            <Name>ExternalVariableName1</Name>
+            <Label></Label>
+        </Variable>
+        <Variable xsi:type="ExternalVariableType" id="externalVariable2" >
+            <Name>ExternalVariableName2</Name>
+            <Label></Label>
+        </Variable>        
+    </Variables>
+</Questionnaire>
