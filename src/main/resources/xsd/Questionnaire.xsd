@@ -146,7 +146,7 @@
     <xs:sequence>
       <xs:element name="MappingSource" type="xs:string"/>
       <!-- XPath -->
-      <xs:element name="MappingTarget" type=" xs:string"/>
+      <xs:element name="MappingTarget" type="xs:string"/>
       <!-- XPath -->
     </xs:sequence>
   </xs:complexType>
