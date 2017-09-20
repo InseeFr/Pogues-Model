@@ -329,6 +329,7 @@
           <xs:element name="Minimum" type="xs:integer" minOccurs="0"/>
           <xs:element name="Maximum" type="xs:integer" minOccurs="0"/>
           <xs:element name="Decimals" type="xs:nonNegativeInteger" minOccurs="0"/>
+          <xs:element name="Unit" type="xs:anyURI" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
