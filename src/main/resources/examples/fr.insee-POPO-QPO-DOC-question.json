@@ -1,0 +1,20 @@
+{
+    "id": "iwm8r0ba",
+    "questionType": "SIMPLE",
+    "type": "QuestionType",
+    "Name": "COCHEZ",
+    "Label": ["##{\"label\":\"Cochez la case pour afficher la suite du questionnaire\\n\",\"conditions\":[]} Cochez la case pour afficher la suite du questionnaire"],
+    "GoTo": [{
+        "id": "iwnegyn6",
+        "Expression": "${S1-S1-Q1-R1}='' or ${S1-S1-Q1-R1}='0' ",
+        "IfTrue": "isg13cuk"
+    }],
+    "Response": [{
+        "mandatory": false,
+        "Datatype": {
+            "typeName": "BOOLEAN",
+            "type": "BooleanDatatypeType"
+        },
+        "CollectedVariableReference": "collectedVariable1"
+    }]
+}

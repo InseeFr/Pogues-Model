@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Questionnaire xmlns="http://xml.insee.fr/schema/applis/pogues"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xml.insee.fr/schema/applis/pogues file:/src/main/resources/xsd/Questionnaire.xsd"
