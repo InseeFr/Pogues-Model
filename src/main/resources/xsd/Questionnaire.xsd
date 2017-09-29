@@ -311,6 +311,7 @@
     <xs:sequence>
       <xs:element name="Value" type="xs:token"/>
       <xs:element name="Label" type="xs:string"/>
+      <xs:element name="Filter" type="ExpressionType" minOccurs="0"/> <!-- Specifies a condition for NOT displaying the code value -->
       <xs:element name="Parent" type="xs:token" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
