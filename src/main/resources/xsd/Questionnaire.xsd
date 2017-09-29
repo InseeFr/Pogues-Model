@@ -63,6 +63,7 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="Question" type="QuestionType"/>
   <xs:complexType name="QuestionType">
     <xs:complexContent>
       <xs:extension base="ComponentType">
@@ -187,6 +188,7 @@
     <xs:attribute name="firstIntentionDisplay" type="xs:boolean" use="required"/>
   </xs:complexType>
 
+  <xs:element name="Sequence" type="SequenceType"/>
   <xs:complexType name="SequenceType">
     <xs:complexContent>
       <xs:extension base="ComponentType">
