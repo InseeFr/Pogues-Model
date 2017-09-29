@@ -1,0 +1,92 @@
+{
+      "CodeList" : [ {
+         "id" : "isg1g6zo",
+         "Name" : "",
+         "Label" : "LISTE_TEST",
+         "Code" : [ {
+            "Value" : "",
+            "Label" : "choix 1"
+         }, {
+            "Value" : "",
+            "Label" : "choix 2"
+         }, {
+            "Value" : "",
+            "Label" : "choix 3"
+         }, {
+            "Value" : "",
+            "Label" : "choix 4"
+         }, {
+            "Value" : "",
+            "Label" : "choix 5"
+         } ]
+      }, {
+         "id" : "isg1uorv",
+         "Name" : "",
+         "Label" : "Oui_Non",
+         "Code" : [ {
+            "Value" : "",
+            "Label" : "Oui"
+         }, {
+            "Value" : "",
+            "Label" : "Non"
+         } ]
+      }, {
+         "id" : "isg27fpv",
+         "Name" : "",
+         "Label" : "LISTE_TEST_2",
+         "Code" : [ {
+            "Value" : "",
+            "Label" : "choix 6"
+         }, {
+            "Value" : "",
+            "Label" : "choix 7"
+         }, {
+            "Value" : "",
+            "Label" : "choix 8"
+         }, {
+            "Value" : "",
+            "Label" : "choix 9"
+         } ]
+      }, {
+         "id" : "iw22dla9",
+         "Name" : "",
+         "Label" : "DOMAINE",
+         "Code" : [ {
+            "Value" : "",
+            "Label" : "Eaux usées"
+         }, {
+            "Value" : "",
+            "Label" : "Déchets hors radioactifs"
+         }, {
+            "Value" : "",
+            "Label" : "Protection de l’air"
+         }, {
+            "Value" : "",
+            "Label" : "Limitation des émissions de gaz à effet de serre"
+         }, {
+            "Value" : "",
+            "Label" : "Bruits et vibrations"
+         }, {
+            "Value" : "",
+            "Label" : "Sols, eaux souterraines et de surface"
+         }, {
+            "Value" : "",
+            "Label" : "Sites, paysages et biodiversité"
+         }, {
+            "Value" : "",
+            "Label" : "Autres (rayonnement, R&D sur l’environnement…)"
+         } ]
+      }, {
+         "id" : "iw22fswu",
+         "Name" : "",
+         "Label" : "L_SEXE",
+         "Code" : [ {
+            "Value" : "",
+            "Label" : "Masculin"
+         }, {
+            "Value" : "",
+            "Label" : "Féminin"
+         } ]
+      }
+     ]
+ }

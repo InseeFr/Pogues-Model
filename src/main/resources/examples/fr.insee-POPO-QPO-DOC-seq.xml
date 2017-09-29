@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Sequence xmlns="http://xml.insee.fr/schema/applis/pogues" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xml.insee.fr/schema/applis/pogues file:/src/main/resources/xsd/Questionnaire.xsd"
+	id="ir6cju1z" depth="1" genericName="MODULE" xsi:type="SequenceType">
+	<Name>INTRODUCTI</Name>
+	<Label>Introduction : je suis le libellé du paragraphe</Label>
+	<Declaration declarationType="INSTRUCTION">
+		<Text>Ce questionnaire est un exemple de ce qu'il est possible de
+			faire
+			en utilisant
+			les outils Eno et Pogues. Il se découpe en plusieurs
+			modules (un module
+			par
+			page), regroupant les différents types de
+			questions. Dans chaque module,
+			vous
+			trouverez la description des
+			questions de chaque type, ainsi que des exemples
+			tirés de
+			questionnaires Insee. ​
+		</Text>
+	</Declaration>
+	<Child id="iwm8r0ba" questionType="SIMPLE" xsi:type="QuestionType">
+		<Name>COCHEZ</Name>
+		<Label>##{"label":"Cochez la case pour afficher la suite du
+			questionnaire\n","conditions":[]} Cochez la case pour afficher la
+			suite du
+			questionnaire
+		</Label>
+		<GoTo id="iwnegyn6">
+			<Expression>${S1-S1-Q1-R1}='' or ${S1-S1-Q1-R1}='0' </Expression>
+			<IfTrue>isg13cuk</IfTrue>
+		</GoTo>
+		<Response mandatory="false">
+			<Datatype typeName="BOOLEAN" xsi:type="BooleanDatatypeType" />
+			<CollectedVariableReference>collectedVariable1
+			</CollectedVariableReference>
+		</Response>
+	</Child>
+</Sequence>       
+    
