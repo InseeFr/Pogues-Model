@@ -45,6 +45,7 @@
       <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="Control" type="ControlType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="GoTo" type="GoToType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="TargetMode" type="SurveyModeEnum" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
   </xs:complexType>
@@ -207,6 +208,7 @@
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="declarationType" type="DeclarationTypeEnum"/>
+    <xs:attribute name="declarationMode" type="SurveyModeEnum"/>
     <xs:attribute name="position" type="DeclarationPositionEnum"/>
   </xs:complexType>
 
@@ -376,6 +378,15 @@
       <xs:enumeration value="INFO"/>
       <xs:enumeration value="WARN"/>
       <xs:enumeration value="ERROR"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SurveyModeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CAPI"/>
+      <xs:enumeration value="CATI"/>
+      <xs:enumeration value="CAWI"/>
+      <xs:enumeration value="PAPI"/>
     </xs:restriction>
   </xs:simpleType>
 
