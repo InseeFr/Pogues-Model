@@ -145,9 +145,16 @@
 
   <xs:complexType name="MappingType">
     <xs:sequence>
-      <xs:element name="MappingSource" type="xs:string"/>
-      <!-- XPath -->
-      <xs:element name="MappingTarget" type="xs:string"/>
+      <xs:element name="MappingSource" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Identifier of the response</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MappingTarget" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>n-uple giving the coordinates (1-based) of the target cell according to the dimensions, format "i j k"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <!-- XPath -->
     </xs:sequence>
   </xs:complexType>
