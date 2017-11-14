@@ -45,6 +45,7 @@
       <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="Control" type="ControlType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="GoTo" type="GoToType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="TargetMode" type="SurveyModeEnum" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
   </xs:complexType>
@@ -214,6 +215,7 @@
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="declarationType" type="DeclarationTypeEnum"/>
+    <xs:attribute name="declarationMode" type="SurveyModeEnum"/>
     <xs:attribute name="position" type="DeclarationPositionEnum"/>
   </xs:complexType>
 
@@ -243,6 +245,20 @@
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="criticity" type="ControlCriticityEnum"/>
+  </xs:complexType>
+
+  <xs:complexType name="FlowControlType">
+    <xs:sequence>
+      <xs:element name="Description" type="xs:string" minOccurs="0"/>
+      <xs:element name="Expression" type="ExpressionType"/>
+      <xs:element name="IfTrue" type="xs:token"/>
+      <xs:choice minOccurs="0">
+        <xs:element name="IfFalse" type="xs:token"/>
+        <xs:element name="Next" type="xs:token"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="generatedFrom" type="xs:token"/>
   </xs:complexType>
 
   <xs:complexType name="GoToType">
@@ -302,6 +318,7 @@
     <xs:sequence>
       <xs:element name="Value" type="xs:token"/>
       <xs:element name="Label" type="xs:string"/>
+      <xs:element name="Filter" type="ExpressionType" minOccurs="0"/> <!-- Specifies a condition for NOT displaying the code value -->
       <xs:element name="Parent" type="xs:token" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
@@ -369,6 +386,15 @@
       <xs:enumeration value="INFO"/>
       <xs:enumeration value="WARN"/>
       <xs:enumeration value="ERROR"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SurveyModeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CAPI"/>
+      <xs:enumeration value="CATI"/>
+      <xs:enumeration value="CAWI"/>
+      <xs:enumeration value="PAPI"/>
     </xs:restriction>
   </xs:simpleType>
 
