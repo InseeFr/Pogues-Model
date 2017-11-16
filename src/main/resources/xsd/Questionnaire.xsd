@@ -183,6 +183,7 @@
       <xs:element name="NonResponseModality" type="NonResponseModalityType" minOccurs="0"/>
       <xs:element name="CollectedVariableReference" type="xs:token"/>
     </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="simple" type="xs:boolean"/>
     <xs:attribute name="mandatory" type="xs:boolean"/>
   </xs:complexType>
