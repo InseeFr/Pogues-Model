@@ -44,6 +44,7 @@
       <xs:element name="Label" type="xs:token" maxOccurs="unbounded"/>
       <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="Control" type="ControlType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="FlowControl" type="FlowControlType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="GoTo" type="GoToType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="TargetMode" type="SurveyModeEnum" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
