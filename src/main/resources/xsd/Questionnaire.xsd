@@ -48,6 +48,9 @@
       <xs:element name="TargetMode" type="SurveyModeEnum" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="iteration" type="xs:string">
+      <xs:annotation><xs:documentation>Can be an XPath range expression (example 'for 1 to 5') or a script expression with variable placeholders, etc.</xs:documentation></xs:annotation>
+    </xs:attribute>
   </xs:complexType>
 
   <xs:element name="ComponentGroup">
