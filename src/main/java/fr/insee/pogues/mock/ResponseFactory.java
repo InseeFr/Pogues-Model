@@ -1,5 +1,6 @@
 package fr.insee.pogues.mock;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import fr.insee.pogues.model.DatatypeTypeEnum;
@@ -51,8 +52,8 @@ public class ResponseFactory {
 		} else if (datatypeSelector < 0.66) {
 			NumericDatatypeType numericType = new NumericDatatypeType();
 			numericType.setTypeName(DatatypeTypeEnum.NUMERIC);
-			numericType.setMinimum(BigInteger.valueOf(0));
-			numericType.setMaximum(BigInteger.valueOf(100));
+			numericType.setMinimum(BigDecimal.valueOf(0));
+			numericType.setMaximum(BigDecimal.valueOf(100));
 			response.setDatatype(numericType);		
 		} else {
 			DateDatatypeType dateType = new DateDatatypeType();
