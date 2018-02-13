@@ -86,6 +86,8 @@
 
   <xs:complexType name="VariableType" abstract="true">
     <xs:sequence>
+      <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
+      <xs:element name="Datatype" type="DatatypeType"/>
       <xs:element name="Name" type="xs:token"/>
       <xs:element name="Label" type="xs:token"/>
     </xs:sequence>
