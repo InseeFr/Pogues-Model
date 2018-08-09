@@ -41,7 +41,7 @@
   <xs:complexType name="ComponentType" abstract="true">
     <xs:sequence>
       <xs:element name="Name" type="xs:token"/>
-      <xs:element name="Label" type="xs:token" maxOccurs="unbounded"/>
+      <xs:element name="Label" type="xs:string" maxOccurs="unbounded"/>
       <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="Control" type="ControlType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="FlowControl" type="FlowControlType" minOccurs="0" maxOccurs="unbounded"/>
