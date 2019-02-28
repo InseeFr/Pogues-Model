@@ -348,8 +348,8 @@
     <xs:complexContent>
       <xs:extension base="DatatypeType">
         <xs:sequence>
-          <xs:element name="Minimum" type="xs:integer" minOccurs="0"/>
-          <xs:element name="Maximum" type="xs:integer" minOccurs="0"/>
+          <xs:element name="Minimum" type="xs:token" minOccurs="0"/>
+          <xs:element name="Maximum" type="xs:token" minOccurs="0"/>
           <xs:element name="Format" type="xs:token" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
