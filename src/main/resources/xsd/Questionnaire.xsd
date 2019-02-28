@@ -356,6 +356,18 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="DurationDatatypeType">
+    <xs:complexContent>
+      <xs:extension base="DatatypeType">
+        <xs:sequence>
+          <xs:element name="Minimum" type="xs:token" minOccurs="0"/>
+          <xs:element name="Maximum" type="xs:token" minOccurs="0"/>
+          <xs:element name="Format" type="xs:token" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="NumericDatatypeType">
     <xs:complexContent>
       <xs:extension base="DatatypeType">
@@ -384,6 +396,7 @@
     <xs:restriction base="xs:token">
       <xs:enumeration value="BOOLEAN"/>
       <xs:enumeration value="DATE"/>
+      <xs:enumeration value="DURATION"/>
       <xs:enumeration value="NUMERIC"/>
       <xs:enumeration value="TEXT"/>
     </xs:restriction>
