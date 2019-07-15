@@ -266,8 +266,18 @@
       </xs:choice>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="flowControlType" type="FlowControlTypeEnum"/>
     <xs:attribute name="generatedFrom" type="xs:token"/>
   </xs:complexType>
+
+  <xs:simpleType name="FlowControlTypeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CLARIFICATION">
+	    <xs:annotation><xs:documentation>Jump to a clarification question ('other, please specify')</xs:documentation></xs:annotation>
+	  </xs:enumeration>
+      <!-- We don't need other values for now -->
+    </xs:restriction>
+  </xs:simpleType>
 
   <xs:complexType name="GoToType">
     <xs:sequence>
