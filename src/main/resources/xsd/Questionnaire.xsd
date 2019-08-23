@@ -199,7 +199,7 @@
     <xs:sequence>
       <xs:element name="Label" type="xs:token"/>
       <xs:element name="Value" type="xs:anyType"/>
-      <xs:element name="Invite" type="xs:string" minOccurs="0"/>
+      <xs:element name="Probe" type="xs:string" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="firstIntentionDisplay" type="xs:boolean" use="required"/>
   </xs:complexType>
