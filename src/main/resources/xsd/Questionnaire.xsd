@@ -187,7 +187,7 @@
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
       <xs:element name="Datatype" type="DatatypeType"/>
       <xs:element name="Value" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="NonResponseModality" type="NonResponseModalityType" minOccurs="0"/>
+      <xs:element name="NonResponseModality" type="NonResponseModalityType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="CollectedVariableReference" type="xs:token"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
