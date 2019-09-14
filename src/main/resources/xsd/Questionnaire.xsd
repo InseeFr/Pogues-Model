@@ -75,7 +75,7 @@
         <xs:sequence>
           <xs:element name="Response" type="ResponseType" maxOccurs="unbounded"/>
           <xs:element name="ResponseStructure" type="ResponseStructureType" minOccurs="0"/>
-          <xs:element name="ClarificationQuestion" type="QuestionType" minOccurs="0"/>
+          <xs:element name="ClarificationQuestion" type="QuestionType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="questionType" type="QuestionTypeEnum"/>
       </xs:extension>
