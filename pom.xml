@@ -31,11 +31,6 @@
 			<version>2.4</version>
 		</dependency>
 		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet-core</artifactId>
-			<version>2.19</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 			<version>2.3</version>
@@ -44,11 +39,6 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.exist-db</groupId>
-			<artifactId>exist-core</artifactId>
-			<version>3.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -117,27 +107,6 @@
 								</resource>
 							</resources>
 						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.5.4</version>
-				<configuration>
-					<descriptors>
-						<descriptor>src/assembly/pogues-xquery-assembly.xml</descriptor>
-						<descriptor>src/assembly/pogues-rest-assembly.xml</descriptor>
-					</descriptors>
-					<finalName>pogues-model-${project.version}</finalName>
-					<appendAssemblyId>true</appendAssemblyId>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id> <!-- this is used for inheritance merges -->
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
 					</execution>
 				</executions>
 			</plugin>
