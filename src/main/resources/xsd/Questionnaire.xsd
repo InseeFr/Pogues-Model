@@ -101,9 +101,9 @@
     <xs:complexContent>
       <xs:extension base="IterationType">
         <xs:sequence>
-          <xs:element name="Minimum" type="xs:token" minOccurs="0"/>
-          <xs:element name="Maximum" type="xs:token" minOccurs="0"/>
-          <xs:element name="Step" type="xs:token" minOccurs="0"/>
+          <xs:element name="Minimum" type="xs:nonNegativeInteger" minOccurs="0"/>
+          <xs:element name="Maximum" type="xs:nonNegativeInteger" minOccurs="0"/>
+          <xs:element name="Step" type="xs:nonNegativeInteger" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -113,14 +113,16 @@
     <xs:complexContent>
       <xs:extension base="IterationType">
         <xs:sequence>
-          <!-- Could be a Roster (dynamic table) or an other iteration -->
-          <xs:element name="IterableRef" type="xs:token"/>
+          <xs:element name="IterableReference" type="xs:token">
+            <xs:annotation>
+              <xs:documentation>Could be a Roster (dynamic table) or another iteration</xs:documentation>
+            </xs:annotation>
+		  </xs:element>
           <xs:element name="Filter" type="ExpressionType" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  
 
   <!-- Variables -->
 
@@ -130,8 +132,11 @@
       <xs:element name="Datatype" type="DatatypeType"/>
       <xs:element name="Name" type="xs:token"/>
       <xs:element name="Label" type="xs:token"/>
-      <!-- Iteration ref --> 
-      <xs:element name="Scope" type="xs:token" minOccurs="0"/>
+      <xs:element name="Scope" type="xs:token" minOccurs="0">
+	    <xs:annotation>
+          <xs:documentation>Iteration reference (in which the variable has a local scope)</xs:documentation>
+        </xs:annotation>
+	  </xs:element>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
   </xs:complexType>
