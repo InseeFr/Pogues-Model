@@ -30,6 +30,13 @@
                 </xs:sequence>
               </xs:complexType>
             </xs:element>
+            <xs:element name="Iterations" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Iteration" type= "IterationType" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
           </xs:sequence>
           <xs:attribute name="agency" type="xs:token"/>
           <xs:attribute name="final" type="xs:boolean"/>
@@ -49,9 +56,6 @@
       <xs:element name="TargetMode" type="SurveyModeEnum" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
-    <xs:attribute name="iteration" type="xs:string">
-      <xs:annotation><xs:documentation>Can be an XPath range expression (example 'for 1 to 5') or a script expression with variable placeholders, etc.</xs:documentation></xs:annotation>
-    </xs:attribute>
   </xs:complexType>
 
   <xs:element name="ComponentGroup">
@@ -82,6 +86,44 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <!-- Iterations -->
+  
+  <xs:complexType name="IterationType" abstract="true">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:token"/>
+      <xs:element name="Label" type="xs:token" minOccurs="0"/>
+      <xs:element name="MemberReference" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="SequentialIterationType">
+    <xs:complexContent>
+      <xs:extension base="IterationType">
+        <xs:sequence>
+          <xs:element name="Minimum" type="xs:nonNegativeInteger" minOccurs="0"/>
+          <xs:element name="Maximum" type="xs:nonNegativeInteger" minOccurs="0"/>
+          <xs:element name="Step" type="xs:nonNegativeInteger" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:complexType name="DynamicIterationType">
+    <xs:complexContent>
+      <xs:extension base="IterationType">
+        <xs:sequence>
+          <xs:element name="IterableReference" type="xs:token">
+            <xs:annotation>
+              <xs:documentation>Could be a Roster (dynamic table) or another iteration</xs:documentation>
+            </xs:annotation>
+		  </xs:element>
+          <xs:element name="Filter" type="ExpressionType" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <!-- Variables -->
 
   <xs:complexType name="VariableType" abstract="true">
@@ -90,6 +132,11 @@
       <xs:element name="Datatype" type="DatatypeType"/>
       <xs:element name="Name" type="xs:token"/>
       <xs:element name="Label" type="xs:token"/>
+      <xs:element name="Scope" type="xs:token" minOccurs="0">
+	    <xs:annotation>
+          <xs:documentation>Iteration reference (in which the variable has a local scope)</xs:documentation>
+        </xs:annotation>
+	  </xs:element>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
   </xs:complexType>
