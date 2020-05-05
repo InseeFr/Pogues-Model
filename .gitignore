@@ -5,3 +5,5 @@ src/test/resources/*.xml
 .settings/
 .project
 .classpath
+.idea
+*.iml
