@@ -12,8 +12,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 
 import fr.insee.pogues.model.CodeLists;
@@ -33,7 +33,7 @@ public class XMLToJSONTranslator {
 		this.monitored = monitored;
 	}
 
-	private static final Logger logger = LogManager.getLogger(XMLToJSONTranslator.class);
+	private static final Logger logger = LoggerFactory.getLogger(XMLToJSONTranslator.class);
 
 	public String translate(File xmlFile) throws JAXBException, UnsupportedEncodingException {
 
