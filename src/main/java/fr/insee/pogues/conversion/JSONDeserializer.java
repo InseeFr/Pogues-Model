@@ -5,8 +5,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.eclipse.persistence.jaxb.UnmarshallerProperties;
 
 import fr.insee.pogues.model.Questionnaire;
@@ -15,7 +15,7 @@ public class JSONDeserializer {
 
 	public JSONDeserializer() {	}
 
-	private static final Logger logger = LogManager.getLogger(JSONDeserializer.class);
+	private static final Logger logger = LoggerFactory.getLogger(JSONDeserializer.class);
 
 	public Questionnaire deserialize(String fileName) throws JAXBException {
 

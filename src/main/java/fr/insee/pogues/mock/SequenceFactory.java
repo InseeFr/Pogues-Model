@@ -2,8 +2,8 @@ package fr.insee.pogues.mock;
 
 import java.math.BigInteger;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.insee.pogues.model.SequenceType;
 
@@ -13,7 +13,7 @@ public class SequenceFactory {
 	public static int ONLY_QUESTIONS_DEPTH = 3;
 	public static int MAX_CHILDREN_NUMBER = 5;
 
-	private static final Logger logger = LogManager.getLogger(SequenceFactory.class);
+	private static final Logger logger = LoggerFactory.getLogger(SequenceFactory.class);
 
 	public SequenceFactory() {}
 
