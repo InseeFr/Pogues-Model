@@ -37,6 +37,7 @@
                 </xs:sequence>
               </xs:complexType>
             </xs:element>
+            <xs:element name="FlowControl" type="FlowControlType" minOccurs="0" maxOccurs="unbounded"/>
           </xs:sequence>
           <xs:attribute name="agency" type="xs:token"/>
           <xs:attribute name="final" type="xs:boolean"/>
