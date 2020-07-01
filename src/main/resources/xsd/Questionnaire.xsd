@@ -113,11 +113,14 @@
     <xs:complexContent>
       <xs:extension base="IterationType">
         <xs:sequence>
+          <xs:element name="Minimum" type="xs:nonNegativeInteger" minOccurs="0"/>
+          <xs:element name="Maximum" type="xs:nonNegativeInteger" minOccurs="0"/>
+          <xs:element name="Step" type="xs:nonNegativeInteger" minOccurs="0"/>
           <xs:element name="IterableReference" type="xs:token">
             <xs:annotation>
               <xs:documentation>Could be a Roster (dynamic table) or another iteration</xs:documentation>
             </xs:annotation>
-		  </xs:element>
+          </xs:element>
           <xs:element name="Filter" type="ExpressionType" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
