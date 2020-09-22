@@ -309,7 +309,7 @@
       <xs:element name="IfTrue" type="xs:token"/>
       <xs:choice minOccurs="0">
         <xs:element name="IfFalse" type="xs:token"/>
-        <xs:element name="Next" type="xs:token"/>
+        <xs:element name="Next" type="FlowControlType"/>
       </xs:choice>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
