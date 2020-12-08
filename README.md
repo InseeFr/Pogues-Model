@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/InseeFr/Pogues-Model.svg?branch=master)](https://travis-ci.org/InseeFr/Pogues-Model)
+
 # Pogues model
 
 Classes and converters for the Pogues questionnaire model.
