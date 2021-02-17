@@ -40,7 +40,7 @@
           </xs:sequence>
           <xs:attribute name="agency" type="xs:token"/>
           <xs:attribute name="final" type="xs:boolean"/>
-          <xs:attribute name="dynamicSpecificationLogic" type="DynamicSpecificationLogicEnum"/>
+          <xs:attribute name="flowLogic" type="FlowLogicEnum"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -497,7 +497,7 @@
     </xs:restriction>
   </xs:simpleType>
   
-  <xs:simpleType name="DynamicSpecificationLogicEnum">
+  <xs:simpleType name="FlowLogicEnum">
     <xs:restriction base="xs:token">
       <xs:enumeration value="REDIRECTION"/>
       <xs:enumeration value="FILTER"/>
