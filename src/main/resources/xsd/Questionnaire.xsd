@@ -40,6 +40,7 @@
           </xs:sequence>
           <xs:attribute name="agency" type="xs:token"/>
           <xs:attribute name="final" type="xs:boolean"/>
+          <xs:attribute name="DynamicSpecificationLogic" type="DynamicSpecificationLogicEnum"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -493,6 +494,13 @@
       <xs:enumeration value="CHECKBOX"/>
       <xs:enumeration value="DROPDOWN"/>
       <xs:enumeration value="RADIO"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="DynamicSpecificationLogicEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="GOTO"/>
+      <xs:enumeration value="IFTHENELSE"/>
     </xs:restriction>
   </xs:simpleType>
 
