@@ -270,10 +270,10 @@
   <xs:complexType name="DeclarationType">
     <xs:sequence>
       <xs:element name="Text" type="xs:string"/>
+      <xs:element name="DeclarationMode" type="SurveyModeEnum" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="declarationType" type="DeclarationTypeEnum"/>
-    <xs:attribute name="declarationMode" type="SurveyModeEnum"/>
     <xs:attribute name="position" type="DeclarationPositionEnum"/>
   </xs:complexType>
 
