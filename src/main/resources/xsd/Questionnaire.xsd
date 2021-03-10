@@ -280,9 +280,8 @@
   <xs:simpleType name="DeclarationTypeEnum">
     <xs:restriction base="xs:token">
       <xs:enumeration value="INSTRUCTION"/>
-      <xs:enumeration value="COMMENT"/>
       <xs:enumeration value="HELP"/>
-      <xs:enumeration value="WARNING"/>
+      <xs:enumeration value="CODECARD"/>
     </xs:restriction>
   </xs:simpleType>
 
