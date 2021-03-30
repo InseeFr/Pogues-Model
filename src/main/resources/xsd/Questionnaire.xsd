@@ -114,7 +114,7 @@
     <xs:complexContent>
       <xs:extension base="IterationType">
         <xs:sequence>
-          <xs:element name="Minimum" type="xs:nonNegativeInteger" minOccurs="0"/>
+          <xs:element name="Minimum" type="ExpressionType" minOccurs="0"/>
           <xs:element name="Maximum" type="ExpressionType" minOccurs="0"/>
           <xs:element name="Step" type="xs:nonNegativeInteger" minOccurs="0"/>
           <xs:element name="IterableReference" type="xs:token">
