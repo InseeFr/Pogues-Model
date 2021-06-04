@@ -41,6 +41,7 @@
           <xs:attribute name="agency" type="xs:token"/>
           <xs:attribute name="final" type="xs:boolean"/>
           <xs:attribute name="flowLogic" type="FlowLogicEnum"/>
+          <xs:attribute name="formulasLanguage" type="FormulasLanguageEnum"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -500,6 +501,13 @@
     <xs:restriction base="xs:token">
       <xs:enumeration value="REDIRECTION"/>
       <xs:enumeration value="FILTER"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="FormulasLanguageEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="XPATH"/>
+      <xs:enumeration value="VTL"/>
     </xs:restriction>
   </xs:simpleType>
 
