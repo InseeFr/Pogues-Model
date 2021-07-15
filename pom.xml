@@ -4,7 +4,7 @@
 	<groupId>fr.insee.pogues</groupId>
 	<artifactId>pogues-model</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1</version>
+	<version>1.0.0</version>
 	<name>Pogues Model</name>
 	<description>Classes and converters for the Pogues model</description>
 	<url>http://www.insee.fr</url>
