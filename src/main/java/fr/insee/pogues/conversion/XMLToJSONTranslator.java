@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 
+import fr.insee.pogues.model.CodeList;
 import fr.insee.pogues.model.CodeLists;
 import fr.insee.pogues.model.QuestionType;
 import fr.insee.pogues.model.Questionnaire;
@@ -215,6 +216,52 @@ public class XMLToJSONTranslator {
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		marshaller.marshal(codeLists, baos);
+
+		logger.debug("Translation complete");
+
+		return baos.toString("UTF-8");
+	}
+	
+	public String translateCodeList(File xmlFile) throws JAXBException, UnsupportedEncodingException {
+
+		if (xmlFile == null)
+			return null;
+		StreamSource xml = new StreamSource(xmlFile);
+
+		return this.translateCodeList(xml);
+	}
+
+	public String translateCodeList(String xmlString) throws JAXBException, UnsupportedEncodingException {
+
+		if ((xmlString == null) || (xmlString.length() == 0))
+			return null;
+		StreamSource xml = new StreamSource(new StringReader(xmlString));
+
+		return this.translateCodeList(xml);
+	}
+
+	public String translateCodeList(StreamSource xmlStream) throws JAXBException, UnsupportedEncodingException {
+
+		if (xmlStream == null)
+			return null;
+
+		logger.debug("Preparing to translate from XML to JSON");
+
+		JAXBContext context = JAXBContext.newInstance(CodeLists.class);
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+		if (monitored)
+			unmarshaller.setListener(new UnmarshallLogger());
+
+		CodeList codeList = (CodeList) unmarshaller.unmarshal(xmlStream);
+
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, false);
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		marshaller.marshal(codeList, baos);
 
 		logger.debug("Translation complete");
 
