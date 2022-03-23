@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.insee.fr/schema/applis/pogues" targetNamespace="http://xml.insee.fr/schema/applis/pogues" elementFormDefault="qualified"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://xml.insee.fr/schema/applis/pogues"
+  targetNamespace="http://xml.insee.fr/schema/applis/pogues" elementFormDefault="qualified"
   attributeFormDefault="unqualified">
 
   <!-- TODO Internationalization -->
@@ -26,14 +28,16 @@
             <xs:element name="Variables" minOccurs="0">
               <xs:complexType>
                 <xs:sequence>
-                  <xs:element name="Variable" type= "VariableType" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="Variable" type="VariableType" minOccurs="0"
+                    maxOccurs="unbounded"/>
                 </xs:sequence>
               </xs:complexType>
             </xs:element>
             <xs:element name="Iterations" minOccurs="0">
               <xs:complexType>
                 <xs:sequence>
-                  <xs:element name="Iteration" type= "IterationType" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="Iteration" type="IterationType" minOccurs="0"
+                    maxOccurs="unbounded"/>
                 </xs:sequence>
               </xs:complexType>
             </xs:element>
@@ -81,7 +85,8 @@
         <xs:sequence>
           <xs:element name="Response" type="ResponseType" maxOccurs="unbounded"/>
           <xs:element name="ResponseStructure" type="ResponseStructureType" minOccurs="0"/>
-          <xs:element name="ClarificationQuestion" type="QuestionType" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="ClarificationQuestion" type="QuestionType" minOccurs="0"
+            maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="questionType" type="QuestionTypeEnum"/>
       </xs:extension>
@@ -89,7 +94,7 @@
   </xs:complexType>
 
   <!-- Iterations -->
-  
+
   <xs:complexType name="IterationType" abstract="true">
     <xs:sequence>
       <xs:element name="Name" type="xs:token"/>
@@ -110,7 +115,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  
+
   <xs:complexType name="DynamicIterationType">
     <xs:complexContent>
       <xs:extension base="IterationType">
@@ -120,7 +125,8 @@
           <xs:element name="Step" type="xs:nonNegativeInteger" minOccurs="0"/>
           <xs:element name="IterableReference" type="xs:token">
             <xs:annotation>
-              <xs:documentation>Could be a Roster (dynamic table) or another iteration</xs:documentation>
+              <xs:documentation>Could be a Roster (dynamic table) or another
+                iteration</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="Filter" type="ExpressionType" minOccurs="0"/>
@@ -138,10 +144,11 @@
       <xs:element name="Name" type="xs:token"/>
       <xs:element name="Label" type="xs:token"/>
       <xs:element name="Scope" type="xs:token" minOccurs="0">
-	    <xs:annotation>
-          <xs:documentation>Iteration reference (in which the variable has a local scope)</xs:documentation>
+        <xs:annotation>
+          <xs:documentation>Iteration reference (in which the variable has a local
+            scope)</xs:documentation>
         </xs:annotation>
-	  </xs:element>
+      </xs:element>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
   </xs:complexType>
@@ -183,14 +190,16 @@
       <xs:element name="Label" type="xs:string" minOccurs="0"/>
       <xs:element name="TotalLabel" type="xs:string" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>Indicates if the dimension has a 'total' item and if yes the corresponding label</xs:documentation>
+          <xs:documentation>Indicates if the dimension has a 'total' item and if yes the
+            corresponding label</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
     <xs:attribute name="dimensionType" type="DimensionTypeEnum" use="required"/>
     <xs:attribute name="dynamic" type="xs:token" use="required">
       <xs:annotation>
-        <xs:documentation>'0': no constraint; 'm-': min m, no max; '-n': no min, n max; 'm-n': m min, n max</xs:documentation>
+        <xs:documentation>'0': no constraint; 'm-': min m, no max; '-n': no min, n max; 'm-n': m
+          min, n max</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
@@ -212,7 +221,8 @@
       </xs:element>
       <xs:element name="MappingTarget" type="xs:string">
         <xs:annotation>
-          <xs:documentation>n-uple giving the coordinates (1-based) of the target cell according to the dimensions, format "i j k"</xs:documentation>
+          <xs:documentation>n-uple giving the coordinates (1-based) of the target cell according to
+            the dimensions, format "i j k"</xs:documentation>
         </xs:annotation>
       </xs:element>
       <!-- XPath -->
@@ -239,7 +249,8 @@
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
       <xs:element name="Datatype" type="DatatypeType"/>
       <xs:element name="Value" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="NonResponseModality" type="NonResponseModalityType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="NonResponseModality" type="NonResponseModalityType" minOccurs="0"
+        maxOccurs="unbounded"/>
       <xs:element name="CollectedVariableReference" type="xs:token"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
@@ -324,8 +335,11 @@
   <xs:simpleType name="FlowControlTypeEnum">
     <xs:restriction base="xs:token">
       <xs:enumeration value="CLARIFICATION">
-	    <xs:annotation><xs:documentation>Jump to a clarification question ('other, please specify')</xs:documentation></xs:annotation>
-	  </xs:enumeration>
+        <xs:annotation>
+          <xs:documentation>Jump to a clarification question ('other, please
+            specify')</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
       <!-- We don't need other values for now -->
     </xs:restriction>
   </xs:simpleType>
@@ -387,7 +401,8 @@
     <xs:sequence>
       <xs:element name="Value" type="xs:token"/>
       <xs:element name="Label" type="xs:string"/>
-      <xs:element name="Filter" type="ExpressionType" minOccurs="0"/> <!-- Specifies a condition for NOT displaying the code value -->
+      <xs:element name="Filter" type="ExpressionType" minOccurs="0"/>
+      <!-- Specifies a condition for NOT displaying the code value -->
       <xs:element name="Parent" type="xs:token" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
@@ -482,6 +497,22 @@
 
   <xs:simpleType name="QuestionTypeEnum">
     <xs:restriction base="xs:token">
+      <xs:annotation>
+        <xs:documentation>a SIMPLE question is a question made of a label and only one response
+          domain whichever its type be: text, numeric, date, boolean, or less frequently any type
+          available in the DDI schemas.</xs:documentation>
+        <xs:documentation>a SINGLE_CHOICE question is a question made of a label and a response
+          domain typed as a code list. This type of question allows to the respondent to select one
+          single response from a predefined list.</xs:documentation>
+        <xs:documentation>A MULTIPLE_CHOICE question is a question whose label is the mutual part of
+          several sub-questions (constituting a coherent whole i.e an information axis). Each
+          modality of the information axis is peculiar to a specific response domain. This type of
+          question allows to the respondent to select the best possible answers out of a number of
+          choices from a predefined list.</xs:documentation>
+        <xs:documentation>A TABLE is a two-way table. It's a question made of a label and a response
+          domain defined by two dimensions. The information located at the intersection of a row and
+          a column corresponds to a response.</xs:documentation>
+      </xs:annotation>
       <xs:enumeration value="SIMPLE"/>
       <xs:enumeration value="SINGLE_CHOICE"/>
       <xs:enumeration value="MULTIPLE_CHOICE"/>
@@ -496,14 +527,14 @@
       <xs:enumeration value="RADIO"/>
     </xs:restriction>
   </xs:simpleType>
-  
+
   <xs:simpleType name="FlowLogicEnum">
     <xs:restriction base="xs:token">
       <xs:enumeration value="REDIRECTION"/>
       <xs:enumeration value="FILTER"/>
     </xs:restriction>
   </xs:simpleType>
-  
+
   <xs:simpleType name="FormulasLanguageEnum">
     <xs:restriction base="xs:token">
       <xs:enumeration value="XPATH"/>
