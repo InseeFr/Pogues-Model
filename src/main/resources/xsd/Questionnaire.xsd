@@ -245,6 +245,10 @@
   <!-- TODO On pourrait aussi limiter les attributs à leurs valeurs et utiliser des mappings pour les associer -->
 
   <xs:complexType name="ResponseType">
+    <xs:annotation>
+      <xs:documentation> - NonResponseModality : specify the non response specific modality (the
+        most significant case is the modality "Don't know" or later "Refusal") </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
       <xs:element name="Datatype" type="DatatypeType"/>
@@ -259,6 +263,11 @@
   </xs:complexType>
 
   <xs:complexType name="NonResponseModalityType">
+    <xs:annotation>
+      <xs:documentation>A non response modality is defined by: - a Label (the label of the modality)
+        - a Value (the Value of the code) - a firstIntentionDisplay : an boolean with first
+        intention or not (the dynamic behaviour in the generated questionnaire) </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element name="Label" type="xs:token"/>
       <xs:element name="Value" type="xs:anyType"/>
