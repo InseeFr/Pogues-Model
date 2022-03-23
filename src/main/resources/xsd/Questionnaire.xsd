@@ -143,6 +143,11 @@
   <!-- Variables -->
 
   <xs:complexType name="VariableType" abstract="true">
+    <xs:annotation>
+      <xs:documentation>
+        VariableType base type, which is extended by types for collected (CollectedVariableType), calculated (CalculatedVariableType) and external (ExternalVariableType) variables.
+      </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
       <xs:element name="Datatype" type="DatatypeType"/>
@@ -159,12 +164,22 @@
   </xs:complexType>
 
   <xs:complexType name="CollectedVariableType">
+    <xs:annotation>
+      <xs:documentation>
+        A collected variable is a statistical variable collected within a questionnaire for the survey need.
+      </xs:documentation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="VariableType"/>
     </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType name="CalculatedVariableType">
+    <xs:annotation>
+      <xs:documentation>
+      A calculated variable is a variable calculated from others variables including the calculated variables.
+    </xs:documentation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="VariableType">
         <xs:sequence>
@@ -175,6 +190,12 @@
   </xs:complexType>
 
   <xs:complexType name="ExternalVariableType">
+    <xs:annotation>
+      <xs:documentation>
+        An external variable refers to a variable not collected in the questionnaire, but useful for personalization.
+      For example, it may be a collection wave number for filtering questions, a date to be displayed in the wording of a question, etc.
+      </xs:documentation>
+    </xs:annotation>
     <xs:complexContent>
       <xs:extension base="VariableType"/>
     </xs:complexContent>
