@@ -18,6 +18,11 @@
   </xs:element>
 
   <xs:element name="Questionnaire">
+    <xs:annotation>
+      <xs:documentation>
+        - final : boolean attrubute indicating if the questionnaire is final or not
+      </xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="SequenceType">
