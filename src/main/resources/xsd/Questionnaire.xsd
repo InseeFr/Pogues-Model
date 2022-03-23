@@ -65,13 +65,18 @@
   </xs:complexType>
 
   <xs:element name="ComponentGroup">
+    <xs:annotation>
+      <xs:documentation>In some cases it make sense to have full components (e.g. components
+        imported from repository and not yet placed on the questionnaire), so to have both "Member"
+        (a list of members which could be empty) and "MemberReference" (a list of member references).</xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
         <xs:element name="Name" type="xs:token"/>
         <xs:element name="Label" type="xs:token" maxOccurs="unbounded"/>
         <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="Member" type="ComponentType" minOccurs="0" maxOccurs="unbounded"/>
-        <!-- Could be a REFID -->
+        <!-- Could be a reference ID -->
         <xs:element name="MemberReference" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attribute name="id" type="xs:ID" use="required"/>
@@ -264,9 +269,10 @@
 
   <xs:complexType name="NonResponseModalityType">
     <xs:annotation>
-      <xs:documentation>A non response modality is defined by: - a Label (the label of the modality)
-        - a Value (the Value of the code) - a firstIntentionDisplay : an boolean with first
-        intention or not (the dynamic behaviour in the generated questionnaire) </xs:documentation>
+      <xs:documentation> A non response modality is defined by: - a Label (the label of the
+        modality) - a Value (the Value of the code) - a firstIntentionDisplay : an boolean with
+        first intention or not (the dynamic behaviour in the generated questionnaire)
+      </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="Label" type="xs:token"/>
