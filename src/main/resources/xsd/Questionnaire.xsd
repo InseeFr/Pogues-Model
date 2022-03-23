@@ -7,6 +7,12 @@
   <!-- TODO Internationalization -->
 
   <xs:element name="DataCollection">
+    <xs:annotation>
+      <xs:documentation>
+        - DataCollection : A data collection (or a data collection campaign) is a survey data collection realization period. Each data collection can contain one ore several questionnaire.
+        It's characterised by a statistical operation and a period (M01 - January,...,T02 - Second quarter,etc.). 
+      </xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
         <xs:element name="Name" type="xs:token"/>
@@ -20,6 +26,7 @@
   <xs:element name="Questionnaire">
     <xs:annotation>
       <xs:documentation>
+        - DataCollection : a questionnaire can be attached to several data collections. 
         - final : boolean attrubute indicating if the questionnaire is final or not
       </xs:documentation>
     </xs:annotation>
