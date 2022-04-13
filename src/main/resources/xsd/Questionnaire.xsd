@@ -8,10 +8,10 @@
 
   <xs:element name="DataCollection">
     <xs:annotation>
-      <xs:documentation>
-        - DataCollection : A data collection (or a data collection campaign) is a survey data collection realization period. Each data collection can contain one ore several questionnaire.
-        It's characterised by a statistical operation and a period (M01 - January,...,T02 - Second quarter,etc.). 
-      </xs:documentation>
+      <xs:documentation> - DataCollection : A data collection (or a data collection campaign) is a
+        survey data collection realization period. Each data collection can contain one ore several
+        questionnaire. It's characterised by a statistical operation and a period (M01 -
+        January,...,T02 - Second quarter,etc.). </xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -25,9 +25,8 @@
 
   <xs:element name="Questionnaire">
     <xs:annotation>
-      <xs:documentation>
-        - DataCollection : a questionnaire can be attached to several data collections. 
-        - final : boolean attrubute indicating if the questionnaire is final or not
+      <xs:documentation> - DataCollection : a questionnaire can be attached to several data
+        collections. - final : boolean attrubute indicating if the questionnaire is final or not
       </xs:documentation>
     </xs:annotation>
     <xs:complexType>
@@ -64,6 +63,10 @@
   </xs:element>
 
   <xs:complexType name="ComponentType" abstract="true">
+    <xs:annotation>
+      <xs:documentation> - TargetMode : Survey mode of component (CAPI, CATI, CAWI, PAPI).
+      </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element name="Name" type="xs:token"/>
       <xs:element name="Label" type="xs:string" maxOccurs="unbounded"/>
@@ -80,7 +83,8 @@
     <xs:annotation>
       <xs:documentation>In some cases it make sense to have full components (e.g. components
         imported from repository and not yet placed on the questionnaire), so to have both "Member"
-        (a list of members which could be empty) and "MemberReference" (a list of member references).</xs:documentation>
+        (a list of members which could be empty) and "MemberReference" (a list of member
+        references).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -146,7 +150,12 @@
                 iteration</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="Filter" type="ExpressionType" minOccurs="0"/>
+          <xs:element name="Filter" type="ExpressionType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation> Specifies a condition for filter for NOT displaying the code value
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -156,9 +165,9 @@
 
   <xs:complexType name="VariableType" abstract="true">
     <xs:annotation>
-      <xs:documentation>
-        VariableType base type, which is extended by types for collected (CollectedVariableType), calculated (CalculatedVariableType) and external (ExternalVariableType) variables.
-      </xs:documentation>
+      <xs:documentation> VariableType base type, which is extended by types for collected
+        (CollectedVariableType), calculated (CalculatedVariableType) and external
+        (ExternalVariableType) variables. </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
@@ -177,9 +186,8 @@
 
   <xs:complexType name="CollectedVariableType">
     <xs:annotation>
-      <xs:documentation>
-        A collected variable is a statistical variable collected within a questionnaire for the survey need.
-      </xs:documentation>
+      <xs:documentation> A collected variable is a statistical variable collected within a
+        questionnaire for the survey need. </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="VariableType"/>
@@ -188,9 +196,8 @@
 
   <xs:complexType name="CalculatedVariableType">
     <xs:annotation>
-      <xs:documentation>
-      A calculated variable is a variable calculated from others variables including the calculated variables.
-    </xs:documentation>
+      <xs:documentation> A calculated variable is a variable calculated from others variables
+        including the calculated variables. </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="VariableType">
@@ -203,9 +210,9 @@
 
   <xs:complexType name="ExternalVariableType">
     <xs:annotation>
-      <xs:documentation>
-        An external variable refers to a variable not collected in the questionnaire, but useful for personalization.
-      For example, it may be a collection wave number for filtering questions, a date to be displayed in the wording of a question, etc.
+      <xs:documentation> An external variable refers to a variable not collected in the
+        questionnaire, but useful for personalization. For example, it may be a collection wave
+        number for filtering questions, a date to be displayed in the wording of a question, etc.
       </xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -329,6 +336,10 @@
   </xs:complexType>
 
   <xs:complexType name="DeclarationType">
+    <xs:annotation>
+      <xs:documentation> - DeclarationMode : Survey mode of declaration (CAPI, CATI, CAWI, PAPI).
+      </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element name="Text" type="xs:string"/>
       <xs:element name="DeclarationMode" type="SurveyModeEnum" minOccurs="0" maxOccurs="unbounded"/>
@@ -449,8 +460,12 @@
     <xs:sequence>
       <xs:element name="Value" type="xs:token"/>
       <xs:element name="Label" type="xs:string"/>
-      <xs:element name="Filter" type="ExpressionType" minOccurs="0"/>
-      <!-- Specifies a condition for NOT displaying the code value -->
+      <xs:element name="Filter" type="ExpressionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Specifies a condition for NOT displaying the code
+            value</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="Parent" type="xs:token" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
@@ -536,35 +551,62 @@
 
   <xs:simpleType name="SurveyModeEnum">
     <xs:restriction base="xs:token">
-      <xs:enumeration value="CAPI"/>
-      <xs:enumeration value="CATI"/>
-      <xs:enumeration value="CAWI"/>
-      <xs:enumeration value="PAPI"/>
+      <xs:enumeration value="CAPI">
+        <xs:annotation>
+          <xs:documentation> Computer-Assisted Personal Interviewing (CAPI) mode </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CATI">
+        <xs:annotation>
+          <xs:documentation> Computer Assisted Telephone Interviewing (CATI) mode
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CAWI">
+        <xs:annotation>
+          <xs:documentation> Computer-assisted web interviewing (CAWI) mode </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PAPI">
+        <xs:annotation>
+          <xs:documentation> Paper-and-pencil interviewing (PAPI) mode </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="QuestionTypeEnum">
     <xs:restriction base="xs:token">
-      <xs:annotation>
-        <xs:documentation>a SIMPLE question is a question made of a label and only one response
-          domain whichever its type be: text, numeric, date, boolean, or less frequently any type
-          available in the DDI schemas.</xs:documentation>
-        <xs:documentation>a SINGLE_CHOICE question is a question made of a label and a response
-          domain typed as a code list. This type of question allows to the respondent to select one
-          single response from a predefined list.</xs:documentation>
-        <xs:documentation>A MULTIPLE_CHOICE question is a question whose label is the mutual part of
-          several sub-questions (constituting a coherent whole i.e an information axis). Each
-          modality of the information axis is peculiar to a specific response domain. This type of
-          question allows to the respondent to select the best possible answers out of a number of
-          choices from a predefined list.</xs:documentation>
-        <xs:documentation>A TABLE is a two-way table. It's a question made of a label and a response
-          domain defined by two dimensions. The information located at the intersection of a row and
-          a column corresponds to a response.</xs:documentation>
-      </xs:annotation>
-      <xs:enumeration value="SIMPLE"/>
-      <xs:enumeration value="SINGLE_CHOICE"/>
-      <xs:enumeration value="MULTIPLE_CHOICE"/>
-      <xs:enumeration value="TABLE"/>
+      <xs:enumeration value="SIMPLE">
+        <xs:annotation>
+          <xs:documentation>a SIMPLE question is a question made of a label and only one response
+            domain whichever its type be: text, numeric, date, boolean, or less frequently any type
+            available in the DDI schemas.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SINGLE_CHOICE">
+        <xs:annotation>
+          <xs:documentation>a SINGLE_CHOICE question is a question made of a label and a response
+            domain typed as a code list. This type of question allows to the respondent to select
+            one single response from a predefined list.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MULTIPLE_CHOICE">
+        <xs:annotation>
+          <xs:documentation>A MULTIPLE_CHOICE question is a question whose label is the mutual part
+            of several sub-questions (constituting a coherent whole i.e an information axis). Each
+            modality of the information axis is peculiar to a specific response domain. This type of
+            question allows to the respondent to select the best possible answers out of a number of
+            choices from a predefined list.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TABLE">
+        <xs:annotation>
+          <xs:documentation>A TABLE is a two-way table. It's a question made of a label and a
+            response domain defined by two dimensions. The information located at the intersection
+            of a row and a column corresponds to a response. </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 
