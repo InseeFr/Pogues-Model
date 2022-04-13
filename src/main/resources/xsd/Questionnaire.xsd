@@ -55,7 +55,14 @@
           </xs:sequence>
           <xs:attribute name="agency" type="xs:token"/>
           <xs:attribute name="final" type="xs:boolean"/>
-          <xs:attribute name="flowLogic" type="FlowLogicEnum"/>
+          <xs:attribute name="flowLogic" type="FlowLogicEnum">
+            <xs:annotation>
+              <xs:documentation> Survey designer should have the possibility to choose if they
+                prefer to describe the dynamic of their questionnaire (jump directly to a question,
+                a sequence or a subsequence according to a condition on some variables) with a GoTo
+                or an IfThenElse logic. </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
           <xs:attribute name="formulasLanguage" type="FormulasLanguageEnum"/>
         </xs:extension>
       </xs:complexContent>
@@ -72,7 +79,12 @@
       <xs:element name="Label" type="xs:string" maxOccurs="unbounded"/>
       <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="Control" type="ControlType" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="FlowControl" type="FlowControlType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="FlowControl" type="FlowControlType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation> The FlowControl element is used in two ways : as a GoTo only used in a
+            question and as a Filtrer only used in the questionnaire. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="GoTo" type="GoToType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="TargetMode" type="SurveyModeEnum" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
@@ -351,9 +363,27 @@
 
   <xs:simpleType name="DeclarationTypeEnum">
     <xs:restriction base="xs:token">
-      <xs:enumeration value="INSTRUCTION"/>
-      <xs:enumeration value="HELP"/>
-      <xs:enumeration value="CODECARD"/>
+      <xs:enumeration value="INSTRUCTION">
+        <xs:annotation>
+          <xs:documentation>
+            INSTRUCTION : when the declaration concerns only the interviewer (CAPI or CATI mode).
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HELP">
+        <xs:annotation>
+          <xs:documentation>
+            HELP : when the declaration concerns the respondent, whatever the mode.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CODECARD">
+        <xs:annotation>
+          <xs:documentation>
+            CODECARD : for questions where the interviewer will be required to present a code card to the respondent (CAPI Mode).
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 
@@ -383,7 +413,12 @@
       <xs:element name="IfTrue" type="xs:token"/>
       <xs:choice minOccurs="0">
         <xs:element name="IfFalse" type="xs:token"/>
-        <xs:element name="Next" type="FlowControlType"/>
+        <xs:element name="Next" type="FlowControlType">
+          <xs:annotation>
+            <xs:documentation> This element is used to model nested filters. It reference a
+              FlowControl (as so as recursive element). </xs:documentation>
+          </xs:annotation>
+        </xs:element>
       </xs:choice>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
@@ -620,8 +655,20 @@
 
   <xs:simpleType name="FlowLogicEnum">
     <xs:restriction base="xs:token">
-      <xs:enumeration value="REDIRECTION"/>
-      <xs:enumeration value="FILTER"/>
+      <xs:enumeration value="REDIRECTION">
+        <xs:annotation>
+          <xs:documentation>GoTo logic : condition the hiding of certain elements of the
+            questionnaire: jump from a starting element to a target element according to a certain
+            condition.</xs:documentation>
+        </xs:annotation>
+
+      </xs:enumeration>
+      <xs:enumeration value="FILTER">
+        <xs:annotation>
+          <xs:documentation>IfThenElse logic : condition the display of a sequence, sub-sequence or
+            a set of questions.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 
