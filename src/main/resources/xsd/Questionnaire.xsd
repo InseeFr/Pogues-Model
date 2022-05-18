@@ -4,8 +4,6 @@
   targetNamespace="http://xml.insee.fr/schema/applis/pogues" elementFormDefault="qualified"
   attributeFormDefault="unqualified">
 
-  <!-- TODO Internationalization -->
-
   <xs:element name="DataCollection">
     <xs:annotation>
       <xs:documentation> DataCollection : A data collection (or a data collection campaign) is a
@@ -51,6 +49,10 @@
             <xs:element ref="ComponentGroup" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element ref="CodeLists" minOccurs="0"/>
             <xs:element name="Variables" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Variables contain all questionnaire's variables (external,
+                  collected, etc)</xs:documentation>
+              </xs:annotation>
               <xs:complexType>
                 <xs:sequence>
                   <xs:element name="Variable" type="VariableType" minOccurs="0"
@@ -62,7 +64,17 @@
               <xs:complexType>
                 <xs:sequence>
                   <xs:element name="Iteration" type="IterationType" minOccurs="0"
-                    maxOccurs="unbounded"/>
+                    maxOccurs="unbounded">
+                    <xs:annotation>
+                      <xs:documentation> A loop is an iteration (according to one criterion) on a
+                        group of questions.</xs:documentation>
+                      <xs:documentation>- The group of questions is equivalent to a sequence (=
+                        Module) or a sub-sequence (= sub-module).</xs:documentation>
+                      <xs:documentation>- an iteration criterion is a condition defining the number
+                        of times the question group is repeated. It can simply be (considering that
+                        by default we start at 1 and that the step is 1).</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
                 </xs:sequence>
               </xs:complexType>
             </xs:element>
@@ -75,6 +87,7 @@
           </xs:attribute>
           <xs:attribute name="final" type="xs:boolean">
             <xs:annotation>
+              <xs:documentation>NOT FUNCTIONAL</xs:documentation>
               <xs:documentation>final : boolean attrubute indicating if the questionnaire is final
                 or not</xs:documentation>
             </xs:annotation>
@@ -99,14 +112,15 @@
   </xs:element>
 
   <xs:complexType name="ComponentType" abstract="true">
-    <xs:annotation>
-      <xs:documentation> - TargetMode : Survey mode of component (CAPI, CATI, CAWI, PAPI).
-      </xs:documentation>
-    </xs:annotation>
     <xs:sequence>
       <xs:element name="Name" type="xs:token"/>
       <xs:element name="Label" type="xs:string" maxOccurs="unbounded"/>
-      <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>A "Declaration" is information backed by a question or a sequence that
+            gives information to the respondent or investigator.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="Control" type="ControlType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="FlowControl" type="FlowControlType" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
@@ -179,17 +193,6 @@
     <xs:attribute name="id" type="xs:ID" use="required"/>
   </xs:complexType>
 
-  <xs:complexType name="SequentialIterationType">
-    <xs:complexContent>
-      <xs:extension base="IterationType">
-        <xs:sequence>
-          <xs:element name="Minimum" type="xs:nonNegativeInteger" minOccurs="0"/>
-          <xs:element name="Maximum" type="xs:nonNegativeInteger" minOccurs="0"/>
-          <xs:element name="Step" type="xs:nonNegativeInteger" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
 
   <xs:complexType name="DynamicIterationType">
     <xs:complexContent>
@@ -282,9 +285,18 @@
   <xs:complexType name="ResponseStructureType">
     <xs:sequence>
       <xs:element name="Dimension" type="DimensionType" maxOccurs="unbounded"/>
-      <xs:element name="Attribute" type="AttributeType" minOccurs="0" maxOccurs="unbounded"/>
-      <!-- Is this useful? Can it be a type of mapping? -->
-      <xs:element name="Mapping" type="MappingType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Attribute" type="AttributeType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Used to model "No data by definition" ((a no meaning
+            intersection))</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Mapping" type="MappingType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Mapping makes it possible to make the link between the box and the
+            answer.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
@@ -310,9 +322,18 @@
 
   <xs:complexType name="AttributeType">
     <xs:sequence>
-      <xs:element name="AttributeValue" type="xs:string"/>
-      <xs:element name="AttributeTarget" type="xs:string"/>
-      <!-- XPath -->
+      <xs:element name="AttributeValue" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>In the case of a "no data by definition", is
+            "NoDataByDefinition"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AttributeTarget" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>n-uple giving the coordinates (1-based) of the target cell according to
+            the dimensions, format "i" (one dimension) or "i j" (two dimensions)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
@@ -326,7 +347,7 @@
       <xs:element name="MappingTarget" type="xs:string">
         <xs:annotation>
           <xs:documentation>n-uple giving the coordinates (1-based) of the target cell according to
-            the dimensions, format "i j k"</xs:documentation>
+            the dimensions, format "i" (one dimension) or "i j" (two dimensions)</xs:documentation>
         </xs:annotation>
       </xs:element>
       <!-- XPath -->
@@ -335,9 +356,29 @@
 
   <xs:simpleType name="DimensionTypeEnum">
     <xs:restriction base="xs:token">
-      <xs:enumeration value="PRIMARY"/>
-      <xs:enumeration value="SECONDARY"/>
-      <xs:enumeration value="MEASURE"/>
+      <xs:enumeration value="PRIMARY">
+        <xs:annotation>
+          <xs:documentation>In a fixed table (with row header in the first column and without the
+            possibility of dynamically adding a row to the table), the primary information axis
+            corresponds to the left column.</xs:documentation>
+          <xs:documentation>In a roster question (without a first column row header and with the
+            ability to dynamically add a row to the table), the primary information is the main (and
+            single) axis of information.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SECONDARY">
+        <xs:annotation>
+          <xs:documentation>In a fixed table with double entry, the secondary information axis
+            corresponds to the information in the column header (secondary axis).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MEASURE">
+        <xs:annotation>
+          <xs:documentation>This is the information measured (only one if secondary information
+            axis, one or more possible otherwise). Simple Answer or Single Choice Response
+            Information.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 
@@ -391,18 +432,6 @@
           <xs:documentation>The Value of the code</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="Probe" type="xs:string" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>NOT USED</xs:documentation>
-          <xs:documentation>Probing is a common technique that researchers use in
-            interviewer-administered surveys when respondents initially refuse to answer a question
-            or say they "don't know." Interviewers are trained to use neutral probing techniques --
-            such as "Would you lean more toward [answer] or [answer]?" or "Just your best guess is
-            fine" -- to encourage valid responses. Probing can be particularly effective when
-            respondents initially hesitate to provide an answer, and it can increase the number of
-            valid responses.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
     </xs:sequence>
     <xs:attribute name="firstIntentionDisplay" type="xs:boolean" use="required">
       <xs:annotation>
@@ -420,21 +449,35 @@
           <xs:element name="Child" type="ComponentType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="depth" type="xs:nonNegativeInteger"/>
-        <xs:attribute name="genericName" type="xs:token"/>
+        <xs:attribute name="genericName" type="xs:token">
+          <xs:annotation>
+            <xs:documentation>\Eno\src\main\resources\xslt\inputs\pogues-xml\source-fixed.xsl</xs:documentation>
+            <xs:documentation>Type of Sequence : "QUESTIONNAIRE", "MODULE" or
+              "SUBMODULE"</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType name="DeclarationType">
     <xs:sequence>
-      <xs:element name="Text" type="xs:string"/>
+      <xs:element name="Text" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Text of the declaration.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="DeclarationMode" type="SurveyModeEnum" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
-          <xs:documentation>Survey mode of declaration.</xs:documentation>
+          <xs:documentation>Survey modes of declaration.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
-    <xs:attribute name="id" type="xs:ID" use="required"/>
+    <xs:attribute name="id" type="xs:ID" use="required">
+      <xs:annotation>
+        <xs:documentation>Identifier of the declaration.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute name="declarationType" type="DeclarationTypeEnum">
       <xs:annotation>
         <xs:documentation>Type of declaration.</xs:documentation>
@@ -477,19 +520,9 @@
           <xs:documentation> After question label position. </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="AFTER_RESPONSE">
-        <xs:annotation>
-          <xs:documentation>NOT USED</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="BEFORE_QUESTION_TEXT">
         <xs:annotation>
           <xs:documentation> Before question label position. </xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="DETACHABLE">
-        <xs:annotation>
-          <xs:documentation>NOT USED</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
@@ -635,7 +668,12 @@
         <xs:sequence>
           <xs:element name="Minimum" type="xs:token" minOccurs="0"/>
           <xs:element name="Maximum" type="xs:token" minOccurs="0"/>
-          <xs:element name="Format" type="xs:token" minOccurs="0"/>
+          <xs:element name="Format" type="xs:token" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>date output format among YYYY-MM-DD, YYYY-MM and
+                YYYY.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -647,7 +685,11 @@
         <xs:sequence>
           <xs:element name="Minimum" type="xs:token" minOccurs="0"/>
           <xs:element name="Maximum" type="xs:token" minOccurs="0"/>
-          <xs:element name="Format" type="xs:token" minOccurs="0"/>
+          <xs:element name="Format" type="xs:token" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -675,8 +717,19 @@
     <xs:complexContent>
       <xs:extension base="DatatypeType">
         <xs:sequence>
-          <xs:element name="MaxLength" type="xs:positiveInteger" minOccurs="0"/>
-          <xs:element name="Pattern" type="xs:token" minOccurs="0"/>
+          <xs:element name="MaxLength" type="xs:positiveInteger" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Maximum text response size in number of
+                characters</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Pattern" type="xs:token" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>NOT FUNCTIONAL</xs:documentation>
+              <xs:documentation>The pattern allows you to specify regular
+                expressions.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -693,6 +746,9 @@
   </xs:simpleType>
 
   <xs:simpleType name="ControlCriticityEnum">
+    <xs:annotation>
+      <xs:documentation>NOT FUNCTIONAL</xs:documentation>
+    </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="INFO"/>
       <xs:enumeration value="WARN"/>
