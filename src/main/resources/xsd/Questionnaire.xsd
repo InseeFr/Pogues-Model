@@ -4,6 +4,13 @@
   targetNamespace="http://xml.insee.fr/schema/applis/pogues" elementFormDefault="qualified"
   attributeFormDefault="unqualified">
 
+
+  <xs:annotation>
+    <xs:documentation>The Pogues data model is highly inspired by the DDI model. See the DDI
+      documentation :
+      https://ddialliance.org/Specification/DDI-Lifecycle/3.3/XMLSchema/FieldLevelDocumentation/</xs:documentation>
+  </xs:annotation>
+
   <xs:element name="DataCollection">
     <xs:annotation>
       <xs:documentation> DataCollection : A data collection (or a data collection campaign) is a
@@ -31,7 +38,7 @@
           <xs:documentation>URI to external datacollection reference.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="agency" type="xs:token">
+      <xs:attribute name="agency" type="xs:token" default="com.example">
         <xs:annotation>
           <xs:documentation>Agency of Datacollection. It's optional. Exemple :
             "fr.insee".</xs:documentation>
@@ -41,12 +48,22 @@
   </xs:element>
 
   <xs:element name="Questionnaire">
+    <xs:annotation>
+      <xs:documentation>A questionnaire in the sense of Pogues is an entire questionnaire template
+        or an independent part of an questionnaire.</xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="SequenceType">
           <xs:sequence>
             <xs:element ref="DataCollection" maxOccurs="unbounded"/>
-            <xs:element ref="ComponentGroup" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="ComponentGroup" minOccurs="0" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation>ComponentGroup currently contains the references of all objects in
+                  the questionnaire. This object was originally created for pagination which is not
+                  currently implemented in Pogues.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
             <xs:element ref="CodeLists" minOccurs="0"/>
             <xs:element name="Variables" minOccurs="0">
               <xs:annotation>
@@ -79,7 +96,7 @@
               </xs:complexType>
             </xs:element>
           </xs:sequence>
-          <xs:attribute name="agency" type="xs:token">
+          <xs:attribute name="agency" type="xs:token" default="com.example">
             <xs:annotation>
               <xs:documentation>Agency of Questionnaire. It's optional. Exemple :
                 "fr.insee".</xs:documentation>
@@ -87,7 +104,6 @@
           </xs:attribute>
           <xs:attribute name="final" type="xs:boolean">
             <xs:annotation>
-              <xs:documentation>NOT FUNCTIONAL</xs:documentation>
               <xs:documentation>final : boolean attrubute indicating if the questionnaire is final
                 or not</xs:documentation>
             </xs:annotation>
@@ -117,8 +133,8 @@
       <xs:element name="Label" type="xs:string" maxOccurs="unbounded"/>
       <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
-          <xs:documentation>A "Declaration" is information backed by a question or a sequence that
-            gives information to the respondent or investigator.</xs:documentation>
+          <xs:documentation>A "Declaration" is information related to a question or a sequence that
+            gives information to the respondent or interviewer.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="Control" type="ControlType" minOccurs="0" maxOccurs="unbounded"/>
@@ -149,7 +165,6 @@
       <xs:sequence>
         <xs:element name="Name" type="xs:token"/>
         <xs:element name="Label" type="xs:token" maxOccurs="unbounded"/>
-        <xs:element name="Declaration" type="DeclarationType" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="Member" type="ComponentType" minOccurs="0" maxOccurs="unbounded"/>
         <!-- Could be a reference ID -->
         <xs:element name="MemberReference" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
@@ -397,6 +412,7 @@
       <xs:element name="NonResponseModality" type="NonResponseModalityType" minOccurs="0"
         maxOccurs="unbounded">
         <xs:annotation>
+          <xs:documentation>NOT USED</xs:documentation>
           <xs:documentation>NonResponseModality : specify the non response specific modality (the
             most significant case is the modality "Don't know" or later
             "Refusal")</xs:documentation>
@@ -449,7 +465,7 @@
           <xs:element name="Child" type="ComponentType" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="depth" type="xs:nonNegativeInteger"/>
-        <xs:attribute name="genericName" type="xs:token">
+        <xs:attribute name="genericName" type="GenericNameEnum">
           <xs:annotation>
             <xs:documentation>\Eno\src\main\resources\xslt\inputs\pogues-xml\source-fixed.xsl</xs:documentation>
             <xs:documentation>Type of Sequence : "QUESTIONNAIRE", "MODULE" or
@@ -531,7 +547,11 @@
   <xs:complexType name="ControlType">
     <xs:sequence>
       <xs:element name="Description" type="xs:string"/>
-      <xs:element name="Expression" type="ExpressionType"/>
+      <xs:element name="Expression" type="ExpressionType">
+        <xs:annotation>
+          <xs:documentation>quand il doit se déclencher</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="FailMessage" type="xs:string" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
@@ -543,19 +563,9 @@
       <xs:element name="Description" type="xs:string" minOccurs="0"/>
       <xs:element name="Expression" type="ExpressionType"/>
       <xs:element name="IfTrue" type="xs:token"/>
-      <xs:choice minOccurs="0">
-        <xs:element name="IfFalse" type="xs:token"/>
-        <xs:element name="Next" type="FlowControlType">
-          <xs:annotation>
-            <xs:documentation> This element is used to model nested filters. It reference a
-              FlowControl (as so as recursive element). </xs:documentation>
-          </xs:annotation>
-        </xs:element>
-      </xs:choice>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="flowControlType" type="FlowControlTypeEnum"/>
-    <xs:attribute name="generatedFrom" type="xs:token"/>
   </xs:complexType>
 
   <xs:simpleType name="FlowControlTypeEnum">
@@ -579,18 +589,14 @@
       <xs:element name="Description" type="xs:string" minOccurs="0"/>
       <xs:element name="Expression" type="ExpressionType"/>
       <xs:element name="IfTrue" type="xs:token"/>
-      <!-- Could be a REFID to a component -->
-      <xs:choice minOccurs="0">
-        <xs:element name="IfFalse" type="xs:token"/>
-        <!-- Could be a REFID to a component -->
-        <xs:element name="Next" type="xs:token"/>
-        <!-- Could be a REFID to a go-to -->
-      </xs:choice>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="ExpressionType">
+    <xs:annotation>
+      <xs:documentation>Into declarated language in "FormulasLanguage"</xs:documentation>
+    </xs:annotation>
     <xs:simpleContent>
       <xs:extension base="xs:string"/>
     </xs:simpleContent>
@@ -605,6 +611,13 @@
   </xs:element>
 
   <xs:element name="CodeList">
+    <xs:annotation>
+      <xs:documentation>"A structure used to associate a list of code values to specified
+        categories. May be flat or hierarchical.". See DDI documentation :
+        https://ddialliance.org/Specification/DDI-Lifecycle/3.3/XMLSchema/FieldLevelDocumentation/
+        The elements of the code list are those of the DDI. You can refer to their definition in the
+        DDI documentation. </xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
         <xs:element name="Name" type="xs:token"/>
@@ -652,6 +665,8 @@
       <xs:annotation>
         <xs:documentation>visualizationHint is the type of input as part of an answer to a
           single-choice question</xs:documentation>
+        <xs:documentation>That may not be the perfect choice of a name, a better choice could be
+          "GraphicalImplementation" </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
@@ -668,7 +683,7 @@
         <xs:sequence>
           <xs:element name="Minimum" type="xs:token" minOccurs="0"/>
           <xs:element name="Maximum" type="xs:token" minOccurs="0"/>
-          <xs:element name="Format" type="xs:token" minOccurs="0">
+          <xs:element name="Format" type="DateFormatEnum" minOccurs="0">
             <xs:annotation>
               <xs:documentation>date output format among YYYY-MM-DD, YYYY-MM and
                 YYYY.</xs:documentation>
@@ -701,11 +716,15 @@
         <xs:sequence>
           <xs:element name="Minimum" type="xs:decimal" minOccurs="0"/>
           <xs:element name="Maximum" type="xs:decimal" minOccurs="0"/>
-          <xs:element name="Decimals" type="xs:nonNegativeInteger" minOccurs="0"/>
+          <xs:element name="Decimals" type="xs:nonNegativeInteger" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Number of decimal places.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="Unit" type="xs:anyURI" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The list of units available at INSEE is described in this file :
-                https://github.com/InseeFr/DDI-Access-Services/blob/main/src/main/resources/measure-units.json</xs:documentation>
+                https://github.com/InseeFr/DDI-Access-Services/blob/main/src/main/resources/measure-units.json.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -728,6 +747,10 @@
               <xs:documentation>NOT FUNCTIONAL</xs:documentation>
               <xs:documentation>The pattern allows you to specify regular
                 expressions.</xs:documentation>
+              <xs:documentation>
+                <xs:documentation>Pattern should perhaps be attached to the answer rather than the
+                  question.</xs:documentation>
+              </xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -870,11 +893,45 @@
       </xs:enumeration>
       <xs:enumeration value="VTL">
         <xs:annotation>
-          <xs:documentation>The tools based on javascript and Lunatic (V2 tools) need formulas
+          <xs:documentation>The tools based on JavaScript and Lunatic (V2 tools) need formulas
             written in VTL. VTL (Validation and Transformation Language) is a programming language
             born in the bosom of the SDMX aggregate data description standard.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="GenericNameEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="QUESTIONNAIRE">
+        <xs:annotation>
+          <xs:documentation>
+            <xs:documentation>In DDI, type of Sequence "template"</xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MODULE">
+        <xs:annotation>
+          <xs:documentation>
+            <xs:documentation>In DDI, type of Sequence "module"</xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUBMODULE">
+        <xs:annotation>
+          <xs:documentation>
+            <xs:documentation>In DDI, type of Sequence "submodule"</xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DateFormatEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="YYYY-MM-DD"/>
+      <xs:enumeration value="YYYY-MM"/>
+      <xs:enumeration value="YYYY"/>
     </xs:restriction>
   </xs:simpleType>
 
