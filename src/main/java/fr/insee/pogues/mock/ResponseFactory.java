@@ -3,11 +3,7 @@ package fr.insee.pogues.mock;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import fr.insee.pogues.model.DatatypeTypeEnum;
-import fr.insee.pogues.model.DateDatatypeType;
-import fr.insee.pogues.model.NumericDatatypeType;
-import fr.insee.pogues.model.ResponseType;
-import fr.insee.pogues.model.TextDatatypeType;
+import fr.insee.pogues.model.*;
 
 public class ResponseFactory {
 
@@ -58,7 +54,7 @@ public class ResponseFactory {
 		} else {
 			DateDatatypeType dateType = new DateDatatypeType();
 			dateType.setTypeName(DatatypeTypeEnum.DATE);
-			dateType.setFormat("yyyy-MM-dd");
+			dateType.setFormat(DateFormatEnum.YYYY_MM_DD);
 			response.setDatatype(dateType);
 		}
 
