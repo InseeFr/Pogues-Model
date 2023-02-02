@@ -727,6 +727,7 @@
                 https://github.com/InseeFr/DDI-Access-Services/blob/main/src/main/resources/measure-units.json.</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="Format" type="xs:string" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
