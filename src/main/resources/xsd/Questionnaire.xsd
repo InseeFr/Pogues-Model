@@ -191,6 +191,7 @@
                 flowControlType.</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="Scope" type="xs:token" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
         <xs:attribute name="questionType" type="QuestionTypeEnum"/>
       </xs:extension>
@@ -835,6 +836,13 @@
           <xs:documentation>A TABLE is a two-way table. It's a question made of a label and a
             response domain defined by two dimensions. The information located at the intersection
             of a row and a column corresponds to a response. </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PAIRWISE">
+        <xs:annotation>
+          <xs:documentation>When surveying households, we distinguish the household and the individual members of the household. In order to properly set up the questionnaire, we want to map individuals relationships, in fact pairing them.
+            Moreover, as far as possible we would like to infer some relationships instead of asking redundant questions. 
+            For example, if Alice is the mother of Bob, then Bob is the child of Alice.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
