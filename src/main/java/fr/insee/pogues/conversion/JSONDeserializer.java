@@ -11,6 +11,8 @@ import org.eclipse.persistence.jaxb.UnmarshallerProperties;
 
 import fr.insee.pogues.model.Questionnaire;
 
+import java.io.InputStream;
+
 public class JSONDeserializer {
 
 	public JSONDeserializer() {	}
@@ -22,14 +24,23 @@ public class JSONDeserializer {
 		if ((fileName == null) || (fileName.length() == 0)) return null;
 
 		logger.debug("Deserializing questionnaire from file " + fileName);
+		StreamSource jsonSource = new StreamSource(fileName);
+		return deserialize(jsonSource);
+	}
 
+	public Questionnaire deserialize(InputStream inputStream) throws JAXBException {
+		logger.debug("Deserializing questionnaire from input stream");
+		StreamSource jsonSource = new StreamSource(inputStream);
+		return deserialize(jsonSource);
+	}
+
+	private Questionnaire deserialize(StreamSource jsonSource) throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(Questionnaire.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, "application/json");
 		unmarshaller.setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, false);
 
-		StreamSource json = new StreamSource(fileName);
-		Questionnaire questionnaire = unmarshaller.unmarshal(json, Questionnaire.class).getValue();
+		Questionnaire questionnaire = unmarshaller.unmarshal(jsonSource, Questionnaire.class).getValue();
 
 		logger.debug("Questionnaire " + questionnaire.getId() + " successfully deserialized");
 
