@@ -96,11 +96,6 @@
               </xs:complexType>
             </xs:element>
           </xs:sequence>
-          <xs:attribute name="owner" type="xs:token">
-            <xs:annotation>
-              <xs:documentation>Owner of questionnaire.</xs:documentation>
-            </xs:annotation>
-          </xs:attribute>
           <xs:attribute name="agency" type="xs:token" default="com.example">
             <xs:annotation>
               <xs:documentation>Agency of Questionnaire. It's optional. Exemple :
@@ -248,7 +243,6 @@
         (ExternalVariableType) variables. </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="type" type="xs:token"/>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
       <xs:element name="Datatype" type="DatatypeType">
         <xs:annotation>
@@ -667,7 +661,6 @@
   <!-- Data types -->
 
   <xs:complexType name="DatatypeType" abstract="true">
-    <xs:attribute name="type" type="xs:token"/>
     <xs:attribute name="typeName" type="DatatypeTypeEnum" use="required"/>
     <xs:attribute name="visualizationHint" type="VisualizationHintEnum">
       <xs:annotation>
