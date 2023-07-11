@@ -65,6 +65,18 @@
               </xs:annotation>
             </xs:element>
             <xs:element ref="CodeLists" minOccurs="0"/>
+            <xs:element name="Nomenclatures" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Nomenclature" type="NomenclatureType" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                      <xs:documentation>A nomenclature is a list of codes that is so long (usually thousands of codes) that its contents are only referenced.
+                                        However, the method used to search for these codes in the nomenclature is stored.</xs:documentation>
+                    </xs:annotation>                    
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
             <xs:element name="Variables" minOccurs="0">
               <xs:annotation>
                 <xs:documentation>Variables contain all questionnaire's variables (external,
@@ -244,6 +256,7 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
+      <xs:element name="NomenclatureReference" type="xs:token" minOccurs="0"/>
       <xs:element name="Datatype" type="DatatypeType">
         <xs:annotation>
           <xs:documentation>Variable representation type to characterize the variable (numeric,
@@ -408,6 +421,7 @@
   <xs:complexType name="ResponseType">
     <xs:sequence>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
+      <xs:element name="NomenclatureReference" type="xs:token" minOccurs="0"/>
       <xs:element name="Datatype" type="DatatypeType"/>
       <xs:element name="Value" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="NonResponseModality" type="NonResponseModalityType" minOccurs="0"
@@ -658,6 +672,62 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="NomenclatureType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="fields" type="SuggesterField" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="max" type="xs:integer" minOccurs="0"/>
+      <xs:element name="stopWords" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="order" type="SuggesterOrder" minOccurs="0"/>
+      <xs:element name="queryParser" type="SuggesterQueryParser"/>
+      <xs:element name="url" type="xs:string" minOccurs="0"/>
+      <xs:element name="version" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SuggesterField">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:choice>
+        <xs:element name="rules" type="xs:string"/>
+        <xs:element name="rulesA" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:choice>
+      <xs:element name="language" type="xs:string" minOccurs="0"/>
+      <xs:element name="min" type="xs:integer" minOccurs="0"/>
+      <xs:element name="stemmer" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="synonyms" type="FieldSynonym" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FieldSynonym">
+    <xs:sequence>
+      <xs:element name="source" type="xs:string" minOccurs="1"/>
+      <xs:element name="target" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SuggesterOrder">
+    <xs:sequence>
+      <xs:element name="field" type="xs:string"/>
+      <xs:element name="type" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SuggesterQueryParser">
+    <xs:sequence>
+      <xs:element name="type" type="xs:string"/>
+      <xs:element name="params" type="SuggesterQueryParserParams" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SuggesterQueryParserParams">
+    <xs:sequence>
+      <xs:element name="language" type="xs:string" minOccurs="0"/>
+      <xs:element name="min" type="xs:integer" minOccurs="0"/>
+      <xs:element name="pattern" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <!-- Data types -->
 
   <xs:complexType name="DatatypeType" abstract="true">
@@ -840,8 +910,9 @@
       </xs:enumeration>
       <xs:enumeration value="PAIRWISE">
         <xs:annotation>
-          <xs:documentation>When surveying households, we distinguish the household and the individual members of the household. In order to properly set up the questionnaire, we want to map individuals relationships, in fact pairing them.
-            Moreover, as far as possible we would like to infer some relationships instead of asking redundant questions. 
+          <xs:documentation>When surveying households, we distinguish the household and the individual members of the household.
+            In order to properly set up the questionnaire, we want to map individuals relationships, in fact pairing them.
+            Moreover, as far as possible we would like to infer some relationships instead of asking redundant questions.
             For example, if Alice is the mother of Bob, then Bob is the child of Alice.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
@@ -868,6 +939,12 @@
           <xs:documentation>Radio button (standard web ergonomics for this type of answer, you can't
             uncheck the answer to the question (you can change the answer, but you can't delete an
             answer))</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUGGESTER">
+        <xs:annotation>
+          <xs:documentation>For a large list of codes, such as a nomenclature, this component is used to suggest the sublist of codes
+            whose labels correspond to the text entered by the respondent and the suggester's rules</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
