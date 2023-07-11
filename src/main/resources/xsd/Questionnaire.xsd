@@ -683,6 +683,7 @@
       <xs:element name="url" type="xs:string" minOccurs="0"/>
       <xs:element name="version" type="xs:string"/>
     </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="SuggesterField">
