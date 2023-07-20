@@ -1,0 +1,21 @@
+name: Run tests
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  test:
+    if: ${{ ! contains(github.event.pull_request.labels.*.name, 'deploy-snapshot') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "8"
+
+      - name: Tests
+        run: mvn test --no-transfer-progress
