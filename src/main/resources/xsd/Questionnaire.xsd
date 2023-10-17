@@ -65,18 +65,6 @@
               </xs:annotation>
             </xs:element>
             <xs:element ref="CodeLists" minOccurs="0"/>
-            <xs:element name="Nomenclatures" minOccurs="0">
-              <xs:complexType>
-                <xs:sequence>
-                  <xs:element name="Nomenclature" type="NomenclatureType" minOccurs="0" maxOccurs="unbounded">
-                    <xs:annotation>
-                      <xs:documentation>A nomenclature is a list of codes that is so long (usually thousands of codes) that its contents are only referenced.
-                                        However, the method used to search for these codes in the nomenclature is stored.</xs:documentation>
-                    </xs:annotation>                    
-                  </xs:element>
-                </xs:sequence>
-              </xs:complexType>
-            </xs:element>
             <xs:element name="Variables" minOccurs="0">
               <xs:annotation>
                 <xs:documentation>Variables contain all questionnaire's variables (external,
@@ -256,7 +244,6 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
-      <xs:element name="NomenclatureReference" type="xs:token" minOccurs="0"/>
       <xs:element name="Datatype" type="DatatypeType">
         <xs:annotation>
           <xs:documentation>Variable representation type to characterize the variable (numeric,
@@ -421,7 +408,6 @@
   <xs:complexType name="ResponseType">
     <xs:sequence>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
-      <xs:element name="NomenclatureReference" type="xs:token" minOccurs="0"/>
       <xs:element name="Datatype" type="DatatypeType"/>
       <xs:element name="Value" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="NonResponseModality" type="NonResponseModalityType" minOccurs="0"
@@ -637,7 +623,11 @@
       <xs:sequence>
         <xs:element name="Name" type="xs:token"/>
         <xs:element name="Label" type="xs:token"/>
-        <xs:element name="Code" type="CodeType" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:choice>
+          <xs:element name="Code" type="CodeType" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="Urn" type="xs:string"/>
+        </xs:choice>
+        <xs:element name="SuggesterParameters" type="SuggesterParametersType" minOccurs="0"/>
       </xs:sequence>
       <xs:attribute name="id" type="xs:ID" use="required"/>
     </xs:complexType>
@@ -672,7 +662,7 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="NomenclatureType">
+  <xs:complexType name="SuggesterParametersType">
     <xs:sequence>
       <xs:element name="name" type="xs:string"/>
       <xs:element name="fields" type="SuggesterField" minOccurs="1" maxOccurs="unbounded"/>
@@ -680,8 +670,6 @@
       <xs:element name="stopWords" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="order" type="SuggesterOrder" minOccurs="0"/>
       <xs:element name="queryParser" type="SuggesterQueryParser"/>
-      <xs:element name="url" type="xs:string" minOccurs="0"/>
-      <xs:element name="version" type="xs:string"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
   </xs:complexType>
