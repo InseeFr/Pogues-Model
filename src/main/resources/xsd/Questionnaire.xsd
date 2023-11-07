@@ -623,13 +623,11 @@
       <xs:sequence>
         <xs:element name="Name" type="xs:token"/>
         <xs:element name="Label" type="xs:token"/>
-        <xs:choice>
-          <xs:element name="Code" type="CodeType" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="Urn" type="xs:string"/>
-        </xs:choice>
+        <xs:element name="Code" type="CodeType" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="SuggesterParameters" type="SuggesterParametersType" minOccurs="0"/>
       </xs:sequence>
       <xs:attribute name="id" type="xs:ID" use="required"/>
+      <xs:attribute name="Urn" type="xs:string" use="optional"/>
     </xs:complexType>
   </xs:element>
 
