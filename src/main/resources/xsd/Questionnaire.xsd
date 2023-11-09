@@ -624,8 +624,10 @@
         <xs:element name="Name" type="xs:token"/>
         <xs:element name="Label" type="xs:token"/>
         <xs:element name="Code" type="CodeType" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="SuggesterParameters" type="SuggesterParametersType" minOccurs="0"/>
       </xs:sequence>
       <xs:attribute name="id" type="xs:ID" use="required"/>
+      <xs:attribute name="Urn" type="xs:string" use="optional"/>
     </xs:complexType>
   </xs:element>
 
@@ -655,6 +657,61 @@
             the parent code of this code.</xs:documentation>
         </xs:annotation>
       </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SuggesterParametersType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="fields" type="SuggesterField" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="max" type="xs:integer" minOccurs="0"/>
+      <xs:element name="stopWords" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="order" type="SuggesterOrder" minOccurs="0"/>
+      <xs:element name="queryParser" type="SuggesterQueryParser"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="SuggesterField">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:choice>
+        <xs:element name="rules" type="xs:string"/>
+        <xs:element name="rulesA" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:choice>
+      <xs:element name="language" type="xs:string" minOccurs="0"/>
+      <xs:element name="min" type="xs:integer" minOccurs="0"/>
+      <xs:element name="stemmer" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="synonyms" type="FieldSynonym" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FieldSynonym">
+    <xs:sequence>
+      <xs:element name="source" type="xs:string" minOccurs="1"/>
+      <xs:element name="target" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SuggesterOrder">
+    <xs:sequence>
+      <xs:element name="field" type="xs:string"/>
+      <xs:element name="type" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SuggesterQueryParser">
+    <xs:sequence>
+      <xs:element name="type" type="xs:string"/>
+      <xs:element name="params" type="SuggesterQueryParserParams" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SuggesterQueryParserParams">
+    <xs:sequence>
+      <xs:element name="language" type="xs:string" minOccurs="0"/>
+      <xs:element name="min" type="xs:integer" minOccurs="0"/>
+      <xs:element name="pattern" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -840,8 +897,9 @@
       </xs:enumeration>
       <xs:enumeration value="PAIRWISE">
         <xs:annotation>
-          <xs:documentation>When surveying households, we distinguish the household and the individual members of the household. In order to properly set up the questionnaire, we want to map individuals relationships, in fact pairing them.
-            Moreover, as far as possible we would like to infer some relationships instead of asking redundant questions. 
+          <xs:documentation>When surveying households, we distinguish the household and the individual members of the household.
+            In order to properly set up the questionnaire, we want to map individuals relationships, in fact pairing them.
+            Moreover, as far as possible we would like to infer some relationships instead of asking redundant questions.
             For example, if Alice is the mother of Bob, then Bob is the child of Alice.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
@@ -868,6 +926,12 @@
           <xs:documentation>Radio button (standard web ergonomics for this type of answer, you can't
             uncheck the answer to the question (you can change the answer, but you can't delete an
             answer))</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUGGESTER">
+        <xs:annotation>
+          <xs:documentation>For a large list of codes, such as a nomenclature, this component is used to suggest the sublist of codes
+            whose labels correspond to the text entered by the respondent and the suggester's rules</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
