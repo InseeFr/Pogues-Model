@@ -19,8 +19,12 @@
 
 	<developers>
 		<developer>
-			<name>Nico</name>
-			<email>no-reply@insee.fr</email>
+			<name>Nicolas Senave</name>
+			<organization>Insee</organization>
+			<organizationUrl>http://www.insee.fr</organizationUrl>
+		</developer>
+		<developer>
+			<name>François Bulot</name>
 			<organization>Insee</organization>
 			<organizationUrl>http://www.insee.fr</organizationUrl>
 		</developer>
