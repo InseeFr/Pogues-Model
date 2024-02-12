@@ -4,7 +4,7 @@
 	<groupId>fr.insee.pogues</groupId>
 	<artifactId>pogues-model</artifactId>
 	<packaging>jar</packaging>
-	<version>1.2.0</version>
+	<version>1.2.1</version>
 	<name>Pogues Model</name>
 	<description>Classes and converters for the Pogues model</description>
 	<url>https://inseefr.github.io/Pogues-Model/</url>
@@ -90,6 +90,19 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.skyscreamer</groupId>
+			<artifactId>jsonassert</artifactId>
+			<version>1.5.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.xmlunit</groupId>
+			<artifactId>xmlunit-assertj3</artifactId>
+			<version>2.9.1</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j2-impl</artifactId>
