@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.insee.pogues.model.CodeList;
-import fr.insee.pogues.model.CodeListSpecification;
 import fr.insee.pogues.model.CodeLists;
 import fr.insee.pogues.model.CodeType;
 
@@ -39,24 +38,6 @@ public class CodeListFactory {
 
 		return codeList;
 	}
-
-	public CodeListSpecification createCodeListSpecification() {
-
-		CodeListSpecification codeListSpecification = new CodeListSpecification();
-
-		String specId = "CLS_" + (int) Math.floor(Math.random() * 10000);
-
-		logger.debug("Creating code list specification " + specId);
-
-		codeListSpecification.setId(specId);
-		codeListSpecification.setName("Code list specification " + specId);
-		codeListSpecification.setLabel("Label for code list specification number " + specId);
-		codeListSpecification.setRetrievalQuery("http://id.insee.fr/codes/" + specId.toLowerCase());
-
-		return codeListSpecification;
-
-	}
-
 	public CodeLists createCodeLists(int codeListNumber, int codeListSpecificationNumber) {
 
 		logger.debug("Creating (" + codeListNumber + "," + codeListSpecificationNumber + ") CodeLists object");
@@ -68,12 +49,6 @@ public class CodeListFactory {
 				codeLists.getCodeList().add(this.createCodeList());
 			}
 		}
-		if (codeListSpecificationNumber >= 1) {
-			for (int codeListSpecificationIndex = 0; codeListSpecificationIndex < codeListSpecificationNumber; codeListSpecificationIndex++) {
-				codeLists.getCodeListSpecification().add(this.createCodeListSpecification());
-			}
-		}
-
 		return codeLists;
 	}
 
