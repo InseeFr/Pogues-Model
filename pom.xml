@@ -10,6 +10,9 @@
 	<url>https://inseefr.github.io/Pogues-Model/</url>
 
 	<properties>
+		<!-- Project encoding -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- Dependency version properties -->
 		<junit.version>5.10.2</junit.version>
 	</properties>
 
@@ -108,9 +111,6 @@
 						<source>1.8</source>
 						<target>1.8</target>
 						<encoding>UTF-8</encoding>
-						<inputEncoding>UTF-8</inputEncoding>
-						<outputEncoding>UTF-8</outputEncoding>
-						<argLine>-Dfile.encoding=UTF-8</argLine>
 					</configuration>
 				</plugin>
 			</plugins>
@@ -122,10 +122,7 @@
 				<version>2.22.0</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
-					<inputEncoding>UTF-8</inputEncoding>
-					<outputEncoding>UTF-8</outputEncoding>
-					<argLine>-Dfile.encoding=UTF-8
-						-Djavax.xml.bind.context.factory=org.eclipse.persistence.jaxb.JAXBContextFactory</argLine>
+					<argLine>-Djavax.xml.bind.context.factory=org.eclipse.persistence.jaxb.JAXBContextFactory</argLine>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -230,7 +227,6 @@
 							</execution>
 						</executions>
 					</plugin>
-
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
 						<artifactId>nexus-staging-maven-plugin</artifactId>
@@ -273,4 +269,5 @@
 			<url>https://raw.github.com/eXist-db/mvn-repo/master/</url>
 		</repository>
 	</repositories>
+
 </project>
