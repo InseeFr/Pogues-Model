@@ -4,9 +4,15 @@ import fr.insee.pogues.conversion.JSONSerializer;
 import fr.insee.pogues.mock.*;
 import fr.insee.pogues.model.*;
 import org.apache.commons.io.FileUtils;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
+import javax.xml.bind.JAXBException;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+
 
 class JSONSerializerTest {
 
@@ -110,6 +116,46 @@ class JSONSerializerTest {
 
 		FileUtils.writeStringToFile(new File("src/test/resources/response-ser.json"), jsonResponse, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
+	}
+
+	@Test
+	void serializeCodeList() throws JAXBException, UnsupportedEncodingException, JSONException {
+		// Given
+		JSONSerializer jsonSerializer = new JSONSerializer();
+		CodeList codeList = new CodeList();
+		codeList.setId("code-list-id");
+		codeList.setName("CODE_LIST_NAME");
+		codeList.setLabel("Code list label.");
+		CodeType code1 = new CodeType();
+		code1.setLabel("CODE_1");
+		code1.setValue("1");
+		CodeType code2 = new CodeType();
+		code2.setLabel("CODE_2");
+		code2.setValue("2");
+		codeList.getCode().add(code1);
+		codeList.getCode().add(code2);
+		// When
+		String result = jsonSerializer.serialize(codeList);
+		// Then
+		String expectedJson = """
+				{
+				  "CodeList": {
+				    "id": "code-list-id",
+				    "Name": "CODE_LIST_NAME",
+				    "Label": "Code list label.",
+				    "Code": [
+				      {
+				        "Value": "1",
+				        "Label": "CODE_1"
+				      },
+				      {
+				        "Value": "2",
+				        "Label": "CODE_2"
+				      }
+				    ]
+				  }
+				}""";
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
 
 }
