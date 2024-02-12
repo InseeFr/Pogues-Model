@@ -9,6 +9,10 @@
 	<description>Classes and converters for the Pogues model</description>
 	<url>https://inseefr.github.io/Pogues-Model/</url>
 
+	<properties>
+		<junit.version>5.10.2</junit.version>
+	</properties>
+
 	<licenses>
 		<license>
 			<name>MIT License</name>
@@ -70,9 +74,15 @@
 			<version>1.7.25</version>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.8</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

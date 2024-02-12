@@ -1,22 +1,16 @@
 package fr.insee.pogues.test;
 
-import java.io.File;
-
-import org.apache.commons.io.FileUtils;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import fr.insee.pogues.conversion.JSONToXMLTranslator;
 import fr.insee.pogues.conversion.XMLToJSONTranslator;
+import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.Test;
 
-public class TranslatorsTest {
+import java.io.File;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
+class TranslatorsTest {
 
 	@Test
-	public void testQuestionnaireJSONToXML() throws Exception {
+	void testQuestionnaireJSONToXML() throws Exception {
 
 		long startTime = System.currentTimeMillis();
 
@@ -32,7 +26,7 @@ public class TranslatorsTest {
 	}
 
 	@Test
-	public void testQuestionnaireXMLToJSON() throws Exception {
+	void testQuestionnaireXMLToJSON() throws Exception {
 
 		long startTime = System.currentTimeMillis();
 
@@ -48,7 +42,7 @@ public class TranslatorsTest {
 	}
 
 	@Test
-	public void testSequenceJSONToXML() throws Exception {
+	void testSequenceJSONToXML() throws Exception {
 
 		long startTime = System.currentTimeMillis();
 
@@ -65,7 +59,7 @@ public class TranslatorsTest {
 	}
 
 	@Test
-	public void testSequenceXMLToJSON() throws Exception {
+	void testSequenceXMLToJSON() throws Exception {
 
 		long startTime = System.currentTimeMillis();
 
@@ -84,7 +78,7 @@ public class TranslatorsTest {
 	
 	
 	@Test
-	public void testQuestionJSONToXML() throws Exception {
+	void testQuestionJSONToXML() throws Exception {
 
 		long startTime = System.currentTimeMillis();
 
@@ -100,7 +94,7 @@ public class TranslatorsTest {
 	}
 
 	@Test
-	public void testQuestionXMLToJSON() throws Exception {
+	void testQuestionXMLToJSON() throws Exception {
 
 		long startTime = System.currentTimeMillis();
 
@@ -116,7 +110,7 @@ public class TranslatorsTest {
 	}
 
 	@Test
-	public void testCodeListsJSONToXML() throws Exception {
+	void testCodeListsJSONToXML() throws Exception {
 
 		long startTime = System.currentTimeMillis();
 
@@ -132,7 +126,7 @@ public class TranslatorsTest {
 	}
 
 	@Test
-	public void testCodeListsXMLToJSON() throws Exception {
+	void testCodeListsXMLToJSON() throws Exception {
 
 		long startTime = System.currentTimeMillis();
 
