@@ -1,16 +1,15 @@
 package fr.insee.pogues.test;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
 import fr.insee.pogues.conversion.JSONDeserializer;
 import fr.insee.pogues.model.Questionnaire;
+import org.junit.jupiter.api.Test;
 
-public class JSONDeserializerTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class JSONDeserializerTest {
 
 	@Test
-	public void testQuestionnaire() throws Exception {
+	void testQuestionnaire() throws Exception {
 
 		long startTime = System.currentTimeMillis();
 

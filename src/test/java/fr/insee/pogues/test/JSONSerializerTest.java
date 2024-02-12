@@ -1,31 +1,17 @@
 package fr.insee.pogues.test;
 
+import fr.insee.pogues.conversion.JSONSerializer;
+import fr.insee.pogues.mock.*;
+import fr.insee.pogues.model.*;
+import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.Test;
+
 import java.io.File;
 
-import org.apache.commons.io.FileUtils;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import fr.insee.pogues.conversion.JSONSerializer;
-import fr.insee.pogues.mock.CodeListFactory;
-import fr.insee.pogues.mock.QuestionFactory;
-import fr.insee.pogues.mock.QuestionnaireFactory;
-import fr.insee.pogues.mock.ResponseFactory;
-import fr.insee.pogues.mock.SequenceFactory;
-import fr.insee.pogues.model.CodeList;
-import fr.insee.pogues.model.QuestionType;
-import fr.insee.pogues.model.Questionnaire;
-import fr.insee.pogues.model.ResponseType;
-import fr.insee.pogues.model.SequenceType;
-
-public class JSONSerializerTest {
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
+class JSONSerializerTest {
 
 	@Test
-	public void testQuestionnaire() throws Exception {
+	void testQuestionnaire() throws Exception {
 
 		QuestionnaireFactory factory = new QuestionnaireFactory();
 		Questionnaire fakeQuestionnaire = factory.createQuestionnaire();
@@ -42,7 +28,7 @@ public class JSONSerializerTest {
 	}
 
 	@Test
-	public void testSequence() throws Exception {
+	void testSequence() throws Exception {
 
 		SequenceFactory factory = new SequenceFactory();
 		SequenceType fakeSequence = factory.createSequence(2);
@@ -59,7 +45,7 @@ public class JSONSerializerTest {
 	}
 
 	@Test
-	public void testCodeList() throws Exception {
+	void testCodeList() throws Exception {
 
 		CodeListFactory factory = new CodeListFactory();
 		CodeList fakeCodeList = factory.createCodeList();
@@ -76,7 +62,7 @@ public class JSONSerializerTest {
 	}
 
 	@Test
-	public void testQuestion() throws Exception {
+	void testQuestion() throws Exception {
 
 		QuestionFactory factory = new QuestionFactory();
 		QuestionType fakeQuestion = factory.createQuestion(42);
@@ -93,7 +79,7 @@ public class JSONSerializerTest {
 	}
 
 	@Test
-	public void testQuestionOnly() throws Exception {
+	void testQuestionOnly() throws Exception {
 
 		QuestionFactory factory = new QuestionFactory();
 		QuestionType fakeQuestion = factory.createQuestionOnly(50);
@@ -110,7 +96,7 @@ public class JSONSerializerTest {
 	}
 
 	@Test
-	public void testResponse() throws Exception {
+	void testResponse() throws Exception {
 
 		ResponseFactory factory = new ResponseFactory();
 		ResponseType fakeResponse = factory.createResponse();

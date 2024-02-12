@@ -1,11 +1,5 @@
 package fr.insee.pogues.test;
 
-import java.io.File;
-
-import org.apache.commons.io.FileUtils;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import fr.insee.pogues.conversion.XMLSerializer;
 import fr.insee.pogues.mock.CodeListFactory;
 import fr.insee.pogues.mock.QuestionnaireFactory;
@@ -14,15 +8,15 @@ import fr.insee.pogues.model.CodeList;
 import fr.insee.pogues.model.CodeLists;
 import fr.insee.pogues.model.Questionnaire;
 import fr.insee.pogues.model.SequenceType;
+import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.Test;
 
-public class XMLSerializerTest {
+import java.io.File;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
+class XMLSerializerTest {
 
 	@Test
-	public void testQuestionnaire() throws Exception {
+	void testQuestionnaire() throws Exception {
 
 		QuestionnaireFactory factory = new QuestionnaireFactory();
 		Questionnaire fakeQuestionnaire = factory.createQuestionnaire();
@@ -39,7 +33,7 @@ public class XMLSerializerTest {
 	}
 
 	@Test
-	public void testSequence() throws Exception {
+	void testSequence() throws Exception {
 
 		SequenceFactory factory = new SequenceFactory();
 		SequenceType fakeSequence = factory.createSequence(2);
@@ -56,7 +50,7 @@ public class XMLSerializerTest {
 	}
 
 	@Test
-	public void testCodeList() throws Exception {
+	void testCodeList() throws Exception {
 
 		CodeListFactory factory = new CodeListFactory();
 		CodeList fakeCodeList = factory.createCodeList();
@@ -73,7 +67,7 @@ public class XMLSerializerTest {
 	}
 
 	@Test
-	public void testCodeLists() throws Exception {
+	void testCodeLists() throws Exception {
 
 		CodeListFactory factory = new CodeListFactory();
 		CodeLists fakeCodeLists = factory.createCodeLists();
