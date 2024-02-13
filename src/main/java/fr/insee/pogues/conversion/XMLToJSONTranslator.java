@@ -106,7 +106,7 @@ public class XMLToJSONTranslator {
 		if (monitored)
 			unmarshaller.setListener(new UnmarshallLogger());
 
-		JAXBElement<SequenceType> jeSequence = (JAXBElement<SequenceType>) unmarshaller.unmarshal(xmlStream);
+		JAXBElement<SequenceType> jeSequence = unmarshaller.unmarshal(xmlStream, SequenceType.class);
 		SequenceType sequence = jeSequence.getValue();
 
 		Marshaller marshaller = context.createMarshaller();
@@ -153,7 +153,7 @@ public class XMLToJSONTranslator {
 		if (monitored)
 			unmarshaller.setListener(new UnmarshallLogger());
 
-		JAXBElement<QuestionType> jeQuestion = (JAXBElement<QuestionType>) unmarshaller.unmarshal(xmlStream);
+		JAXBElement<QuestionType> jeQuestion = unmarshaller.unmarshal(xmlStream, QuestionType.class);
         QuestionType question = jeQuestion.getValue();
 
         Marshaller marshaller = context.createMarshaller();
