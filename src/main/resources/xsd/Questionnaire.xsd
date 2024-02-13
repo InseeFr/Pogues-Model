@@ -675,10 +675,7 @@
   <xs:complexType name="SuggesterField">
     <xs:sequence>
       <xs:element name="name" type="xs:string"/>
-      <xs:choice>
-        <xs:element name="rules" type="xs:string"/>
-        <xs:element name="rulesA" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
-      </xs:choice>
+      <xs:element name="rules" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
       <xs:element name="language" type="xs:string" minOccurs="0"/>
       <xs:element name="min" type="xs:integer" minOccurs="0"/>
       <xs:element name="stemmer" type="xs:boolean" minOccurs="0"/>
