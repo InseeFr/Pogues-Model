@@ -15,7 +15,7 @@ import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SuggesterSerializationTests {
+class SuggesterQueryParserTests {
 
     @Test
     void serializeSuggesterQueryParserParams() throws JAXBException, UnsupportedEncodingException, JSONException {
