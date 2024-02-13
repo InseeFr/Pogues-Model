@@ -712,6 +712,7 @@
       <xs:element name="language" type="xs:string" minOccurs="0"/>
       <xs:element name="min" type="xs:integer" minOccurs="0"/>
       <xs:element name="pattern" type="xs:string" minOccurs="0"/>
+      <xs:element name="stemmer" type="xs:boolean" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
