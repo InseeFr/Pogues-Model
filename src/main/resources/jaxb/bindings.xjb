@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jxb:bindings xmlns:jxb="http://java.sun.com/xml/ns/jaxb" version="2.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <jxb:bindings schemaLocation="file:../xsd/Questionnaire.xsd">
-        <jxb:schemaBindings>
-            <jxb:package name="fr.insee.pogues.model"/>
-        </jxb:schemaBindings>
-    </jxb:bindings>
-</jxb:bindings>
