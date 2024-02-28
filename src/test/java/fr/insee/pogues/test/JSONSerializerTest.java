@@ -1,6 +1,7 @@
 package fr.insee.pogues.test;
 
-import fr.insee.pogues.conversion.JSONSerializer;
+import fr.insee.pogues.conversion.JsonSerializer;
+import fr.insee.pogues.exception.JsonSerializationException;
 import fr.insee.pogues.mock.*;
 import fr.insee.pogues.model.*;
 import org.apache.commons.io.FileUtils;
@@ -14,7 +15,7 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 
 
-class JSONSerializerTest {
+class JsonSerializerTest {
 
 	@Test
 	void testQuestionnaire() throws Exception {
@@ -24,7 +25,7 @@ class JSONSerializerTest {
 
 		long startTime = System.currentTimeMillis();
 
-		JSONSerializer serializer = new JSONSerializer();
+		JsonSerializer serializer = new JsonSerializer();
 		String jsonQuestionnaire = serializer.serialize(fakeQuestionnaire);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
@@ -41,7 +42,7 @@ class JSONSerializerTest {
 
 		long startTime = System.currentTimeMillis();
 
-		JSONSerializer serializer = new JSONSerializer();
+		JsonSerializer serializer = new JsonSerializer();
 		String jsonSequence = serializer.serialize(fakeSequence);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
@@ -58,7 +59,7 @@ class JSONSerializerTest {
 
 		long startTime = System.currentTimeMillis();
 
-		JSONSerializer serializer = new JSONSerializer();
+		JsonSerializer serializer = new JsonSerializer();
 		String jsonCodeList = serializer.serialize(fakeCodeList);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
@@ -75,7 +76,7 @@ class JSONSerializerTest {
 
 		long startTime = System.currentTimeMillis();
 
-		JSONSerializer serializer = new JSONSerializer();
+		JsonSerializer serializer = new JsonSerializer();
 		String jsonQuestion = serializer.serialize(fakeQuestion);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
@@ -92,7 +93,7 @@ class JSONSerializerTest {
 
 		long startTime = System.currentTimeMillis();
 
-		JSONSerializer serializer = new JSONSerializer();
+		JsonSerializer serializer = new JsonSerializer();
 		String jsonQuestion = serializer.serialize(fakeQuestion);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
@@ -109,7 +110,7 @@ class JSONSerializerTest {
 
 		long startTime = System.currentTimeMillis();
 
-		JSONSerializer serializer = new JSONSerializer();
+		JsonSerializer serializer = new JsonSerializer();
 		String jsonResponse = serializer.serialize(fakeResponse);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
@@ -119,9 +120,9 @@ class JSONSerializerTest {
 	}
 
 	@Test
-	void serializeCodeList() throws JAXBException, UnsupportedEncodingException, JSONException {
+	void serializeCodeList() throws JAXBException, UnsupportedEncodingException, JSONException, JsonSerializationException {
 		// Given
-		JSONSerializer jsonSerializer = new JSONSerializer();
+		JsonSerializer jsonSerializer = new JsonSerializer();
 		CodeList codeList = new CodeList();
 		codeList.setId("code-list-id");
 		codeList.setName("CODE_LIST_NAME");

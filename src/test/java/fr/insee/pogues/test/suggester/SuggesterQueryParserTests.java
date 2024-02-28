@@ -1,8 +1,9 @@
 package fr.insee.pogues.test.suggester;
 
-import fr.insee.pogues.conversion.JSONDeserializer;
-import fr.insee.pogues.conversion.JSONSerializer;
+import fr.insee.pogues.conversion.JsonDeserializer;
+import fr.insee.pogues.conversion.JsonSerializer;
 import fr.insee.pogues.exception.JsonDeserializationException;
+import fr.insee.pogues.exception.JsonSerializationException;
 import fr.insee.pogues.model.*;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SuggesterQueryParserTests {
 
     @Test
-    void serializeSuggesterQueryParserParams() throws JSONException {
+    void serializeSuggesterQueryParserParams() throws JSONException, JsonSerializationException {
         // Given a suggester query params
         SuggesterQueryParserParams queryParserParams = new SuggesterQueryParserParams();
         queryParserParams.setLanguage("FR");
@@ -35,7 +36,7 @@ class SuggesterQueryParserTests {
         questionnaire.getCodeLists().getCodeList().add(codeList);
 
         // When
-        JSONSerializer jsonSerializer = new JSONSerializer();
+        JsonSerializer jsonSerializer = new JsonSerializer();
         String result = jsonSerializer.serialize(questionnaire);
 
         // Then
@@ -86,7 +87,7 @@ class SuggesterQueryParserTests {
                 }""";
 
         // When
-        JSONDeserializer jsonDeserializer = new JSONDeserializer();
+        JsonDeserializer jsonDeserializer = new JsonDeserializer();
         Questionnaire questionnaire = jsonDeserializer.deserialize(new ByteArrayInputStream(jsonInput.getBytes()));
 
         // Then

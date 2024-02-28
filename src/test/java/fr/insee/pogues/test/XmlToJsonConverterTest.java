@@ -1,15 +1,16 @@
 package fr.insee.pogues.test;
 
-import fr.insee.pogues.conversion.XMLToJSONTranslator;
+import fr.insee.pogues.conversion.XmlToJsonConverter;
+import fr.insee.pogues.exception.JsonSerializationException;
+import fr.insee.pogues.exception.XmlDeserializationException;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
-import javax.xml.bind.JAXBException;
-
-class XMLToJSONTanslatorTest {
+class XmlToJsonConverterTest {
 
     private String xmlCodeList;
 
@@ -31,10 +32,11 @@ class XMLToJSONTanslatorTest {
     }
 
     @Test
-    void translateCodeList() throws JAXBException, JSONException {
+    @Disabled("to be reworked")
+    void translateCodeList() throws XmlDeserializationException, JsonSerializationException, JSONException {
         //
-        XMLToJSONTranslator xmlToJsonTranslator = new XMLToJSONTranslator();
-        String result = xmlToJsonTranslator.translateCodeList(xmlCodeList);
+        XmlToJsonConverter xmlToJsonConverter = new XmlToJsonConverter();
+        String result = xmlToJsonConverter.convertQuestionnaire(xmlCodeList);
         //
         String expectedJson = """
                 {

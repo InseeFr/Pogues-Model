@@ -1,20 +1,20 @@
 package fr.insee.pogues.test;
 
-import fr.insee.pogues.conversion.XMLSerializer;
+import fr.insee.pogues.conversion.XmlSerializer;
+import fr.insee.pogues.exception.XmlSerializationException;
 import fr.insee.pogues.mock.CodeListFactory;
 import fr.insee.pogues.mock.QuestionnaireFactory;
 import fr.insee.pogues.mock.SequenceFactory;
 import fr.insee.pogues.model.*;
 import org.apache.commons.io.FileUtils;
-import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.xmlunit.assertj3.XmlAssert;
 
-import javax.xml.bind.JAXBException;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 
-class XMLSerializerTest {
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+class XmlSerializerTest {
 
 	@Test
 	void testQuestionnaire() throws Exception {
@@ -24,13 +24,14 @@ class XMLSerializerTest {
 
 		long startTime = System.currentTimeMillis();
 
-		XMLSerializer serializer = new XMLSerializer();
+		XmlSerializer serializer = new XmlSerializer();
 		String xmlQuestionnaire = serializer.serialize(fakeQuestionnaire);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
 
 		FileUtils.writeStringToFile(new File("src/test/resources/questionnaire-ser.xml"), xmlQuestionnaire, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
+		assertNotNull(xmlQuestionnaire);
 	}
 
 	@Test
@@ -41,13 +42,14 @@ class XMLSerializerTest {
 
 		long startTime = System.currentTimeMillis();
 
-		XMLSerializer serializer = new XMLSerializer();
+		XmlSerializer serializer = new XmlSerializer();
 		String xmlSequence = serializer.serialize(fakeSequence);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
 
 		FileUtils.writeStringToFile(new File("src/test/resources/sequence-ser.xml"), xmlSequence, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
+		assertNotNull(xmlSequence);
 	}
 
 	@Test
@@ -58,13 +60,14 @@ class XMLSerializerTest {
 
 		long startTime = System.currentTimeMillis();
 
-		XMLSerializer serializer = new XMLSerializer();
+		XmlSerializer serializer = new XmlSerializer();
 		String xmlCodeList = serializer.serialize(fakeCodeList);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
 
 		FileUtils.writeStringToFile(new File("src/test/resources/codelist-ser.xml"), xmlCodeList, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
+		assertNotNull(xmlCodeList);
 	}
 
 	@Test
@@ -75,17 +78,18 @@ class XMLSerializerTest {
 
 		long startTime = System.currentTimeMillis();
 
-		XMLSerializer serializer = new XMLSerializer();
+		XmlSerializer serializer = new XmlSerializer();
 		String xmlCodeLists = serializer.serialize(fakeCodeLists);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
 
 		FileUtils.writeStringToFile(new File("src/test/resources/codelists-ser.xml"), xmlCodeLists, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
+		assertNotNull(xmlCodeLists);
 	}
 
 	@Test
-	void serializeCodeList() throws JAXBException, UnsupportedEncodingException, JSONException {
+	void serializeCodeList() throws XmlSerializationException {
 		// Given
 		CodeList codeList = new CodeList();
 		codeList.setId("code-list-id");
@@ -100,7 +104,7 @@ class XMLSerializerTest {
 		codeList.getCode().add(code1);
 		codeList.getCode().add(code2);
 		// When
-		XMLSerializer xmlSerializer = new XMLSerializer();
+		XmlSerializer xmlSerializer = new XmlSerializer();
 		String result = xmlSerializer.serialize(codeList);
 		// Then
 		String expectedXml = """

@@ -1,94 +1,71 @@
 package fr.insee.pogues.conversion;
 
-import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import fr.insee.pogues.exception.XmlSerializationException;
 import fr.insee.pogues.model.CodeList;
 import fr.insee.pogues.model.CodeLists;
 import fr.insee.pogues.model.Questionnaire;
 import fr.insee.pogues.model.SequenceType;
+import lombok.extern.slf4j.Slf4j;
 
-public class XMLSerializer {
+@Slf4j
+public class XmlSerializer {
 
-	public XMLSerializer() { }
+	private final XmlMapper xmlMapper;
 
-	private static final Logger logger = LoggerFactory.getLogger(XMLSerializer.class);
+	public XmlSerializer() {
+		xmlMapper = new XmlMapper();
+	}
 
-	public String serialize(Questionnaire questionnaire) throws JAXBException, UnsupportedEncodingException {
-
+	public String serialize(Questionnaire questionnaire) throws XmlSerializationException {
 		if (questionnaire == null) return "";
 
-		logger.debug("Serializing questionnaire " + questionnaire.getId());
+		log.debug("Serializing questionnaire {}", questionnaire.getId());
 
-		JAXBContext context = JAXBContext.newInstance(Questionnaire.class);
-		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        try {
+            return xmlMapper.writeValueAsString(questionnaire);
+        } catch (JsonProcessingException e) {
+            throw new XmlSerializationException("Unable to deserialize given questionnaire.", e);
+        }
+    }
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		marshaller.marshal(questionnaire, baos);
-	
-		return baos.toString("UTF-8");
-
-	}
-
-	public String serialize(SequenceType sequence) throws JAXBException, UnsupportedEncodingException {
-
+	public String serialize(SequenceType sequence) throws XmlSerializationException {
 		if (sequence == null) return "";
 
-		logger.debug("Serializing sequence " + sequence.getId());
+		log.debug("Serializing sequence {}", sequence.getId());
 
-		JAXBContext context = JAXBContext.newInstance(SequenceType.class);
-		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		marshaller.marshal(sequence, baos);
-
-		return baos.toString("UTF-8");
+		try {
+			return xmlMapper.writeValueAsString(sequence);
+		} catch (JsonProcessingException e) {
+			throw new XmlSerializationException("Unable to deserialize given sequence.", e);
+		}
 	}
 
-	public String serialize(CodeList codeList) throws JAXBException, UnsupportedEncodingException {
+	public String serialize(CodeList codeList) throws XmlSerializationException {
 
 		if (codeList == null) return "";
 
-		logger.debug("Serializing code list " + codeList.getId());
+		log.debug("Serializing code list {}", codeList.getId());
 
-		JAXBContext context = JAXBContext.newInstance(CodeList.class);
-		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		marshaller.marshal(codeList, baos);
-	
-		return baos.toString("UTF-8");
+		try {
+			return xmlMapper.writeValueAsString(codeList);
+		} catch (JsonProcessingException e) {
+			throw new XmlSerializationException("Unable to deserialize given code list.", e);
+		}
 	}
 
-	public String serialize(CodeLists codeLists) throws JAXBException, UnsupportedEncodingException {
+	public String serialize(CodeLists codeLists) throws XmlSerializationException {
 
 		if (codeLists == null) return "";
 
-		logger.debug("Serializing CodeLists object");
+		log.debug("Serializing CodeLists object");
 
-		JAXBContext context = JAXBContext.newInstance(CodeLists.class);
-		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		marshaller.marshal(codeLists, baos);
-	
-		return baos.toString("UTF-8");
+		try {
+			return xmlMapper.writeValueAsString(codeLists);
+		} catch (JsonProcessingException e) {
+			throw new XmlSerializationException("Unable to deserialize given code lists.", e);
+		}
 	}
-
 
 }

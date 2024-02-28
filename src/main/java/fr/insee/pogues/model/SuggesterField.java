@@ -36,6 +36,7 @@ public class SuggesterField {
     protected List<FieldSynonym> synonyms;
 
     public SuggesterField() {
+        rules = new FieldRules();
         synonyms = new ArrayList<>();
     }
 
