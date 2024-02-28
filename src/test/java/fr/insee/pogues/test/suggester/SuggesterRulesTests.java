@@ -3,6 +3,7 @@ package fr.insee.pogues.test.suggester;
 import fr.insee.pogues.conversion.JSONDeserializer;
 import fr.insee.pogues.conversion.JSONSerializer;
 import fr.insee.pogues.conversion.JSONToXMLTranslator;
+import fr.insee.pogues.exception.JsonDeserializationException;
 import fr.insee.pogues.model.*;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
@@ -95,7 +96,7 @@ class SuggesterRulesTests {
     }
 
     @Test
-    void deserializeRules_softCase() throws JAXBException {
+    void deserializeRules_softCase() throws JsonDeserializationException {
         // Given + When
         JSONDeserializer jsonDeserializer = new JSONDeserializer();
         Questionnaire questionnaire = jsonDeserializer.deserialize(new ByteArrayInputStream(
@@ -109,7 +110,7 @@ class SuggesterRulesTests {
     }
 
     @Test
-    void deserializeRules_arrayCase() throws JAXBException {
+    void deserializeRules_arrayCase() throws JsonDeserializationException {
         // Given + When
         JSONDeserializer jsonDeserializer = new JSONDeserializer();
         Questionnaire questionnaire = jsonDeserializer.deserialize(new ByteArrayInputStream(jsonInputArrayRules.getBytes()));

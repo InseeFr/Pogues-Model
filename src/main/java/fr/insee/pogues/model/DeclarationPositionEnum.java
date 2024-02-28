@@ -1,55 +1,15 @@
-//
-// Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.3.2 
-// Voir <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
-// Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2024.02.13 à 11:40:22 PM CET 
-//
-
-
 package fr.insee.pogues.model;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
-
-
 /**
- * <p>Classe Java pour DeclarationPositionEnum.
- * 
- * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
- * <p>
- * <pre>
- * &lt;simpleType name="DeclarationPositionEnum"&gt;
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}token"&gt;
- *     &lt;enumeration value="AFTER_QUESTION_TEXT"/&gt;
- *     &lt;enumeration value="BEFORE_QUESTION_TEXT"/&gt;
- *   &lt;/restriction&gt;
- * &lt;/simpleType&gt;
- * </pre>
- * 
+ * Position of the statement for viewing.
  */
-@XmlType(name = "DeclarationPositionEnum")
-@XmlEnum
 public enum DeclarationPositionEnum {
 
 
-    /**
-     *  After question label position. 
-     * 
-     */
+    /** After question label position. */
     AFTER_QUESTION_TEXT,
 
-    /**
-     *  Before question label position. 
-     * 
-     */
+    /** Before question label position. */
     BEFORE_QUESTION_TEXT;
-
-    public String value() {
-        return name();
-    }
-
-    public static DeclarationPositionEnum fromValue(String v) {
-        return valueOf(v);
-    }
 
 }

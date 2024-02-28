@@ -139,21 +139,19 @@ class JSONSerializerTest {
 		// Then
 		String expectedJson = """
 				{
-				  "CodeList": {
-				    "id": "code-list-id",
-				    "Name": "CODE_LIST_NAME",
-				    "Label": "Code list label.",
-				    "Code": [
-				      {
-				        "Value": "1",
-				        "Label": "CODE_1"
-				      },
-				      {
-				        "Value": "2",
-				        "Label": "CODE_2"
-				      }
-				    ]
-				  }
+				  "id": "code-list-id",
+				  "Name": "CODE_LIST_NAME",
+				  "Label": "Code list label.",
+				  "Code": [
+				    {
+				      "Value": "1",
+				      "Label": "CODE_1"
+				    },
+				    {
+				      "Value": "2",
+				      "Label": "CODE_2"
+				    }
+				  ]
 				}""";
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}

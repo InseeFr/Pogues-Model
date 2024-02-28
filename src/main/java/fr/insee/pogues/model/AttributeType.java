@@ -1,97 +1,25 @@
-//
-// Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.3.2 
-// Voir <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
-// Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2024.02.13 à 11:40:22 PM CET 
-//
-
-
 package fr.insee.pogues.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Getter;
+import lombok.Setter;
 
-
-/**
- * <p>Classe Java pour AttributeType complex type.
- * 
- * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
- * 
- * <pre>
- * &lt;complexType name="AttributeType"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="AttributeValue" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="AttributeTarget" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
- * </pre>
- * 
- * 
- */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AttributeType", propOrder = {
-    "attributeValue",
-    "attributeTarget"
+@JsonPropertyOrder({
+        "AttributeValue",
+        "AttributeTarget"
 })
+@Getter
+@Setter
 public class AttributeType {
 
-    @XmlElement(name = "AttributeValue", required = true)
+    /** In the case of a "no data by definition", is "NoDataByDefinition". */
+    @JsonProperty(value = "AttributeValue", required = true)
     protected String attributeValue;
-    @XmlElement(name = "AttributeTarget", required = true)
+
+    /** n-uple giving the coordinates (1-based) of the target cell according to
+     the dimensions, format "i" (one dimension) or "i j" (two dimensions). */
+    @JsonProperty(value = "AttributeTarget", required = true)
     protected String attributeTarget;
-
-    /**
-     * Obtient la valeur de la propriété attributeValue.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAttributeValue() {
-        return attributeValue;
-    }
-
-    /**
-     * Définit la valeur de la propriété attributeValue.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAttributeValue(String value) {
-        this.attributeValue = value;
-    }
-
-    /**
-     * Obtient la valeur de la propriété attributeTarget.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAttributeTarget() {
-        return attributeTarget;
-    }
-
-    /**
-     * Définit la valeur de la propriété attributeTarget.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAttributeTarget(String value) {
-        this.attributeTarget = value;
-    }
 
 }

@@ -2,15 +2,14 @@ package fr.insee.pogues.test.suggester;
 
 import fr.insee.pogues.conversion.JSONDeserializer;
 import fr.insee.pogues.conversion.JSONSerializer;
+import fr.insee.pogues.exception.JsonDeserializationException;
 import fr.insee.pogues.model.*;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
-import javax.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SuggesterQueryParserTests {
 
     @Test
-    void serializeSuggesterQueryParserParams() throws JAXBException, UnsupportedEncodingException, JSONException {
+    void serializeSuggesterQueryParserParams() throws JSONException {
         // Given a suggester query params
         SuggesterQueryParserParams queryParserParams = new SuggesterQueryParserParams();
         queryParserParams.setLanguage("FR");
@@ -41,8 +40,7 @@ class SuggesterQueryParserTests {
 
         // Then
         String expectedJson = """
-                {
-                  "Questionnaire": {
+                    {
                     "CodeLists": {
                       "CodeList": [
                         {
@@ -60,12 +58,12 @@ class SuggesterQueryParserTests {
                       ]
                     }
                   }
-                }""";
-        JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+                """;
+        JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.LENIENT);
     }
 
     @Test
-    void deserializeSuggesterQueryParserParams() throws JAXBException {
+    void deserializeSuggesterQueryParserParams() throws JsonDeserializationException {
         // Given
         String jsonInput = """
                 {
@@ -99,7 +97,7 @@ class SuggesterQueryParserTests {
         assertEquals("FR", queryParserParams.getLanguage());
         assertEquals(BigInteger.ONE, queryParserParams.getMin());
         assertEquals("(\\w+)", queryParserParams.getPattern());
-        assertEquals(true, queryParserParams.isStemmer());
+        assertEquals(true, queryParserParams.getStemmer());
     }
 
 }

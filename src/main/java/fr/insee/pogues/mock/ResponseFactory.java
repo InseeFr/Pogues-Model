@@ -17,7 +17,6 @@ public class ResponseFactory {
 		response.setSimple(true);
 		response.setMandatory(false);
 		TextDatatypeType textType = new TextDatatypeType();
-		textType.setTypeName(DatatypeTypeEnum.TEXT);
 		textType.setMaxLength(BigInteger.valueOf(100));
 		response.setDatatype(textType);
 
@@ -34,7 +33,6 @@ public class ResponseFactory {
 		double datatypeSelector =  Math.random();
 		if (datatypeSelector < 0.33) {
 			TextDatatypeType textType = new TextDatatypeType();
-			textType.setTypeName(DatatypeTypeEnum.TEXT);
 			textType.setMaxLength(BigInteger.valueOf(100));
 			response.setDatatype(textType);
 			// Predefined values in 1/4 of cases
@@ -47,13 +45,11 @@ public class ResponseFactory {
 			
 		} else if (datatypeSelector < 0.66) {
 			NumericDatatypeType numericType = new NumericDatatypeType();
-			numericType.setTypeName(DatatypeTypeEnum.NUMERIC);
 			numericType.setMinimum(BigDecimal.valueOf(0));
 			numericType.setMaximum(BigDecimal.valueOf(100));
 			response.setDatatype(numericType);		
 		} else {
 			DateDatatypeType dateType = new DateDatatypeType();
-			dateType.setTypeName(DatatypeTypeEnum.DATE);
 			dateType.setFormat(DateFormatEnum.YYYY_MM_DD);
 			response.setDatatype(dateType);
 		}

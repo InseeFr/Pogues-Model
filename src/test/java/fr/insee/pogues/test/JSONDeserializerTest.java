@@ -1,6 +1,7 @@
 package fr.insee.pogues.test;
 
 import fr.insee.pogues.conversion.JSONDeserializer;
+import fr.insee.pogues.exception.JsonDeserializationException;
 import fr.insee.pogues.model.Questionnaire;
 import org.junit.jupiter.api.Test;
 
@@ -12,12 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class JSONDeserializerTest {
 
 	@Test // Note: this test should be replaced by an exception test, see comment in deserializer class.
-	void deserializeFromNullInput_resultShouldBeNull() throws JAXBException {
+	void deserializeFromNullInput_resultShouldBeNull() throws JsonDeserializationException {
 		assertNull(new JSONDeserializer().deserialize((String) null));
 	}
 
 	@Test
-	void testQuestionnaire() throws Exception {
+	void testQuestionnaire() throws JsonDeserializationException {
 
 		long startTime = System.currentTimeMillis();
 
