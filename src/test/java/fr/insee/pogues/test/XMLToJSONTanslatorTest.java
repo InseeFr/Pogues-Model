@@ -8,51 +8,50 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import javax.xml.bind.JAXBException;
-import java.io.UnsupportedEncodingException;
 
 class XMLToJSONTanslatorTest {
 
-	private String xmlCodeList;
+    private String xmlCodeList;
 
-	@BeforeEach
-	void setup() {
-		xmlCodeList = """
-				<CodeList xmlns="http://xml.insee.fr/schema/applis/pogues" id="code-list-id">
-				  <Name>CODE_LIST_NAME</Name>
-				  <Label>Code list label.</Label>
-				  <Code>
-				    <Value>1</Value>
-				    <Label>CODE_1</Label>
-				  </Code>
-				  <Code>
-				    <Value>2</Value>
-				    <Label>CODE_2</Label>
-				  </Code>
-				</CodeList>""";
-	}
+    @BeforeEach
+    void setup() {
+        xmlCodeList = """
+                <CodeList xmlns="http://xml.insee.fr/schema/applis/pogues" id="code-list-id">
+                  <Name>CODE_LIST_NAME</Name>
+                  <Label>Code list label.</Label>
+                  <Code>
+                    <Value>1</Value>
+                    <Label>CODE_1</Label>
+                  </Code>
+                  <Code>
+                    <Value>2</Value>
+                    <Label>CODE_2</Label>
+                  </Code>
+                </CodeList>""";
+    }
 
-	@Test
-    void translateCodeList() throws JAXBException, UnsupportedEncodingException, JSONException {
+    @Test
+    void translateCodeList() throws JAXBException, JSONException {
         //
         XMLToJSONTranslator xmlToJsonTranslator = new XMLToJSONTranslator();
         String result = xmlToJsonTranslator.translateCodeList(xmlCodeList);
         //
         String expectedJson = """
-				{
-				  "id": "code-list-id",
-				  "Name": "CODE_LIST_NAME",
-				  "Label": "Code list label.",
-				  "Code": [
-				    {
-				      "Value": "1",
-				      "Label": "CODE_1"
-				    },
-				    {
-				      "Value": "2",
-				      "Label": "CODE_2"
-				    }
-				  ]
-				}""";
+                {
+                  "id": "code-list-id",
+                  "Name": "CODE_LIST_NAME",
+                  "Label": "Code list label.",
+                  "Code": [
+                    {
+                      "Value": "1",
+                      "Label": "CODE_1"
+                    },
+                    {
+                      "Value": "2",
+                      "Label": "CODE_2"
+                    }
+                  ]
+                }""";
         JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
     }
 
