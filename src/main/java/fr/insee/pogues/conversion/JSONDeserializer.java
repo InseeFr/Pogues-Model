@@ -10,13 +10,17 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class JSONDeserializer {
 
 	private static final Logger logger = LoggerFactory.getLogger(JSONDeserializer.class);
 
-	public Questionnaire deserialize(String fileName) throws JAXBException {
+	public Questionnaire deserialize(String fileName) throws JAXBException, IOException {
 
 		if (fileName == null || fileName.isEmpty()) {
 			// TODO: throwing an exception instead of silent failing would be better here
@@ -27,8 +31,12 @@ public class JSONDeserializer {
 		}
 
 		logger.debug("Deserializing questionnaire from file {}", fileName);
-		StreamSource json = new StreamSource(fileName);
-		return deserializeStreamSource(json);
+
+		String fileContent = Files.readString(Path.of(fileName));
+		String preProcessedString = new JSONSynonymsPreProcessor().transform(fileContent);
+		StreamSource preProcessedStream = new StreamSource(new StringReader(preProcessedString));
+
+		return deserializeStreamSource(preProcessedStream);
 	}
 
 	/**
@@ -39,11 +47,13 @@ public class JSONDeserializer {
 	 */
 	public Questionnaire deserialize(InputStream jsonQuestionnaireInputStream) throws JAXBException {
 		logger.debug("Deserializing json questionnaire from input stream.");
-		StreamSource json = new StreamSource(jsonQuestionnaireInputStream);
-		return deserializeStreamSource(json);
+		String preProcessedString = new JSONSynonymsPreProcessor().transform(jsonQuestionnaireInputStream);
+		StreamSource preProcessedStream = new StreamSource(new StringReader(preProcessedString));
+		return deserializeStreamSource(preProcessedStream);
 	}
 
 	private static Questionnaire deserializeStreamSource(StreamSource json) throws JAXBException {
+
 		JAXBContext context = JAXBContext.newInstance(Questionnaire.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, "application/json");

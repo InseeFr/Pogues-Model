@@ -9,7 +9,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import javax.xml.bind.JAXBException;
 
-class XMLToJSONTanslatorTest {
+class XMLToJSONTranslatorTest {
 
     private String xmlCodeList;
 

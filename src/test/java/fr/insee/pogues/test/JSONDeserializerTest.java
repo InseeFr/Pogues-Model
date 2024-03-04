@@ -5,14 +5,14 @@ import fr.insee.pogues.model.Questionnaire;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
+import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class JSONDeserializerTest {
 
 	@Test // Note: this test should be replaced by an exception test, see comment in deserializer class.
-	void deserializeFromNullInput_resultShouldBeNull() throws JAXBException {
+	void deserializeFromNullInput_resultShouldBeNull() throws JAXBException, IOException {
 		assertNull(new JSONDeserializer().deserialize((String) null));
 	}
 
@@ -28,6 +28,7 @@ class JSONDeserializerTest {
 
 		assertEquals("fr.insee-POPO-QPO-DOC",questionnaire.getId());
 		System.out.println("Serialization time: " + elapsedTime);
+		assertNotNull(questionnaire);
 	}
 
 }

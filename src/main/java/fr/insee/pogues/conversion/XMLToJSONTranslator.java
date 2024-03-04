@@ -15,10 +15,7 @@ import java.nio.charset.StandardCharsets;
 public class XMLToJSONTranslator {
 
 	private static final Logger logger = LoggerFactory.getLogger(XMLToJSONTranslator.class);
-	public static final String START_DEBUG_MESSAGE = "Preparing to translate from XML to JSON";
-	public static final String END_DEBUG_MESSAGE = "Translation complete";
-	public static final String JSON_CONTENT_TYPE = "application/json";
-	public static final String UTF_8_ENCODING = "UTF-8";
+	private static final String START_DEBUG_MESSAGE = "Preparing to translate from XML to JSON";
 
 	private final boolean monitored;
 
@@ -63,15 +60,15 @@ public class XMLToJSONTranslator {
 		Questionnaire questionnaire = (Questionnaire) unmarshaller.unmarshal(xmlStream);
 
 		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, JSON_CONTENT_TYPE);
-		marshaller.setProperty(Marshaller.JAXB_ENCODING, UTF_8_ENCODING);
+		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, ConversionConstants.JSON_CONTENT_TYPE);
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, ConversionConstants.UTF_8_ENCODING);
 		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, false);
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		marshaller.marshal(questionnaire, outputStream);
 
-		logger.debug(END_DEBUG_MESSAGE);
+		logger.debug(ConversionConstants.TRANSLATION_COMPLETE_MESSAGE);
 
 		return outputStream.toString(StandardCharsets.UTF_8);
 	}
@@ -110,15 +107,15 @@ public class XMLToJSONTranslator {
 		SequenceType sequence = jeSequence.getValue();
 
 		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, JSON_CONTENT_TYPE);
-		marshaller.setProperty(Marshaller.JAXB_ENCODING, UTF_8_ENCODING);
+		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, ConversionConstants.JSON_CONTENT_TYPE);
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, ConversionConstants.UTF_8_ENCODING);
 		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, false);
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		marshaller.marshal(sequence, outputStream);
 
-		logger.debug(END_DEBUG_MESSAGE);
+		logger.debug(ConversionConstants.TRANSLATION_COMPLETE_MESSAGE);
 
 		return outputStream.toString(StandardCharsets.UTF_8);
 	}
@@ -157,15 +154,15 @@ public class XMLToJSONTranslator {
         QuestionType question = jeQuestion.getValue();
 
         Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, JSON_CONTENT_TYPE);
-		marshaller.setProperty(Marshaller.JAXB_ENCODING, UTF_8_ENCODING);
+		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, ConversionConstants.JSON_CONTENT_TYPE);
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, ConversionConstants.UTF_8_ENCODING);
 		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, false);
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		marshaller.marshal(question, outputStream);
 
-		logger.debug(END_DEBUG_MESSAGE);
+		logger.debug(ConversionConstants.TRANSLATION_COMPLETE_MESSAGE);
 
 		return outputStream.toString(StandardCharsets.UTF_8);
 	}
@@ -203,15 +200,15 @@ public class XMLToJSONTranslator {
 		CodeLists codeLists = (CodeLists) unmarshaller.unmarshal(xmlStream);
 
 		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, JSON_CONTENT_TYPE);
-		marshaller.setProperty(Marshaller.JAXB_ENCODING, UTF_8_ENCODING);
+		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, ConversionConstants.JSON_CONTENT_TYPE);
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, ConversionConstants.UTF_8_ENCODING);
 		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, false);
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		marshaller.marshal(codeLists, outputStream);
 
-		logger.debug(END_DEBUG_MESSAGE);
+		logger.debug(ConversionConstants.TRANSLATION_COMPLETE_MESSAGE);
 
 		return outputStream.toString(StandardCharsets.UTF_8);
 	}
@@ -249,15 +246,15 @@ public class XMLToJSONTranslator {
 		CodeList codeList = (CodeList) unmarshaller.unmarshal(xmlStream);
 
 		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, JSON_CONTENT_TYPE);
-		marshaller.setProperty(Marshaller.JAXB_ENCODING, UTF_8_ENCODING);
+		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, ConversionConstants.JSON_CONTENT_TYPE);
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, ConversionConstants.UTF_8_ENCODING);
 		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, false);
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		marshaller.marshal(codeList, outputStream);
 
-		logger.debug(END_DEBUG_MESSAGE);
+		logger.debug(ConversionConstants.TRANSLATION_COMPLETE_MESSAGE);
 
 		return outputStream.toString(StandardCharsets.UTF_8);
 	}
