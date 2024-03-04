@@ -2,6 +2,7 @@ package fr.insee.pogues.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,10 +32,12 @@ public class SuggesterParametersType {
     protected String name;
 
     @JsonProperty(required = true)
+    @JacksonXmlElementWrapper(useWrapping = false)
     protected List<SuggesterField> fields;
 
     protected BigInteger max;
 
+    @JacksonXmlElementWrapper(useWrapping = false)
     protected List<String> stopWords;
 
     protected SuggesterOrder order;

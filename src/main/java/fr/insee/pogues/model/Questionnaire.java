@@ -2,6 +2,7 @@ package fr.insee.pogues.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,16 +46,20 @@ public class Questionnaire extends SequenceType {
     protected Questionnaire.Iterations iterations;
 
     /** Agency that produces the questionnaire. Optional. Example: "fr.insee". */
+    @JacksonXmlProperty(isAttribute = true)
     protected String agency;
 
     /** Boolean attribute indicating if the questionnaire is final or not. */
     @JsonProperty("final")
+    @JacksonXmlProperty(isAttribute = true, localName = "final")
     protected Boolean finalOrNot;
 
     /** Type of filters used in the questionnaire. */
+    @JacksonXmlProperty(isAttribute = true)
     protected FlowLogicEnum flowLogic;
 
     /** Language used for expressions in the questionnaire. */
+    @JacksonXmlProperty(isAttribute = true)
     protected FormulasLanguageEnum formulasLanguage;
 
     public Questionnaire() {

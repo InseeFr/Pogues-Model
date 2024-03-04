@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,15 +44,21 @@ import java.util.List;
 })
 @JsonTypeInfo(use= JsonTypeInfo.Id.DEDUCTION, defaultImpl = SequenceType.class)
 @JsonSubTypes({
+        @JsonSubTypes.Type(Questionnaire.class),
         @JsonSubTypes.Type(SequenceType.class),
-        @JsonSubTypes.Type(Questionnaire.class)})
+        @JsonSubTypes.Type(QuestionType.class)
+})
 @Getter
 @Setter
 public abstract class ComponentType {
 
     /** Component identifier. */
     @JsonProperty(required = true)
+    @JacksonXmlProperty(isAttribute = true)
     protected String id;
+
+    @JacksonXmlProperty(isAttribute = true)
+    private final String type;
 
     /** Business name of the component. */
     @JsonProperty(value = "Name", required = true)
@@ -88,6 +95,7 @@ public abstract class ComponentType {
     protected List<ComponentType> child;
 
     protected ComponentType() {
+        type = this.getClass().getSimpleName();
         label = new ArrayList<>();
         declaration = new ArrayList<>();
         control = new ArrayList<>();

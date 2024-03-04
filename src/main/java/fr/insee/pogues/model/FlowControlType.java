@@ -2,6 +2,7 @@ package fr.insee.pogues.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,9 +23,11 @@ import lombok.Setter;
 public class FlowControlType {
 
     @JsonProperty(required = true)
+    @JacksonXmlProperty(isAttribute = true)
     protected String id;
 
     /** {@link FlowControlTypeEnum} */
+    @JacksonXmlProperty(isAttribute = true)
     protected FlowControlTypeEnum flowControlType;
 
     @JsonProperty("Description")

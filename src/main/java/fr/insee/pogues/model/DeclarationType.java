@@ -2,6 +2,7 @@ package fr.insee.pogues.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,12 +26,15 @@ public class DeclarationType {
 
     /** Identifier of the declaration. */
     @JsonProperty(required = true)
+    @JacksonXmlProperty(isAttribute = true)
     protected String id;
 
     /** {@link DeclarationTypeEnum} */
+    @JacksonXmlProperty(isAttribute = true)
     protected DeclarationTypeEnum declarationType;
 
     /** {@link DeclarationPositionEnum} */
+    @JacksonXmlProperty(isAttribute = true)
     protected DeclarationPositionEnum position;
 
     /** Text of the declaration. */

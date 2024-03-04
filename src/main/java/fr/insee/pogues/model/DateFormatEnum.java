@@ -10,7 +10,8 @@ public enum DateFormatEnum {
 
     YYYY_MM_DD("YYYY-MM-DD"),
     YYYY_MM("YYYY-MM"),
-    YYYY("YYYY");
+    YYYY("YYYY"),
+    NO_FORMAT("");
 
     private final String value;
 

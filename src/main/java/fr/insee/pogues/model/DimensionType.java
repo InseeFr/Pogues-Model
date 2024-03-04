@@ -2,6 +2,7 @@ package fr.insee.pogues.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,11 +17,13 @@ import lombok.Setter;
 @Setter
 public class DimensionType {
 
-    @JsonProperty(value = "dimensionType", required = true)
+    @JsonProperty(required = true)
+    @JacksonXmlProperty(isAttribute = true)
     protected DimensionTypeEnum dimensionType;
 
     /** '0': no constraint; 'm-': min m, no max; '-n': no min, n max; 'm-n': m min, n max */
-    @JsonProperty(value = "dynamic", required = true)
+    @JsonProperty(required = true)
+    @JacksonXmlProperty(isAttribute = true)
     protected String dynamic;
 
     @JsonProperty("CodeListReference")

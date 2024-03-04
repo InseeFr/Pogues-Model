@@ -2,6 +2,7 @@ package fr.insee.pogues.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +28,7 @@ import java.util.List;
 public class CodeList {
 
     @JsonProperty(required = true)
+    @JacksonXmlProperty(isAttribute = true)
     protected String id;
 
     @JsonProperty(value = "Name", required = true)
