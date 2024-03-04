@@ -1,9 +1,11 @@
 package fr.insee.pogues.conversion;
 
+import fr.insee.pogues.PreProcessingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.json.*;
+import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 
 /** Pogues application generates suggester "synonyms" parameter as key/value pairs.
@@ -14,7 +16,7 @@ public class JSONSynonymsPreProcessor {
 
     private static final Logger logger  = LoggerFactory.getLogger(JSONSynonymsPreProcessor.class);
 
-    public String transform(String jsonQuestionnaireString) throws IOException {
+    public String transform(String jsonQuestionnaireString) {
         // Should throw an exception, yet it may have impacts in Pogues-Back-Office
         if (jsonQuestionnaireString == null) {
             logger.warn("null string given in JSON synonyms pre-processing method.");
@@ -23,7 +25,7 @@ public class JSONSynonymsPreProcessor {
         return transform(new ByteArrayInputStream(jsonQuestionnaireString.getBytes()));
     }
 
-    public String transform(InputStream jsonQuestionnaireInputStream) throws IOException {
+    public String transform(InputStream jsonQuestionnaireInputStream) {
         // Should throw an exception, yet it may have impacts in Pogues-Back-Office
         if (jsonQuestionnaireInputStream == null) {
             logger.warn("null input stream given in JSON synonyms pre-processing method.");
@@ -45,10 +47,46 @@ public class JSONSynonymsPreProcessor {
         }
 
         String result = outputStream.toString();
-        outputStream.close();
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+            throw new PreProcessingException("IO exception occurred when trying to close pre processing output.", e);
+        }
 
         return result;
     }
+
+    public String transform(StreamSource jsonQuestionnaireStreamSource) {
+        // Should throw an exception, yet it may have impacts in Pogues-Back-Office
+        if (jsonQuestionnaireStreamSource == null) {
+            logger.warn("null stream source given in JSON synonyms pre-processing method.");
+            return null;
+        }
+
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        try (JsonReader jsonReader = Json.createReader(jsonQuestionnaireStreamSource.getReader());
+             JsonWriter jsonWriter = Json.createWriter(outputStream)) {
+
+            JsonObject jsonQuestionnaire = jsonReader.readObject();
+
+            // We will copy the entire input json object, except the "symLinks" attribute in PairwiseLinks components
+            JsonObjectBuilder jsonQuestionnaireBuilder = Json.createObjectBuilder();
+            editQuestionnaire(jsonQuestionnaire, jsonQuestionnaireBuilder);
+
+            jsonWriter.writeObject(jsonQuestionnaireBuilder.build());
+        }
+
+        String result = outputStream.toString();
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+            throw new PreProcessingException("IO exception occurred when trying to close pre processing output.", e);
+        }
+
+        return result;
+    }
+
 
     private static void editQuestionnaire(JsonObject jsonQuestionnaire, JsonObjectBuilder jsonQuestionnaireBuilder) {
         jsonQuestionnaire.forEach((key, jsonValue) -> {
