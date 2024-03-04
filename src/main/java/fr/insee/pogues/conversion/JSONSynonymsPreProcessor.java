@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.json.*;
-import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 
 /** Pogues application generates suggester "synonyms" parameter as key/value pairs.
@@ -37,39 +36,6 @@ public class JSONSynonymsPreProcessor {
         OutputStream outputStream = new ByteArrayOutputStream();
 
         try (JsonReader jsonReader = Json.createReader(jsonQuestionnaireInputStream);
-             JsonWriter jsonWriter = Json.createWriter(outputStream)) {
-
-            JsonObject jsonQuestionnaire = jsonReader.readObject();
-
-            // We will copy the entire input json object, except the "symLinks" attribute in PairwiseLinks components
-            JsonObjectBuilder jsonQuestionnaireBuilder = Json.createObjectBuilder();
-            editQuestionnaire(jsonQuestionnaire, jsonQuestionnaireBuilder);
-
-            jsonWriter.writeObject(jsonQuestionnaireBuilder.build());
-        }
-
-        String result = outputStream.toString();
-        try {
-            outputStream.close();
-        } catch (IOException e) {
-            throw new PreProcessingException("IO exception occurred when trying to close pre processing output.", e);
-        }
-
-        return result;
-    }
-
-    public String transform(StreamSource jsonQuestionnaireStreamSource) {
-        // Should throw an exception, yet it may have impacts in Pogues-Back-Office
-        if (jsonQuestionnaireStreamSource == null) {
-            logger.warn("null stream source given in JSON synonyms pre-processing method.");
-            return null;
-        }
-
-        logger.info("Pre-processing json questionnaire stream source...");
-
-        OutputStream outputStream = new ByteArrayOutputStream();
-
-        try (JsonReader jsonReader = Json.createReader(jsonQuestionnaireStreamSource.getReader());
              JsonWriter jsonWriter = Json.createWriter(outputStream)) {
 
             JsonObject jsonQuestionnaire = jsonReader.readObject();

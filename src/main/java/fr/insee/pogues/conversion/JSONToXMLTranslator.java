@@ -11,9 +11,7 @@ import org.slf4j.LoggerFactory;
 import javax.xml.bind.*;
 import javax.xml.namespace.QName;
 import javax.xml.transform.stream.StreamSource;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.StringReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class JSONToXMLTranslator {
@@ -32,33 +30,32 @@ public class JSONToXMLTranslator {
 		this.monitored = monitored;
 	}
 
-	public String translate(File jsonFile) throws JAXBException {
+	public String translate(File jsonFile) throws JAXBException, FileNotFoundException {
 
 		if (jsonFile == null)
 			return null;
-		StreamSource json = new StreamSource(jsonFile);
+		String preProcessedString = new JSONSynonymsPreProcessor().transform(new FileInputStream(jsonFile));
+		StreamSource preProcessedStream = new StreamSource(new StringReader(preProcessedString));
 
-		return this.translate(json);
+		return this.translate(preProcessedStream);
 	}
 
 	public String translate(String jsonString) throws JAXBException {
 
 		if ((jsonString == null) || (jsonString.isEmpty()))
 			return null;
-		StreamSource json = new StreamSource(new StringReader(jsonString));
+		String preProcessedString = new JSONSynonymsPreProcessor().transform(jsonString);
+		StreamSource preProcessedStream = new StreamSource(new StringReader(preProcessedString));
 
-		return this.translate(json);
+		return this.translate(preProcessedStream);
 	}
 
-	public String translate(StreamSource jsonStream) throws JAXBException {
+	private String translate(StreamSource jsonStream) throws JAXBException {
 
 		if (jsonStream == null)
 			return null;
 
 		logger.debug(START_DEBUG_MESSAGE);
-
-		String preProcessedString = new JSONSynonymsPreProcessor().transform(jsonStream);
-		StreamSource preProcessedStream = new StreamSource(new StringReader(preProcessedString));
 
 		JAXBContext context = JAXBContext.newInstance(Questionnaire.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -67,7 +64,7 @@ public class JSONToXMLTranslator {
 		if (monitored)
 			unmarshaller.setListener(new UnmarshallLogger());
 
-		Questionnaire questionnaireNoRoot = unmarshaller.unmarshal(preProcessedStream, Questionnaire.class).getValue();
+		Questionnaire questionnaireNoRoot = unmarshaller.unmarshal(jsonStream, Questionnaire.class).getValue();
 		logger.debug("Questionnaire unmarshalled from JSON source, questionnaire id: {}", questionnaireNoRoot.getId());
 
 		Marshaller marshaller = context.createMarshaller();
@@ -192,6 +189,12 @@ public class JSONToXMLTranslator {
 		return outputStream.toString(StandardCharsets.UTF_8);
 	}
 
+	/**
+	 * Warning: this method is not adapted for suggester code lists (synonyms pre-processing is not applied).
+	 * @param jsonFile Code list in a json file.
+	 * @return Code list translated in xml string.
+	 * @throws JAXBException if translation fails.
+	 */
 	public String translateCodeLists(File jsonFile) throws JAXBException {
 
 		if (jsonFile == null)
