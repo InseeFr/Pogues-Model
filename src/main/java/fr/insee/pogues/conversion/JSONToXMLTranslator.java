@@ -1,30 +1,28 @@
 package fr.insee.pogues.conversion;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.namespace.QName;
-import javax.xml.transform.stream.StreamSource;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.eclipse.persistence.jaxb.UnmarshallerProperties;
-
 import fr.insee.pogues.model.CodeLists;
 import fr.insee.pogues.model.QuestionType;
 import fr.insee.pogues.model.Questionnaire;
 import fr.insee.pogues.model.SequenceType;
+import org.eclipse.persistence.jaxb.UnmarshallerProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.xml.bind.*;
+import javax.xml.namespace.QName;
+import javax.xml.transform.stream.StreamSource;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 
 public class JSONToXMLTranslator {
 
-	private boolean monitored;
+	private static final Logger logger = LoggerFactory.getLogger(JSONToXMLTranslator.class);
+	public static final String START_DEBUG_MESSAGE = "Preparing to translate from JSON to XML";
+	public static final String POGUES_XML_NAMESPACE = "http://xml.insee.fr/schema/applis/pogues";
+
+	private final boolean monitored;
 
 	public JSONToXMLTranslator() {
 		this(false);
@@ -34,9 +32,7 @@ public class JSONToXMLTranslator {
 		this.monitored = monitored;
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(JSONToXMLTranslator.class);
-
-	public String translate(File jsonFile) throws JAXBException, UnsupportedEncodingException {
+	public String translate(File jsonFile) throws JAXBException {
 
 		if (jsonFile == null)
 			return null;
@@ -45,51 +41,51 @@ public class JSONToXMLTranslator {
 		return this.translate(json);
 	}
 
-	public String translate(String jsonString) throws JAXBException, UnsupportedEncodingException {
+	public String translate(String jsonString) throws JAXBException {
 
-		if ((jsonString == null) || (jsonString.length() == 0))
+		if ((jsonString == null) || (jsonString.isEmpty()))
 			return null;
 		StreamSource json = new StreamSource(new StringReader(jsonString));
 
 		return this.translate(json);
 	}
 
-	public String translate(StreamSource jsonStream) throws JAXBException, UnsupportedEncodingException {
+	public String translate(StreamSource jsonStream) throws JAXBException {
 
 		if (jsonStream == null)
 			return null;
 
-		logger.debug("Preparing to translate from JSON to XML");
+		logger.debug(START_DEBUG_MESSAGE);
 
 		JAXBContext context = JAXBContext.newInstance(Questionnaire.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
-		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, "application/json");
+		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, ConversionConstants.JSON_CONTENT_TYPE);
 		unmarshaller.setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, false);
 		if (monitored)
 			unmarshaller.setListener(new UnmarshallLogger());
 
 		Questionnaire questionnaireNoRoot = unmarshaller.unmarshal(jsonStream, Questionnaire.class).getValue();
-		logger.debug("Questionnaire unmarshalled from JSON source, questionnaire id:" + questionnaireNoRoot.getId());
+		logger.debug("Questionnaire unmarshalled from JSON source, questionnaire id: {}", questionnaireNoRoot.getId());
 
 		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, ConversionConstants.UTF_8_ENCODING);
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 		// The JSON document does not specify the root element, so we have to
 		// add it explicitly
-		QName qName = new QName("http://xml.insee.fr/schema/applis/pogues", "Questionnaire");
-		JAXBElement<Questionnaire> questionnaire = new JAXBElement<Questionnaire>(qName, Questionnaire.class,
+		QName qName = new QName(POGUES_XML_NAMESPACE, "Questionnaire");
+		JAXBElement<Questionnaire> questionnaire = new JAXBElement<>(qName, Questionnaire.class,
 				questionnaireNoRoot);
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		marshaller.marshal(questionnaire, baos);
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		marshaller.marshal(questionnaire, outputStream);
 
-		logger.debug("Translation complete");
+		logger.debug(ConversionConstants.TRANSLATION_COMPLETE_MESSAGE);
 
-		return baos.toString("UTF-8");
+		return outputStream.toString(StandardCharsets.UTF_8);
 	}
 
-	public String translateQuestion(File jsonFile) throws JAXBException, UnsupportedEncodingException {
+	public String translateQuestion(File jsonFile) throws JAXBException {
 
 		if (jsonFile == null)
 			return null;
@@ -98,50 +94,50 @@ public class JSONToXMLTranslator {
 		return this.translateQuestion(json);
 	}
 
-	public String translateQuestion(String jsonString) throws JAXBException, UnsupportedEncodingException {
+	public String translateQuestion(String jsonString) throws JAXBException {
 
-		if ((jsonString == null) || (jsonString.length() == 0))
+		if ((jsonString == null) || (jsonString.isEmpty()))
 			return null;
 		StreamSource json = new StreamSource(new StringReader(jsonString));
 
 		return this.translateQuestion(json);
 	}
 
-	public String translateQuestion(StreamSource jsonStream) throws JAXBException, UnsupportedEncodingException {
+	public String translateQuestion(StreamSource jsonStream) throws JAXBException {
 
 		if (jsonStream == null)
 			return null;
 
-		logger.debug("Preparing to translate from JSON to XML");
+		logger.debug(START_DEBUG_MESSAGE);
 
 		JAXBContext context = JAXBContext.newInstance(QuestionType.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
-		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, "application/json");
+		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, ConversionConstants.JSON_CONTENT_TYPE);
 		unmarshaller.setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, false);
 		if (monitored)
 			unmarshaller.setListener(new UnmarshallLogger());
 
 		QuestionType questionNoRoot = unmarshaller.unmarshal(jsonStream, QuestionType.class).getValue();
-		logger.debug("Question unmarshalled from JSON source, question id:" + questionNoRoot.getId());
+		logger.debug("Question unmarshalled from JSON source, question id: {}", questionNoRoot.getId());
 
 		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, ConversionConstants.UTF_8_ENCODING);
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 		// The JSON document does not specify the root element, so we have to
 		// add it explicitly
-		QName qName = new QName("http://xml.insee.fr/schema/applis/pogues", "Question");
-		JAXBElement<QuestionType> question = new JAXBElement<QuestionType>(qName, QuestionType.class, questionNoRoot);
+		QName qName = new QName(POGUES_XML_NAMESPACE, "Question");
+		JAXBElement<QuestionType> question = new JAXBElement<>(qName, QuestionType.class, questionNoRoot);
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		marshaller.marshal(question, baos);
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		marshaller.marshal(question, outputStream);
 
-		logger.debug("Translation complete");
+		logger.debug(ConversionConstants.TRANSLATION_COMPLETE_MESSAGE);
 
-		return baos.toString("UTF-8");
+		return outputStream.toString(StandardCharsets.UTF_8);
 	}
 
-	public String translateSequence(File jsonFile) throws JAXBException, UnsupportedEncodingException {
+	public String translateSequence(File jsonFile) throws JAXBException {
 
 		if (jsonFile == null)
 			return null;
@@ -150,50 +146,50 @@ public class JSONToXMLTranslator {
 		return this.translateSequence(json);
 	}
 
-	public String translateSequence(String jsonString) throws JAXBException, UnsupportedEncodingException {
+	public String translateSequence(String jsonString) throws JAXBException {
 
-		if ((jsonString == null) || (jsonString.length() == 0))
+		if ((jsonString == null) || (jsonString.isEmpty()))
 			return null;
 		StreamSource json = new StreamSource(new StringReader(jsonString));
 
 		return this.translateSequence(json);
 	}
 
-	public String translateSequence(StreamSource jsonStream) throws JAXBException, UnsupportedEncodingException {
+	public String translateSequence(StreamSource jsonStream) throws JAXBException {
 
 		if (jsonStream == null)
 			return null;
 
-		logger.debug("Preparing to translate from JSON to XML");
+		logger.debug(START_DEBUG_MESSAGE);
 
 		JAXBContext context = JAXBContext.newInstance(SequenceType.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
-		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, "application/json");
+		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, ConversionConstants.JSON_CONTENT_TYPE);
 		unmarshaller.setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, false);
 		if (monitored)
 			unmarshaller.setListener(new UnmarshallLogger());
 
 		SequenceType sequenceNoRoot = unmarshaller.unmarshal(jsonStream, SequenceType.class).getValue();
-		logger.debug("Sequence unmarshalled from JSON source, question id:" + sequenceNoRoot.getId());
+		logger.debug("Sequence unmarshalled from JSON source, question id: {}", sequenceNoRoot.getId());
 
 		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, ConversionConstants.UTF_8_ENCODING);
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 		// The JSON document does not specify the root element, so we have to
 		// add it explicitly
-		QName qName = new QName("http://xml.insee.fr/schema/applis/pogues", "Sequence");
-		JAXBElement<SequenceType> sequence = new JAXBElement<SequenceType>(qName, SequenceType.class, sequenceNoRoot);
+		QName qName = new QName(POGUES_XML_NAMESPACE, "Sequence");
+		JAXBElement<SequenceType> sequence = new JAXBElement<>(qName, SequenceType.class, sequenceNoRoot);
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		marshaller.marshal(sequence, baos);
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		marshaller.marshal(sequence, outputStream);
 
-		logger.debug("Translation complete");
+		logger.debug(ConversionConstants.TRANSLATION_COMPLETE_MESSAGE);
 
-		return baos.toString("UTF-8");
+		return outputStream.toString(StandardCharsets.UTF_8);
 	}
 
-	public String translateCodeLists(File jsonFile) throws JAXBException, UnsupportedEncodingException {
+	public String translateCodeLists(File jsonFile) throws JAXBException {
 
 		if (jsonFile == null)
 			return null;
@@ -202,25 +198,25 @@ public class JSONToXMLTranslator {
 		return this.translateCodeLists(json);
 	}
 
-	public String translateCodeLists(String jsonString) throws JAXBException, UnsupportedEncodingException {
+	public String translateCodeLists(String jsonString) throws JAXBException {
 
-		if ((jsonString == null) || (jsonString.length() == 0))
+		if ((jsonString == null) || (jsonString.isEmpty()))
 			return null;
 		StreamSource json = new StreamSource(new StringReader(jsonString));
 
 		return this.translateCodeLists(json);
 	}
 
-	public String translateCodeLists(StreamSource jsonStream) throws JAXBException, UnsupportedEncodingException {
+	public String translateCodeLists(StreamSource jsonStream) throws JAXBException {
 
 		if (jsonStream == null)
 			return null;
 
-		logger.debug("Preparing to translate from JSON to XML");
+		logger.debug(START_DEBUG_MESSAGE);
 
 		JAXBContext context = JAXBContext.newInstance(CodeLists.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
-		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, "application/json");
+		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, ConversionConstants.JSON_CONTENT_TYPE);
 		unmarshaller.setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, false);
 		if (monitored)
 			unmarshaller.setListener(new UnmarshallLogger());
@@ -229,32 +225,32 @@ public class JSONToXMLTranslator {
 		logger.debug("CodeLists unmarshalled from JSON source");
 
 		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, ConversionConstants.UTF_8_ENCODING);
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 		// The JSON document does not specify the root element, so we have to
 		// add it explicitly
-		QName qName = new QName("http://xml.insee.fr/schema/applis/pogues", "CodeLists");
-		JAXBElement<CodeLists> codeLists = new JAXBElement<CodeLists>(qName, CodeLists.class, codeListsNoRoot);
+		QName qName = new QName(POGUES_XML_NAMESPACE, "CodeLists");
+		JAXBElement<CodeLists> codeLists = new JAXBElement<>(qName, CodeLists.class, codeListsNoRoot);
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		marshaller.marshal(codeLists, baos);
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		marshaller.marshal(codeLists, outputStream);
 
-		logger.debug("Translation complete");
+		logger.debug(ConversionConstants.TRANSLATION_COMPLETE_MESSAGE);
 
-		return baos.toString("UTF-8");
+		return outputStream.toString(StandardCharsets.UTF_8);
 	}
 
-	private class UnmarshallLogger extends Unmarshaller.Listener {
+	private static class UnmarshallLogger extends Unmarshaller.Listener {
 
 		@Override
 		public void beforeUnmarshal(Object target, Object parent) {
-			logger.debug("Before unmarshalling object " + target);
+			logger.debug("Before unmarshalling object {}", target);
 		}
 
 		@Override
 		public void afterUnmarshal(Object target, Object parent) {
-			logger.debug("After unmarshalling object " + target);
+			logger.debug("After unmarshalling object {}", target);
 		}
 	}
 }
