@@ -76,20 +76,18 @@ class SuggesterRulesTests {
         // Then
         String expectedJson = """
                 {
-                  "Questionnaire": {
-                    "CodeLists": {
-                      "CodeList": [
-                        {
-                          "SuggesterParameters": {
-                            "fields": [
-                              {
-                                "rules": ["soft"]
-                              }
-                            ]
-                          }
+                  "CodeLists": {
+                    "CodeList": [
+                      {
+                        "SuggesterParameters": {
+                          "fields": [
+                            {
+                              "rules": "soft"
+                            }
+                          ]
                         }
-                      ]
-                    }
+                      }
+                    ]
                   }
                 }""";
         JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
@@ -106,7 +104,7 @@ class SuggesterRulesTests {
         // (assuming intermediate objects are fine)
         SuggesterField suggesterField = questionnaire.getCodeLists().getCodeList().getFirst()
                 .getSuggesterParameters().getFields().getFirst();
-        assertEquals(List.of(SOFT_RULE), suggesterField.getRules().getPatterns());
+        assertEquals(SOFT_RULE, suggesterField.getRules().getRule());
     }
 
     @Test
@@ -130,7 +128,6 @@ class SuggesterRulesTests {
 
         // Then
         String expectedXml = """
-                <?xml version="1.0" encoding="UTF-8"?>
                 <Questionnaire xmlns="http://xml.insee.fr/schema/applis/pogues">
                   <CodeLists>
                     <CodeList>
@@ -153,7 +150,6 @@ class SuggesterRulesTests {
 
         // Then
         String expectedXml = """
-                <?xml version="1.0" encoding="UTF-8"?>
                 <Questionnaire xmlns="http://xml.insee.fr/schema/applis/pogues">
                   <CodeLists>
                     <CodeList>

@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 class TranslatorsTest {
 
 	@Test
@@ -23,6 +25,7 @@ class TranslatorsTest {
 		FileUtils.writeStringToFile(new File("src/test/resources/fr.insee-POPO-QPO-DOC-out.xml"), xmlQuestionnaire,
 				"UTF-8");
 		System.out.println("Conversion time: " + elapsedTime);
+		assertNotNull(xmlQuestionnaire);
 	}
 
 	@Test
@@ -39,6 +42,7 @@ class TranslatorsTest {
 		FileUtils.writeStringToFile(new File("src/test/resources/fr.insee-POPO-QPO-DOC-out.json"), jsonQuestionnaire,
 				"UTF-8");
 		System.out.println("Conversion time: " + elapsedTime);
+		assertNotNull(jsonQuestionnaire);
 	}
 
 }

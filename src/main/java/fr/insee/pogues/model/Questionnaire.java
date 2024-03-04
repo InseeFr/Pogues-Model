@@ -1,7 +1,7 @@
 package fr.insee.pogues.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,14 +15,13 @@ import java.util.List;
  */
 @Getter
 @Setter
-@JacksonXmlRootElement(namespace = "http://xml.insee.fr/schema/applis/pogues")
 public class Questionnaire extends SequenceType {
 
-    /** Xml namespace of Pogues questionnaires. */
-    public static final String XML_NAMESPACE = "http://xml.insee.fr/schema/applis/pogues";
-
-    /** Default value that exists for legacy reasons. */
-    private static final String AGENCY_DEFAULT_VALUE = "com.example";
+    // Note: @JacksonXmlRootElement(namespace = ...) doesn't work
+    // https://github.com/FasterXML/jackson-dataformat-xml/issues/18
+    @JsonIgnore
+    @JacksonXmlProperty(isAttribute = true, localName = "xmlns")
+    private String xmlNamespace = "http://xml.insee.fr/schema/applis/pogues";
 
 
     @JsonProperty(value = "DataCollection", required = true)
@@ -66,10 +65,6 @@ public class Questionnaire extends SequenceType {
         super();
         dataCollection = new ArrayList<>();
         componentGroup = new ArrayList<>();
-        codeLists = new CodeLists();
-        variables = new Variables();
-        iterations = new Iterations();
-        agency = AGENCY_DEFAULT_VALUE;
     }
 
 

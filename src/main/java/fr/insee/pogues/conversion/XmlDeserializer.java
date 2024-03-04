@@ -14,7 +14,7 @@ public class XmlDeserializer {
     public final XmlMapper xmlMapper;
 
     public XmlDeserializer() {
-        xmlMapper = new XmlMapper();
+        xmlMapper = XmlMapper.builder().defaultUseWrapper(false).build();
     }
 
     /**
@@ -37,7 +37,7 @@ public class XmlDeserializer {
         if (questionnaire.getId() == null)
             log.warn("Identifier of the deserialized questionnaire is null.");
 
-        log.debug("Questionnaire {} successfully deserialized.", questionnaire.getId());
+        log.info("Questionnaire {} successfully deserialized.", questionnaire.getId());
         return questionnaire;
     }
 

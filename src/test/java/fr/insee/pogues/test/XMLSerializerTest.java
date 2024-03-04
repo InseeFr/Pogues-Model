@@ -1,6 +1,8 @@
 package fr.insee.pogues.test;
 
+import fr.insee.pogues.conversion.XmlDeserializer;
 import fr.insee.pogues.conversion.XmlSerializer;
+import fr.insee.pogues.exception.XmlDeserializationException;
 import fr.insee.pogues.exception.XmlSerializationException;
 import fr.insee.pogues.mock.CodeListFactory;
 import fr.insee.pogues.mock.QuestionnaireFactory;
@@ -10,6 +12,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.xmlunit.assertj3.XmlAssert;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -109,7 +112,7 @@ class XmlSerializerTest {
 		// Then
 		String expectedXml = """
 				<?xml version="1.0" encoding="UTF-8"?>
-				<CodeList xmlns="http://xml.insee.fr/schema/applis/pogues" id="code-list-id">
+				<CodeList id="code-list-id">
 				  <Name>CODE_LIST_NAME</Name>
 				  <Label>Code list label.</Label>
 				  <Code>
@@ -121,6 +124,50 @@ class XmlSerializerTest {
 				    <Label>CODE_2</Label>
 				  </Code>
 				</CodeList>""";
+		XmlAssert.assertThat(result).and(expectedXml).ignoreWhitespace().areIdentical();
+	}
+
+	@Test
+	void serializeCodeListFromQuestionnaire() throws XmlSerializationException, XmlDeserializationException {
+		// Given
+		Questionnaire questionnaire = new Questionnaire();
+		CodeLists codeLists = new CodeLists();
+		CodeList codeList = new CodeList();
+		codeList.setId("code-list-id");
+		codeList.setName("CODE_LIST_NAME");
+		codeList.setLabel("Code list label.");
+		CodeType code1 = new CodeType();
+		code1.setLabel("CODE_1");
+		code1.setValue("1");
+		CodeType code2 = new CodeType();
+		code2.setLabel("CODE_2");
+		code2.setValue("2");
+		codeList.getCode().add(code1);
+		codeList.getCode().add(code2);
+		codeLists.getCodeList().add(codeList);
+		questionnaire.setCodeLists(codeLists);
+		// When
+		XmlSerializer xmlSerializer = new XmlSerializer();
+		String result = xmlSerializer.serialize(questionnaire);
+		// Then xmlns="http://xml.insee.fr/schema/applis/pogues"
+		String expectedXml = """
+				<Questionnaire type="Questionnaire">
+				<CodeLists>
+				<CodeList id="code-list-id">
+				  <Name>CODE_LIST_NAME</Name>
+				  <Label>Code list label.</Label>
+				  <Code>
+				    <Value>1</Value>
+				    <Label>CODE_1</Label>
+				  </Code>
+				  <Code>
+				    <Value>2</Value>
+				    <Label>CODE_2</Label>
+				  </Code>
+				</CodeList>
+				</CodeLists>
+				</Questionnaire>""";
+		new XmlDeserializer().deserialize(new ByteArrayInputStream(expectedXml.getBytes()));
 		XmlAssert.assertThat(result).and(expectedXml).ignoreWhitespace().areIdentical();
 	}
 

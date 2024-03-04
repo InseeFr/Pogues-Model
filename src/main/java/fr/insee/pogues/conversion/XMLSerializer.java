@@ -1,6 +1,8 @@
 package fr.insee.pogues.conversion;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import fr.insee.pogues.exception.XmlSerializationException;
 import fr.insee.pogues.model.CodeList;
@@ -12,10 +14,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class XmlSerializer {
 
+	private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+
 	private final XmlMapper xmlMapper;
 
 	public XmlSerializer() {
-		xmlMapper = new XmlMapper();
+		xmlMapper = XmlMapper.builder().defaultUseWrapper(false).build();
+		xmlMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, true);
+		xmlMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		xmlMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 	}
 
 	public String serialize(Questionnaire questionnaire) throws XmlSerializationException {

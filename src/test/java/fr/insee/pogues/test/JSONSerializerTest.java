@@ -10,10 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
-import javax.xml.bind.JAXBException;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class JsonSerializerTest {
 
@@ -32,6 +31,7 @@ class JsonSerializerTest {
 
 		FileUtils.writeStringToFile(new File("src/test/resources/questionnaire.json"), jsonQuestionnaire, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
+		assertNotNull(jsonQuestionnaire);
 	}
 
 	@Test
@@ -49,6 +49,7 @@ class JsonSerializerTest {
 
 		FileUtils.writeStringToFile(new File("src/test/resources/sequence-ser.json"), jsonSequence, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
+		assertNotNull(jsonSequence);
 	}
 
 	@Test
@@ -66,6 +67,7 @@ class JsonSerializerTest {
 
 		FileUtils.writeStringToFile(new File("src/test/resources/codelist-ser.json"), jsonCodeList, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
+		assertNotNull(jsonCodeList);
 	}
 
 	@Test
@@ -83,6 +85,7 @@ class JsonSerializerTest {
 
 		FileUtils.writeStringToFile(new File("src/test/resources/question-ser.json"), jsonQuestion, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
+		assertNotNull(jsonQuestion);
 	}
 
 	@Test
@@ -100,6 +103,7 @@ class JsonSerializerTest {
 
 		FileUtils.writeStringToFile(new File("src/test/resources/question-ser.json"), jsonQuestion, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
+		assertNotNull(jsonQuestion);
 	}
 
 	@Test
@@ -117,10 +121,11 @@ class JsonSerializerTest {
 
 		FileUtils.writeStringToFile(new File("src/test/resources/response-ser.json"), jsonResponse, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
+		assertNotNull(jsonResponse);
 	}
 
 	@Test
-	void serializeCodeList() throws JAXBException, UnsupportedEncodingException, JSONException, JsonSerializationException {
+	void serializeCodeList() throws JSONException, JsonSerializationException {
 		// Given
 		JsonSerializer jsonSerializer = new JsonSerializer();
 		CodeList codeList = new CodeList();

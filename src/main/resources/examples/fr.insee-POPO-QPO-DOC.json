@@ -419,7 +419,7 @@
             "Label" : [ "##{\"label\":\"Avez-vous, au cours du dernier exercice comptable, investi dans des équipements spécifiquement dédiés à l’environnement : bennes, filtres, bacs de rétention, instruments de mesure de la pollution\",\"conditions\":[]} Avez-vous, au cours du dernier exercice comptable, investi dans des équipements spécifiquement dédiés à l’environnement : bennes, filtres, bacs de rétention, instruments de mesure de la pollution" ],
             "Declaration" : [ {
                "declarationType" : "INSTRUCTION",
-               "position" : "AFTER_RESPONSE",
+               "position" : "AFTER_QUESTION_TEXT",
                "Text" : "Cette question est extraite de l'enquête Antipol "
             } ],
             "Response" : [ {
@@ -1133,7 +1133,7 @@
                "Text" : "Ne comptez pas le personnel rémunéré par d’autres entreprises (travail\n                        temporaire, personnel prêté par d’autres entreprises) ni les stagiaires non\n                        rémunérés. "
             }, {
                "declarationType" : "INSTRUCTION",
-               "position" : "AFTER_RESPONSE",
+               "position" : "AFTER_QUESTION_TEXT",
                "Text" : "Cette question est extraite de l'enquête structurelle auprès des\n                        entreprises mahoraises "
             } ],
             "Response" : [ {
@@ -1661,7 +1661,7 @@
             "Label" : [ "##{\"label\":\"Renseignez dans le tableau ci-dessous le montant des investissements spécifiquement dédiés à l'environnement, selon leur nature et le domaine\",\"conditions\":[]} Renseignez dans le tableau ci-dessous le montant des investissements spécifiquement dédiés à l'environnement, selon leur nature et le domaine" ],
             "Declaration" : [ {
                "declarationType" : "INSTRUCTION",
-               "position" : "AFTER_RESPONSE",
+               "position" : "AFTER_QUESTION_TEXT",
                "Text" : "Cette question est extraite de l'enquête Antipol "
             } ],
             "Control" : [ {

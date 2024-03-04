@@ -1,14 +1,6 @@
 package fr.insee.pogues.mock;
 
-import fr.insee.pogues.model.ComponentType;
-import fr.insee.pogues.model.ControlCriticityEnum;
-import fr.insee.pogues.model.ControlType;
-import fr.insee.pogues.model.DeclarationPositionEnum;
-import fr.insee.pogues.model.DeclarationType;
-import fr.insee.pogues.model.DeclarationTypeEnum;
-import fr.insee.pogues.model.ExpressionType;
-import fr.insee.pogues.model.GoToType;
-import fr.insee.pogues.model.QuestionType;
+import fr.insee.pogues.model.*;
 
 public class ComponentFactory {
 
@@ -42,8 +34,8 @@ public class ComponentFactory {
 			control.setId("CTL_" + baseId + controlIndex);
 			control.setDescription("Description of control " + controlIndex);
 			control.setCriticity((Math.random() < 0.5) ? ControlCriticityEnum.ERROR : ControlCriticityEnum.INFO);
-			ExpressionType expression = new ExpressionType();
-			expression.setValue("/Questionnaire/Sequence[1]/Sequence[2]/Question[1]/NumericResponse[1]/VariableName[1]");
+			ExpressionType expression = new ExpressionType(
+					"/Questionnaire/Sequence[1]/Sequence[2]/Question[1]/NumericResponse[1]/VariableName[1]");
 			control.setExpression(expression);
 			component.getControl().add(control);
 		}
@@ -54,8 +46,8 @@ public class ComponentFactory {
 			goTo.setId("GTO_" + baseId);
 			goTo.setDescription("Description for go-to GTO_0");
 			goTo.setIfTrue("REF_TO_COMPONENT");
-			ExpressionType expression = new ExpressionType();
-			expression.setValue("/Questionnaire/Sequence[1]/Sequence[2]/Question[1]/NumericResponse[1]/VariableName[1]");
+			ExpressionType expression = new ExpressionType(
+					"/Questionnaire/Sequence[1]/Sequence[2]/Question[1]/NumericResponse[1]/VariableName[1]");
 			goTo.setExpression(expression);
 			component.getGoTo().add(goTo);
 		}

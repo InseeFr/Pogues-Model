@@ -14,7 +14,7 @@ import lombok.Setter;
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
-        property = "typeName",
+        property = "type",
         visible = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = CollectedVariableType.class, name = "CollectedVariableType"),
