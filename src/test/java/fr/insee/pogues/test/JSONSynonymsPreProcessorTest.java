@@ -6,13 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
-import java.io.IOException;
-
 class JSONSynonymsPreProcessorTest {
 
 
     @Test
-    void transformSynonyms() throws IOException, JSONException {
+    void transformSynonyms() throws JSONException {
         //
         String jsonInput = """
                 {
