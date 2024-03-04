@@ -11,6 +11,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 import java.io.InputStream;
+import java.io.StringReader;
 
 public class JSONDeserializer {
 
@@ -44,12 +45,16 @@ public class JSONDeserializer {
 	}
 
 	private static Questionnaire deserializeStreamSource(StreamSource json) throws JAXBException {
+
+		String preProcessedString = new JSONSynonymsPreProcessor().transform(json);
+		StreamSource preProcessedStream = new StreamSource(new StringReader(preProcessedString));
+
 		JAXBContext context = JAXBContext.newInstance(Questionnaire.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, "application/json");
 		unmarshaller.setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, false);
 
-		Questionnaire questionnaire = unmarshaller.unmarshal(json, Questionnaire.class).getValue();
+		Questionnaire questionnaire = unmarshaller.unmarshal(preProcessedStream, Questionnaire.class).getValue();
 
 		if (questionnaire == null)
 			throw new PoguesDeserializationException("Deserialized questionnaire is null.");

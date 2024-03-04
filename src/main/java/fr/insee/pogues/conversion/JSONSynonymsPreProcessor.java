@@ -32,6 +32,8 @@ public class JSONSynonymsPreProcessor {
             return null;
         }
 
+        logger.info("Pre-processing json questionnaire stream source...");
+
         OutputStream outputStream = new ByteArrayOutputStream();
 
         try (JsonReader jsonReader = Json.createReader(jsonQuestionnaireInputStream);
@@ -62,6 +64,8 @@ public class JSONSynonymsPreProcessor {
             logger.warn("null stream source given in JSON synonyms pre-processing method.");
             return null;
         }
+
+        logger.info("Pre-processing json questionnaire stream source...");
 
         OutputStream outputStream = new ByteArrayOutputStream();
 

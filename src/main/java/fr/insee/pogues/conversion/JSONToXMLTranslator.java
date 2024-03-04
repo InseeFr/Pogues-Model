@@ -19,8 +19,8 @@ import java.nio.charset.StandardCharsets;
 public class JSONToXMLTranslator {
 
 	private static final Logger logger = LoggerFactory.getLogger(JSONToXMLTranslator.class);
-	public static final String START_DEBUG_MESSAGE = "Preparing to translate from JSON to XML";
-	public static final String POGUES_XML_NAMESPACE = "http://xml.insee.fr/schema/applis/pogues";
+	private static final String START_DEBUG_MESSAGE = "Preparing to translate from JSON to XML";
+	private static final String POGUES_XML_NAMESPACE = "http://xml.insee.fr/schema/applis/pogues";
 
 	private final boolean monitored;
 
@@ -57,6 +57,9 @@ public class JSONToXMLTranslator {
 
 		logger.debug(START_DEBUG_MESSAGE);
 
+		String preProcessedString = new JSONSynonymsPreProcessor().transform(jsonStream);
+		StreamSource preProcessedStream = new StreamSource(new StringReader(preProcessedString));
+
 		JAXBContext context = JAXBContext.newInstance(Questionnaire.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 		unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, ConversionConstants.JSON_CONTENT_TYPE);
@@ -64,7 +67,7 @@ public class JSONToXMLTranslator {
 		if (monitored)
 			unmarshaller.setListener(new UnmarshallLogger());
 
-		Questionnaire questionnaireNoRoot = unmarshaller.unmarshal(jsonStream, Questionnaire.class).getValue();
+		Questionnaire questionnaireNoRoot = unmarshaller.unmarshal(preProcessedStream, Questionnaire.class).getValue();
 		logger.debug("Questionnaire unmarshalled from JSON source, questionnaire id: {}", questionnaireNoRoot.getId());
 
 		Marshaller marshaller = context.createMarshaller();
@@ -198,6 +201,12 @@ public class JSONToXMLTranslator {
 		return this.translateCodeLists(json);
 	}
 
+	/**
+	 * Warning: this method is not adapted for suggester code lists (synonyms pre-processing is not applied).
+	 * @param jsonString Json code list string.
+	 * @return Code list translated in xml string.
+	 * @throws JAXBException if translation fails.
+	 */
 	public String translateCodeLists(String jsonString) throws JAXBException {
 
 		if ((jsonString == null) || (jsonString.isEmpty()))
@@ -207,6 +216,12 @@ public class JSONToXMLTranslator {
 		return this.translateCodeLists(json);
 	}
 
+	/**
+	 * Warning: this method is not adapted for suggester code lists (synonyms pre-processing is not applied).
+	 * @param jsonStream Json code list stream source.
+	 * @return Code list translated in xml string.
+	 * @throws JAXBException if translation fails.
+	 */
 	public String translateCodeLists(StreamSource jsonStream) throws JAXBException {
 
 		if (jsonStream == null)
