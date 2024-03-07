@@ -664,6 +664,7 @@
     <xs:sequence>
       <xs:element name="name" type="xs:string"/>
       <xs:element name="fields" type="SuggesterField" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="meloto" type="xs:boolean" minOccurs="0"/>
       <xs:element name="max" type="xs:integer" minOccurs="0"/>
       <xs:element name="stopWords" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="order" type="SuggesterOrder" minOccurs="0"/>

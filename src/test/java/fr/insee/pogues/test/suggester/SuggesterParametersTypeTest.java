@@ -29,6 +29,7 @@ class SuggesterParametersTypeTest {
                 "CodeList": [
                   {
                     "SuggesterParameters": {
+                      "meloto": true,
                       "url": "some url",
                       "version": 1
                     }
@@ -42,6 +43,7 @@ class SuggesterParametersTypeTest {
         //
         CodeList codeList = new CodeList();
         SuggesterParametersType suggesterParametersType = new SuggesterParametersType();
+        suggesterParametersType.setMeloto(true);
         suggesterParametersType.setUrl("some url");
         suggesterParametersType.setVersion(BigInteger.ONE);
         codeList.setSuggesterParameters(suggesterParametersType);
@@ -68,6 +70,7 @@ class SuggesterParametersTypeTest {
                 new ByteArrayInputStream(jsonSuggesters.getBytes()));
         //
         SuggesterParametersType suggesterParameters = questionnaire.getCodeLists().getCodeList().getFirst().getSuggesterParameters();
+        assertEquals(true, suggesterParameters.isMeloto());
         assertEquals("some url", suggesterParameters.getUrl());
         assertEquals(BigInteger.ONE, suggesterParameters.getVersion());
     }
@@ -83,6 +86,7 @@ class SuggesterParametersTypeTest {
                     <CodeLists>
                         <CodeList>
                             <SuggesterParameters>
+                                <meloto>true</meloto>
                                 <url>some url</url>
                                 <version>1</version>
                             </SuggesterParameters>
