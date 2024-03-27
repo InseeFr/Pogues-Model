@@ -13,7 +13,7 @@ jobs:
       tag-version: ${{ steps.version.outputs.version }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get version
         id: version
@@ -45,7 +45,7 @@ jobs:
     needs: check-version
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up JDK
         uses: actions/setup-java@v3
@@ -75,7 +75,7 @@ jobs:
     needs: create-tag
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Maven Central Repository
         uses: actions/setup-java@v3
         with:
@@ -111,7 +111,7 @@ jobs:
     needs: deploy-comment
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions-ecosystem/action-remove-labels@v1
         with:
           labels: deploy-snapshot
