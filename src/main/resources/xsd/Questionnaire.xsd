@@ -557,6 +557,7 @@
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="criticity" type="ControlCriticityEnum"/>
+    <xs:attribute name="scope" type="xs:string" use="optional"/>
   </xs:complexType>
 
   <xs:complexType name="FlowControlType">
