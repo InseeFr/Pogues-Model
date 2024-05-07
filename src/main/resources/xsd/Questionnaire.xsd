@@ -350,6 +350,11 @@
             the dimensions, format "i" (one dimension) or "i j" (two dimensions)</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="Label" type="xs:token" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>optional Label for noDataByDefintion cells</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
@@ -366,7 +371,16 @@
             the dimensions, format "i" (one dimension) or "i j" (two dimensions)</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <!-- XPath -->
+      <xs:element name="Filter" type="ExpressionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation> Specifies a condition for filter for displaying the Response and not the AlternativeLabel</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AlternativeLabel" type="xs:token" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Alternative Label when the filter is false</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
