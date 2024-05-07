@@ -541,6 +541,11 @@
             present a code card to the respondent (CAPI Mode). </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
+      <xs:enumeration value="DESCRIPTION">
+        <xs:annotation>
+          <xs:documentation>Gives a hint on how to answer a question.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 
