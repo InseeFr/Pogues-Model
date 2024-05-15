@@ -192,6 +192,4 @@ class JSONSerializerTest {
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
 
-
-
 }
