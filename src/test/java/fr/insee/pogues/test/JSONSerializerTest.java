@@ -34,6 +34,40 @@ class JSONSerializerTest {
 	}
 
 	@Test
+	void testQuestionnaireWithOrWithoutRoot() throws Exception {
+
+		QuestionnaireFactory factory = new QuestionnaireFactory();
+		Questionnaire fakeQuestionnaire = factory.createMinimalQuestionnaire();
+
+		JSONSerializer serializer1 = new JSONSerializer();
+		JSONSerializer serializer2 = new JSONSerializer(true);
+		String withRoot = serializer1.serialize(fakeQuestionnaire);
+		String withoutRoot = serializer2.serialize(fakeQuestionnaire);
+
+		String expectedJsonWithRoot = """
+				{
+				    "Questionnaire": {
+				    	"id" : "test",
+				    	"agency" : "Insee",
+				    	"final" : true,
+				    	"flowLogic" : "FILTER",
+				    	"Name" : "Without root questionnaire"
+				    }
+				 }""";;
+
+		String expectedJsonWithoutRoot = """
+				{
+				    "id" : "test",
+				    "agency" : "Insee",
+				    "final" : true,
+				    "flowLogic" : "FILTER",
+				    "Name" : "Without root questionnaire"
+				 }""";
+		JSONAssert.assertEquals(expectedJsonWithRoot, withRoot, JSONCompareMode.STRICT);
+		JSONAssert.assertEquals(expectedJsonWithoutRoot, withoutRoot, JSONCompareMode.STRICT);
+	}
+
+	@Test
 	void testSequence() throws Exception {
 
 		SequenceFactory factory = new SequenceFactory();

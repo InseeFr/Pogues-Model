@@ -21,6 +21,12 @@ public class JSONSerializer {
 
 	public JSONSerializer() { }
 
+	public JSONSerializer(boolean withoutJsonRoot){
+		this.withoutJsonRoot = withoutJsonRoot;
+	}
+
+	private boolean withoutJsonRoot;
+
 	private static final Logger logger = LoggerFactory.getLogger(JSONSerializer.class);
 
 	public String serialize(Questionnaire questionnaire) throws JAXBException, UnsupportedEncodingException {
@@ -34,7 +40,7 @@ public class JSONSerializer {
 		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
 
 		// Set it to true if you need to include the JSON root element in the JSON output
-		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
+		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, !withoutJsonRoot);
 		// Set it to true if you need the JSON output to formatted
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		// Marshal the questionnaire object to JSON and put the output in a string
@@ -57,7 +63,7 @@ public class JSONSerializer {
 		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
 
 		// Set it to true if you need to include the JSON root element in the JSON output
-		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
+		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, !withoutJsonRoot);
 		// Set it to true if you need the JSON output to formatted
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		// Marshal the sequence object to JSON and put the output in a string
@@ -79,7 +85,7 @@ public class JSONSerializer {
 		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
 
 		// Set it to true if you need to include the JSON root element in the JSON output
-		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
+		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, !withoutJsonRoot);
 		// Set it to true if you need the JSON output to formatted
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		// Marshal the code list object to JSON and put the output in a string
@@ -101,7 +107,7 @@ public class JSONSerializer {
 		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
 
 		// Set it to true if you need to include the JSON root element in the JSON output
-		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
+		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, !withoutJsonRoot);
 		// Set it to true if you need the JSON output to formatted
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		// Marshal the code list object to JSON and put the output in a string
@@ -123,7 +129,7 @@ public class JSONSerializer {
 		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
 
 		// Set it to true if you need to include the JSON root element in the JSON output
-		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
+		marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, !withoutJsonRoot);
 		// Set it to true if you need the JSON output to formatted
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		// Marshal the code list object to JSON and put the output in a string
