@@ -67,4 +67,25 @@ public class QuestionnaireFactory {
 		questionnaire.setFlowLogic(FlowLogicEnum.FILTER);
 		return questionnaire;
 	}
+
+	public Questionnaire createQuestionnaireWithSynonyms(){
+		Questionnaire questionnaire = new Questionnaire();
+		questionnaire.setId("test");
+		CodeLists codeLists = new CodeLists();
+		CodeList codeList = new CodeList();
+		SuggesterParametersType suggesterParametersType = new SuggesterParametersType();
+		SuggesterField suggesterField = new SuggesterField();
+		FieldSynonym fieldSynonym = new FieldSynonym();
+		fieldSynonym.setSource("foo");
+		fieldSynonym.getTarget().add("one");
+		fieldSynonym.getTarget().add("two");
+		suggesterField.getSynonyms().add(fieldSynonym);
+		suggesterParametersType.getFields().add(suggesterField);
+		codeList.setSuggesterParameters(suggesterParametersType);
+		codeLists.getCodeList().add(codeList);
+		questionnaire.setCodeLists(codeLists);
+
+
+		return questionnaire;
+	}
 }
