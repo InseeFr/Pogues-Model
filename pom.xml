@@ -277,12 +277,4 @@
 			</build>
 		</profile>
 	</profiles>
-
-	<repositories>
-		<repository>
-			<id>exist</id>
-			<url>https://raw.github.com/eXist-db/mvn-repo/master/</url>
-		</repository>
-	</repositories>
-
 </project>
