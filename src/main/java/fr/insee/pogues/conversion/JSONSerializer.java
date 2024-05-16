@@ -47,8 +47,8 @@ public class JSONSerializer {
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		marshaller.marshal(questionnaire, baos);
-	
-		return baos.toString("UTF-8");
+		String questionnaireString =  baos.toString("UTF-8");
+		return new JSONSynonymsPostProcessor().transform(questionnaireString);
 
 	}
 

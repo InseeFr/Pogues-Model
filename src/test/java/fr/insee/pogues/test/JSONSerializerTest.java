@@ -11,6 +11,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 
@@ -190,6 +191,49 @@ class JSONSerializerTest {
 				  }
 				}""";
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+	}
+
+	@Test
+	void testSynonyms() throws JAXBException, IOException, JSONException {
+		QuestionnaireFactory factory = new QuestionnaireFactory();
+		Questionnaire questionnaire = factory.createQuestionnaireWithSynonyms();
+
+		JSONSerializer serializer = new JSONSerializer();
+		JSONSerializer serializerWithoutRoot = new JSONSerializer(true);
+		String result = serializer.serialize(questionnaire);
+		String resultWithoutRoot = serializerWithoutRoot.serialize(questionnaire);
+		String expectedJson = """
+				{
+				   "Questionnaire": {
+				     "id": "test",
+				     "CodeLists": {
+				       "CodeList": [
+				         {
+				           "SuggesterParameters": {
+				             "fields": [{ "synonyms": { "foo": ["one", "two"] } }]
+				           }
+				         }
+				       ]
+				     }
+				   }
+				}""";
+		String expectedJsonWithoutRoot = """
+				{
+				    "id": "test",
+				    "CodeLists": {
+				      "CodeList": [
+				        {
+				          "SuggesterParameters": {
+				            "fields": [{ "synonyms": { "foo": ["one", "two"] } }]
+				          }
+				        }
+				      ]
+				    }
+				}""";
+
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+		JSONAssert.assertEquals(expectedJsonWithoutRoot, resultWithoutRoot, JSONCompareMode.STRICT);
+
 	}
 
 }
