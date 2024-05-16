@@ -1,12 +1,8 @@
 package fr.insee.pogues.mock;
 
+import fr.insee.pogues.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import fr.insee.pogues.model.ComponentGroup;
-import fr.insee.pogues.model.DataCollection;
-import fr.insee.pogues.model.Questionnaire;
-import fr.insee.pogues.model.SequenceType;
 
 public class QuestionnaireFactory {
 
@@ -58,6 +54,37 @@ public class QuestionnaireFactory {
 		questionnaire.setCodeLists(codeListFactory.createCodeLists());
 
 		logger.debug("Code list container added to questionnaire number " + questionnaireNumber);
+
+		return questionnaire;
+	}
+
+	public Questionnaire createMinimalQuestionnaire(){
+		Questionnaire questionnaire = new Questionnaire();
+		questionnaire.setId("test");
+		questionnaire.setAgency("Insee");
+		questionnaire.setFinal(true);
+		questionnaire.setName("Without root questionnaire");
+		questionnaire.setFlowLogic(FlowLogicEnum.FILTER);
+		return questionnaire;
+	}
+
+	public Questionnaire createQuestionnaireWithSynonyms(){
+		Questionnaire questionnaire = new Questionnaire();
+		questionnaire.setId("test");
+		CodeLists codeLists = new CodeLists();
+		CodeList codeList = new CodeList();
+		SuggesterParametersType suggesterParametersType = new SuggesterParametersType();
+		SuggesterField suggesterField = new SuggesterField();
+		FieldSynonym fieldSynonym = new FieldSynonym();
+		fieldSynonym.setSource("foo");
+		fieldSynonym.getTarget().add("one");
+		fieldSynonym.getTarget().add("two");
+		suggesterField.getSynonyms().add(fieldSynonym);
+		suggesterParametersType.getFields().add(suggesterField);
+		codeList.setSuggesterParameters(suggesterParametersType);
+		codeLists.getCodeList().add(codeList);
+		questionnaire.setCodeLists(codeLists);
+
 
 		return questionnaire;
 	}
