@@ -234,6 +234,31 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:element name="Roundabout" type="RoundaboutType"/>
+  
+  <xs:complexType name="RoundaboutType">
+    <xs:complexContent>
+      <xs:extension base="ComponentType">
+        <xs:sequence>
+          <xs:element name="OccurrenceLabel" type="xs:string"/>
+          <xs:element name="Loop" type="RoundaboutIterationType" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RoundaboutIterationType">
+    <xs:complexContent>
+      <xs:extension base="IterationType">
+        <xs:sequence>
+          <xs:element name="ExcludedOccurrenceLabel" type="xs:string"/>
+          <xs:element name="Complete" type="ExpressionType"/>
+          <xs:element name="Partial" type="ExpressionType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <!-- Variables -->
 
   <xs:complexType name="VariableType" abstract="true">
