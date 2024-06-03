@@ -249,7 +249,7 @@
 
   <xs:complexType name="RoundaboutIterationType">
     <xs:complexContent>
-      <xs:extension base="IterationType">
+      <xs:extension base="DynamicIterationType">
         <xs:sequence>
           <xs:element name="ExcludedOccurrenceLabel" type="xs:string"/>
           <xs:element name="Complete" type="ExpressionType"/>
