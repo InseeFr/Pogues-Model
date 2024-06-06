@@ -252,8 +252,6 @@
       <xs:extension base="DynamicIterationType">
         <xs:sequence>
           <xs:element name="ExcludedOccurrenceLabel" type="xs:string"/>
-          <xs:element name="Complete" type="ExpressionType"/>
-          <xs:element name="Partial" type="ExpressionType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
