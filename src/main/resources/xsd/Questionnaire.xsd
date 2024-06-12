@@ -241,17 +241,9 @@
       <xs:extension base="ComponentType">
         <xs:sequence>
           <xs:element name="OccurrenceLabel" type="xs:string"/>
-          <xs:element name="Loop" type="RoundaboutIterationType" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="RoundaboutIterationType">
-    <xs:complexContent>
-      <xs:extension base="DynamicIterationType">
-        <xs:sequence>
-          <xs:element name="ExcludedOccurrenceLabel" type="xs:string"/>
+          <xs:element name="OccurrenceDescription" type="xs:string" minOccurs="0"/>
+          <xs:element name="Locked" type="xs:boolean"/>
+          <xs:element name="Loop" type="DynamicIterationType" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
