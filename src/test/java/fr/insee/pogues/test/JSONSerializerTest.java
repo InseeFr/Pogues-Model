@@ -11,6 +11,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 
@@ -31,6 +32,40 @@ class JSONSerializerTest {
 
 		FileUtils.writeStringToFile(new File("src/test/resources/questionnaire.json"), jsonQuestionnaire, "UTF-8");
 		System.out.println("Serialization time: " + elapsedTime);
+	}
+
+	@Test
+	void testQuestionnaireWithOrWithoutRoot() throws Exception {
+
+		QuestionnaireFactory factory = new QuestionnaireFactory();
+		Questionnaire fakeQuestionnaire = factory.createMinimalQuestionnaire();
+
+		JSONSerializer serializer1 = new JSONSerializer();
+		JSONSerializer serializer2 = new JSONSerializer(true);
+		String withRoot = serializer1.serialize(fakeQuestionnaire);
+		String withoutRoot = serializer2.serialize(fakeQuestionnaire);
+
+		String expectedJsonWithRoot = """
+				{
+				    "Questionnaire": {
+				    	"id" : "test",
+				    	"agency" : "Insee",
+				    	"final" : true,
+				    	"flowLogic" : "FILTER",
+				    	"Name" : "Without root questionnaire"
+				    }
+				 }""";;
+
+		String expectedJsonWithoutRoot = """
+				{
+				    "id" : "test",
+				    "agency" : "Insee",
+				    "final" : true,
+				    "flowLogic" : "FILTER",
+				    "Name" : "Without root questionnaire"
+				 }""";
+		JSONAssert.assertEquals(expectedJsonWithRoot, withRoot, JSONCompareMode.STRICT);
+		JSONAssert.assertEquals(expectedJsonWithoutRoot, withoutRoot, JSONCompareMode.STRICT);
 	}
 
 	@Test
@@ -156,6 +191,49 @@ class JSONSerializerTest {
 				  }
 				}""";
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+	}
+
+	@Test
+	void testSynonyms() throws JAXBException, IOException, JSONException {
+		QuestionnaireFactory factory = new QuestionnaireFactory();
+		Questionnaire questionnaire = factory.createQuestionnaireWithSynonyms();
+
+		JSONSerializer serializer = new JSONSerializer();
+		JSONSerializer serializerWithoutRoot = new JSONSerializer(true);
+		String result = serializer.serialize(questionnaire);
+		String resultWithoutRoot = serializerWithoutRoot.serialize(questionnaire);
+		String expectedJson = """
+				{
+				   "Questionnaire": {
+				     "id": "test",
+				     "CodeLists": {
+				       "CodeList": [
+				         {
+				           "SuggesterParameters": {
+				             "fields": [{ "synonyms": { "foo": ["one", "two"] } }]
+				           }
+				         }
+				       ]
+				     }
+				   }
+				}""";
+		String expectedJsonWithoutRoot = """
+				{
+				    "id": "test",
+				    "CodeLists": {
+				      "CodeList": [
+				        {
+				          "SuggesterParameters": {
+				            "fields": [{ "synonyms": { "foo": ["one", "two"] } }]
+				          }
+				        }
+				      ]
+				    }
+				}""";
+
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+		JSONAssert.assertEquals(expectedJsonWithoutRoot, resultWithoutRoot, JSONCompareMode.STRICT);
+
 	}
 
 }

@@ -4,7 +4,7 @@
 	<groupId>fr.insee.pogues</groupId>
 	<artifactId>pogues-model</artifactId>
 	<packaging>jar</packaging>
-	<version>1.3.6-SNAPSHOT</version>
+	<version>1.3.7</version>
 	<name>Pogues Model</name>
 	<description>Classes and converters for the Pogues model</description>
 	<url>https://inseefr.github.io/Pogues-Model/</url>
@@ -277,12 +277,4 @@
 			</build>
 		</profile>
 	</profiles>
-
-	<repositories>
-		<repository>
-			<id>exist</id>
-			<url>https://raw.github.com/eXist-db/mvn-repo/master/</url>
-		</repository>
-	</repositories>
-
 </project>
