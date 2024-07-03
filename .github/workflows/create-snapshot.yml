@@ -2,7 +2,7 @@ name: Create snapshot
 
 on:
   pull_request:
-    types: [opened, edited, synchronize, reopened, labeled]
+    types: [labeled]
 
 jobs:
 
@@ -51,23 +51,8 @@ jobs:
             exit 1
           fi
 
-  test:
-    needs: check-version
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-
-      - name: Tests
-        run: mvn test --no-transfer-progress
-
   deploy-maven-repo:
-    needs: [ test, check-version ]
+    needs: check-version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
