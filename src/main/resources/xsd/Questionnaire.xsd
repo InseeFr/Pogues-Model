@@ -234,6 +234,21 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:element name="Roundabout" type="RoundaboutType"/>
+  
+  <xs:complexType name="RoundaboutType">
+    <xs:complexContent>
+      <xs:extension base="ComponentType">
+        <xs:sequence>
+          <xs:element name="OccurrenceLabel" type="xs:string"/>
+          <xs:element name="OccurrenceDescription" type="xs:string" minOccurs="0"/>
+          <xs:element name="Locked" type="xs:boolean"/>
+          <xs:element name="Loop" type="DynamicIterationType" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <!-- Variables -->
 
   <xs:complexType name="VariableType" abstract="true">
@@ -350,6 +365,11 @@
             the dimensions, format "i" (one dimension) or "i j" (two dimensions)</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="Label" type="xs:token" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>optional Label for noDataByDefintion cells</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
@@ -366,7 +386,6 @@
             the dimensions, format "i" (one dimension) or "i j" (two dimensions)</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <!-- XPath -->
     </xs:sequence>
   </xs:complexType>
 
@@ -557,6 +576,7 @@
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="criticity" type="ControlCriticityEnum"/>
+    <xs:attribute name="scope" type="xs:string" use="optional"/>
   </xs:complexType>
 
   <xs:complexType name="FlowControlType">
@@ -664,10 +684,13 @@
     <xs:sequence>
       <xs:element name="name" type="xs:string"/>
       <xs:element name="fields" type="SuggesterField" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="meloto" type="xs:boolean" minOccurs="0"/>
       <xs:element name="max" type="xs:integer" minOccurs="0"/>
       <xs:element name="stopWords" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="order" type="SuggesterOrder" minOccurs="0"/>
       <xs:element name="queryParser" type="SuggesterQueryParser"/>
+      <xs:element name="url" type="xs:string" minOccurs="0"/>
+      <xs:element name="version" type="xs:integer" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
   </xs:complexType>
@@ -675,10 +698,7 @@
   <xs:complexType name="SuggesterField">
     <xs:sequence>
       <xs:element name="name" type="xs:string"/>
-      <xs:choice>
-        <xs:element name="rules" type="xs:string"/>
-        <xs:element name="rulesA" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
-      </xs:choice>
+      <xs:element name="rules" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
       <xs:element name="language" type="xs:string" minOccurs="0"/>
       <xs:element name="min" type="xs:integer" minOccurs="0"/>
       <xs:element name="stemmer" type="xs:boolean" minOccurs="0"/>
@@ -712,6 +732,7 @@
       <xs:element name="language" type="xs:string" minOccurs="0"/>
       <xs:element name="min" type="xs:integer" minOccurs="0"/>
       <xs:element name="pattern" type="xs:string" minOccurs="0"/>
+      <xs:element name="stemmer" type="xs:boolean" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
