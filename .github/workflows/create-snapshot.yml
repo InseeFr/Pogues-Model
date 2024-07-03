@@ -5,9 +5,19 @@ on:
     types: [opened, edited, synchronize, reopened, labeled]
 
 jobs:
+
+  remove-deploy-label:
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'deploy-snapshot') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: deploy-snapshot
+
   # begin the snapshot verification before deployment
   check-version:
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'deploy-snapshot') }}
+    needs: remove-deploy-label
     runs-on: ubuntu-latest
     outputs:
       tag-version: ${{ steps.version.outputs.version }}
@@ -56,23 +66,8 @@ jobs:
       - name: Tests
         run: mvn test --no-transfer-progress
 
-  create-tag:
-    needs: [ test, check-version ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create tag
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'refs/tags/${{ needs.check-version.outputs.tag-version }}',
-              sha: context.sha
-            })
-
   deploy-maven-repo:
-    needs: create-tag
+    needs: [ test, check-version ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -93,8 +88,23 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
+  create-tag:
+    needs: [ check-version, deploy-maven-repo ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create tag
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ needs.check-version.outputs.tag-version }}',
+              sha: context.sha
+            })
+
   deploy-comment:
-    needs: [ deploy-maven-repo, check-version ]
+    needs: [ check-version, deploy-maven-repo ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v7
@@ -106,12 +116,3 @@ jobs:
               repo: context.repo.repo,
               body: '👋 Version ${{ needs.check-version.outputs.tag-version }} deployed on maven central repository'
             })
-
-  remove-deploy-label:
-    needs: deploy-comment
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions-ecosystem/action-remove-labels@v1
-        with:
-          labels: deploy-snapshot
