@@ -12,6 +12,15 @@
       "groupName": "all minor dependencies",
       "groupSlug": "all-minor-patch",
       "matchPackagePatterns": ["*"],
+      "excludePackagePatterns": ["org.eclipse.*"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "bumpVersion": "patch",
+      "dependencyDashboardApproval": false
+    },
+    {
+      "groupName": "eclipse dependencies",
+      "groupSlug": "eclipse-patch",
+      "matchPackagePatterns": ["org.eclipse.*"],
       "matchUpdateTypes": ["minor", "patch"],
       "bumpVersion": "patch",
       "dependencyDashboardApproval": false
