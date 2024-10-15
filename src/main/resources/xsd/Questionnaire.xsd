@@ -800,9 +800,16 @@
               <xs:documentation>Number of decimal places.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="Unit" type="xs:anyURI" minOccurs="0">
+          <xs:element name="IsDynamicUnit" type="xs:boolean" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The list of units available at INSEE is described in this file :
+              <xs:documentation>default value is false
+                Allows Unit to interpret the content of Unit (reference to a Variable or Uri leading to a static unit)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Unit" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>When dynamic, Unit contains a reference to a Variable (containing the value)
+                When not dynamic, Unit contains a Uri leading to an element of the list of units available at INSEE is described in this file:
                 https://github.com/InseeFr/DDI-Access-Services/blob/main/src/main/resources/measure-units.json.</xs:documentation>
             </xs:annotation>
           </xs:element>
