@@ -335,18 +335,16 @@
     <xs:sequence>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
       <xs:element name="Label" type="xs:string" minOccurs="0"/>
-      <xs:element name="TotalLabel" type="xs:string" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Indicates if the dimension has a 'total' item and if yes the
-            corresponding label</xs:documentation>
-        </xs:annotation>
-      </xs:element>
+      <xs:element name="MinLines" type="xs:integer" minOccurs="0"/>
+      <xs:element name="MaxLines" type="xs:integer" minOccurs="0"/>
+      <xs:element name="FixedLength" type="ExpressionType" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="dimensionType" type="DimensionTypeEnum" use="required"/>
-    <xs:attribute name="dynamic" type="xs:token" use="required">
+    <xs:attribute name="dynamic" type="xs:token">
       <xs:annotation>
-        <xs:documentation>'0': no constraint; 'm-': min m, no max; '-n': no min, n max; 'm-n': m
-          min, n max</xs:documentation>
+        <xs:documentation>previous modeling: '0': no constraint; 'm-': min m, no max; '-n': no min, n max; 'm-n': m min, n max</xs:documentation>
+        <xs:documentation>new modeling (not Enum because of the existing questionnaires): NON_DYNAMIC (previously '0'; default value); DYNAMIC_LENGTH (used with MinLines and MaxLines)</xs:documentation>
+        <xs:documentation>new value: FIXED_LENGTH (used with FixedLength): dynamic dimension with length fixed by a formula based on previous values</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
