@@ -141,4 +141,36 @@ class TranslatorsTest {
 		System.out.println("Conversion time: " + elapsedTime);
 	}
 
+	@Test
+	void testLastUpdatedDateJSONToXML() throws Exception {
+
+		long startTime = System.currentTimeMillis();
+
+		JSONToXMLTranslator translator = new JSONToXMLTranslator(true);
+		String xmlCodeLists = translator
+				.translateCodeLists(new File("src/main/resources/examples/lastUpdatedDate.json"));
+
+		long elapsedTime = System.currentTimeMillis() - startTime;
+
+		FileUtils.writeStringToFile(new File("src/test/resources/fr.insee-POPO-QPO-DOC-codelists-out.xml"),
+				xmlCodeLists, "UTF-8");
+		System.out.println("Conversion time: " + elapsedTime);
+	}
+
+	@Test
+	void testLastUpdatedDateXMLToJSON() throws Exception {
+
+		long startTime = System.currentTimeMillis();
+
+		XMLToJSONTranslator translator = new XMLToJSONTranslator();
+		String jsonQuestionnaire = translator
+				.translateCodeLists(new File("src/main/resources/examples/fr.insee-POPO-QPO-DOC-codelists.xml"));
+
+		long elapsedTime = System.currentTimeMillis() - startTime;
+
+		FileUtils.writeStringToFile(new File("src/test/resources/fr.insee-POPO-QPO-DOC-codelists-out.json"),
+				jsonQuestionnaire, "UTF-8");
+		System.out.println("Conversion time: " + elapsedTime);
+	}
+
 }
