@@ -14,6 +14,7 @@ class XMLToJSONTranslatorTest {
     private String xmlCodeList;
     private String xmlLastUpdatedDate;
     private String xmlChildQuestionnaireRef;
+    private String xmlOwner;
 
     @BeforeEach
     void setup() {
@@ -43,6 +44,9 @@ class XMLToJSONTranslatorTest {
                     <childQuestionnaireRef>ref-id-1</childQuestionnaireRef>
                     <childQuestionnaireRef>ref-id-2</childQuestionnaireRef>
                 </Questionnaire>
+                """;
+        xmlOwner = """
+               <Questionnaire xmlns="http://xml.insee.fr/schema/applis/pogues" id="questionnaire-id" owner="NiceOwner"/>
                 """;
     }
 
@@ -95,6 +99,21 @@ class XMLToJSONTranslatorTest {
                 {
                   "id": "questionnaire-id",
                   "childQuestionnaireRef": [ "ref-id-1", "ref-id-2" ]
+                }
+                """;
+        JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    void translateOwner() throws JAXBException, JSONException {
+        //
+        XMLToJSONTranslator xmlToJsonTranslator = new XMLToJSONTranslator();
+        String result = xmlToJsonTranslator.translate(xmlOwner);
+        //
+        String expectedJson = """
+                {
+                  "id": "questionnaire-id",
+                  "owner": "NiceOwner"
                 }
                 """;
         JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);

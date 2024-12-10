@@ -156,4 +156,21 @@ class XMLSerializerTest {
 				""";
 		XmlAssert.assertThat(result).and(expectedXml).ignoreWhitespace().areIdentical();
 	}
+
+	@Test
+	void serializeOwner() throws JAXBException, UnsupportedEncodingException {
+		// Given
+		Questionnaire questionnaire = new Questionnaire();
+
+		questionnaire.setOwner("NiceOwner");
+		// When
+		XMLSerializer xmlSerializer = new XMLSerializer();
+		String result = xmlSerializer.serialize(questionnaire);
+		// Then
+		String expectedXml = """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<Questionnaire xmlns="http://xml.insee.fr/schema/applis/pogues" owner="NiceOwner"/>
+				""";
+		XmlAssert.assertThat(result).and(expectedXml).ignoreWhitespace().areIdentical();
+	}
 }

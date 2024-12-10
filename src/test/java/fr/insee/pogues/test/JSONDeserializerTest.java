@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,6 +17,7 @@ class JSONDeserializerTest {
 
 	private String jsonLastUpdatedDate;
 	private String jsonChildQuestionnaireRef;
+	private String jsonOwner;
 
 	@BeforeEach
 	void setup() {
@@ -31,11 +33,18 @@ class JSONDeserializerTest {
                   "childQuestionnaireRef": [ "ref-id-1", "ref-id-2" ]
                 }
                 """;
+		jsonOwner = """
+                {
+                  "id": "questionnaire-id",
+                  "owner": "NiceOwner"
+                }
+                """;
 	}
 
 	@Test // Note: this test should be replaced by an exception test, see comment in deserializer class.
 	void deserializeFileFromNullInput_resultShouldBeNull() throws JAXBException, IOException {
-		assertNull(new JSONDeserializer().deserializeFile(null));
+		String nullFileName = null;
+		assertNull(new JSONDeserializer().deserialize(nullFileName));
 	}
 
 	@Test
@@ -44,7 +53,7 @@ class JSONDeserializerTest {
 		long startTime = System.currentTimeMillis();
 
 		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeFile("src/main/resources/examples/fr.insee-POPO-QPO-DOC.json");
+		Questionnaire questionnaire = deserializer.deserialize("src/main/resources/examples/fr.insee-POPO-QPO-DOC.json");
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
 
@@ -56,15 +65,22 @@ class JSONDeserializerTest {
 	@Test
 	void testLastUpdatedDate() throws Exception {
 		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserialize(jsonLastUpdatedDate);
+		Questionnaire questionnaire = deserializer.deserializeString(jsonLastUpdatedDate);
 		assertEquals("Tue Dec 10 2024 10:33:38 GMT+0100 (heure normale d’Europe centrale)", questionnaire.getLastUpdatedDate());
 	}
 
 	@Test
 	void testChildQuestionnaireRef() throws Exception {
 		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserialize(jsonChildQuestionnaireRef);
+		Questionnaire questionnaire = deserializer.deserializeString(jsonChildQuestionnaireRef);
 		assertEquals(Arrays.asList("ref-id-1", "ref-id-2"), questionnaire.getChildQuestionnaireRef());
+	}
+
+	@Test
+	void testOwner() throws Exception {
+		JSONDeserializer deserializer = new JSONDeserializer();
+		Questionnaire questionnaire = deserializer.deserializeString(jsonOwner);
+		assertEquals("NiceOwner", questionnaire.getOwner());
 	}
 
 }

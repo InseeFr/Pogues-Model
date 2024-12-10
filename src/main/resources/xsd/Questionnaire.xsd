@@ -132,6 +132,11 @@
               <xs:documentation>lastUpdatedDate represents the date on which the questionnaire was last saved.</xs:documentation>
             </xs:annotation>
           </xs:attribute>
+          <xs:attribute name="owner" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>Owner of questionnaire</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
