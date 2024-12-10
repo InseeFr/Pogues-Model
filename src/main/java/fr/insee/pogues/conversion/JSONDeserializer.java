@@ -20,6 +20,7 @@ public class JSONDeserializer {
 
 	private static final Logger logger = LoggerFactory.getLogger(JSONDeserializer.class);
 
+	@Deprecated
 	public Questionnaire deserialize(String fileName) throws JAXBException, IOException {
 
 		if (fileName == null || fileName.isEmpty()) {
@@ -49,6 +50,12 @@ public class JSONDeserializer {
 		logger.debug("Deserializing json questionnaire from input stream.");
 		String preProcessedString = new JSONSynonymsPreProcessor().transform(jsonQuestionnaireInputStream);
 		StreamSource preProcessedStream = new StreamSource(new StringReader(preProcessedString));
+		return deserializeStreamSource(preProcessedStream);
+	}
+
+	public Questionnaire deserializeString(String json) throws JAXBException {
+		logger.debug("Deserializing json questionnaire from json as String.");
+		StreamSource preProcessedStream = new StreamSource(new StringReader(json));
 		return deserializeStreamSource(preProcessedStream);
 	}
 
