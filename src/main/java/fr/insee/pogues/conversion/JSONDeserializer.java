@@ -20,7 +20,7 @@ public class JSONDeserializer {
 
 	private static final Logger logger = LoggerFactory.getLogger(JSONDeserializer.class);
 
-	public Questionnaire deserialize(String fileName) throws JAXBException, IOException {
+	public Questionnaire deserializeFile(String fileName) throws JAXBException, IOException {
 
 		if (fileName == null || fileName.isEmpty()) {
 			// TODO: throwing an exception instead of silent failing would be better here
@@ -49,6 +49,12 @@ public class JSONDeserializer {
 		logger.debug("Deserializing json questionnaire from input stream.");
 		String preProcessedString = new JSONSynonymsPreProcessor().transform(jsonQuestionnaireInputStream);
 		StreamSource preProcessedStream = new StreamSource(new StringReader(preProcessedString));
+		return deserializeStreamSource(preProcessedStream);
+	}
+
+	public Questionnaire deserialize(String json) throws JAXBException {
+		logger.debug("Deserializing json questionnaire from input stream.");
+		StreamSource preProcessedStream = new StreamSource(new StringReader(json));
 		return deserializeStreamSource(preProcessedStream);
 	}
 
