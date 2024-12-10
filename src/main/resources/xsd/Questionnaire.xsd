@@ -97,7 +97,7 @@
             </xs:element>
             <xs:element name="childQuestionnaireRef" type="xs:string" minOccurs="0" maxOccurs="unbounded">
               <xs:annotation>
-                <xs:documentation>childQuestionnaireRef currently contains the ids of references of questionnaires that the questionnaire depends.</xs:documentation>
+                <xs:documentation>The childQuestionnaireRef currently holds the IDs of the questionnaires on which the current questionnaire depends.</xs:documentation>
               </xs:annotation>
             </xs:element>
           </xs:sequence>
