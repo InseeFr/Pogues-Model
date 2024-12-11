@@ -120,4 +120,57 @@ class XMLSerializerTest {
 		XmlAssert.assertThat(result).and(expectedXml).ignoreWhitespace().areIdentical();
 	}
 
+
+	@Test
+	void serializeLastUpdated() throws JAXBException, UnsupportedEncodingException, JSONException {
+		// Given
+		Questionnaire questionnaire = new Questionnaire();
+		questionnaire.setLastUpdatedDate("fake-date");
+		// When
+		XMLSerializer xmlSerializer = new XMLSerializer();
+		String result = xmlSerializer.serialize(questionnaire);
+		// Then
+		String expectedXml = """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<Questionnaire xmlns="http://xml.insee.fr/schema/applis/pogues" lastUpdatedDate="fake-date"/>
+				""";
+		XmlAssert.assertThat(result).and(expectedXml).ignoreWhitespace().areIdentical();
+	}
+
+	@Test
+	void serializeChildQuestionnaireRef() throws JAXBException, UnsupportedEncodingException, JSONException {
+		// Given
+		Questionnaire questionnaire = new Questionnaire();
+		questionnaire.getChildQuestionnaireRef().add("id-ref-1");
+		questionnaire.getChildQuestionnaireRef().add("id-ref-2");
+		// When
+		XMLSerializer xmlSerializer = new XMLSerializer();
+		String result = xmlSerializer.serialize(questionnaire);
+		// Then
+		String expectedXml = """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<Questionnaire xmlns="http://xml.insee.fr/schema/applis/pogues">
+					<childQuestionnaireRef>id-ref-1</childQuestionnaireRef>
+					<childQuestionnaireRef>id-ref-2</childQuestionnaireRef>
+				</Questionnaire>
+				""";
+		XmlAssert.assertThat(result).and(expectedXml).ignoreWhitespace().areIdentical();
+	}
+
+	@Test
+	void serializeOwner() throws JAXBException, UnsupportedEncodingException {
+		// Given
+		Questionnaire questionnaire = new Questionnaire();
+
+		questionnaire.setOwner("NiceOwner");
+		// When
+		XMLSerializer xmlSerializer = new XMLSerializer();
+		String result = xmlSerializer.serialize(questionnaire);
+		// Then
+		String expectedXml = """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<Questionnaire xmlns="http://xml.insee.fr/schema/applis/pogues" owner="NiceOwner"/>
+				""";
+		XmlAssert.assertThat(result).and(expectedXml).ignoreWhitespace().areIdentical();
+	}
 }
