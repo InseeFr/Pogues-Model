@@ -195,6 +195,13 @@
         <xs:sequence>
           <xs:element name="Response" type="ResponseType" maxOccurs="unbounded"/>
           <xs:element name="ResponseStructure" type="ResponseStructureType" minOccurs="0"/>
+          <xs:element name="ArbitraryResponse" type="ResponseType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Arbitrary response is a possibility for the respondent to enter an arbitrary answer
+              if he cannot find an answer among the suggested options. The arbitrary response is retrieved in a specific text variable.
+              It is currently used only for single response question for suggester.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="ClarificationQuestion" type="QuestionType" minOccurs="0"
             maxOccurs="unbounded">
             <xs:annotation>
@@ -759,6 +766,14 @@
           single-choice question</xs:documentation>
         <xs:documentation>That may not be the perfect choice of a name, a better choice could be
           "GraphicalImplementation" </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="allowArbitraryResponse" type="xs:boolean" minOccurs="0">
+      <xs:annotation>
+        <xs:documentation>default value is false.
+          Allows the respondent to enter an arbitrary response if he cannot find an answer among 
+          the suggested options. In this case, the related question has an "ArbitraryResponse" object to define the arbitrary variable.
+          It is currently used only for single response question for suggester.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
