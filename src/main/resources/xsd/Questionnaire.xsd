@@ -768,7 +768,7 @@
           "GraphicalImplementation" </xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="allowArbitraryResponse" type="xs:boolean" minOccurs="0">
+    <xs:attribute name="allowArbitraryResponse" type="xs:boolean" default="false">
       <xs:annotation>
         <xs:documentation>default value is false.
           Allows the respondent to enter an arbitrary response if he cannot find an answer among 
