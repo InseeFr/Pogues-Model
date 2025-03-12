@@ -31,7 +31,7 @@ public class JSONSynonymsPostProcessor {
             return null;
         }
 
-        logger.info("Post-processing json questionnaire stream source...");
+        logger.debug("Post-processing json questionnaire stream source...");
 
         OutputStream outputStream = new ByteArrayOutputStream();
 

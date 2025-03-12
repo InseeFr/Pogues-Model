@@ -31,7 +31,7 @@ public class JSONSynonymsPreProcessor {
             return null;
         }
 
-        logger.info("Pre-processing json questionnaire stream source...");
+        logger.debug("Pre-processing json questionnaire stream source...");
 
         OutputStream outputStream = new ByteArrayOutputStream();
 
