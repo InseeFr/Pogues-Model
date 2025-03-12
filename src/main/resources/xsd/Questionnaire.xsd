@@ -596,7 +596,7 @@
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required"/>
     <xs:attribute name="criticity" type="ControlCriticityEnum"/>
-    <xs:attribute name="scope" type="xs:string" use="optional"/>
+    <xs:attribute name="scope" type="ControlScopeEnum"/>
   </xs:complexType>
 
   <xs:complexType name="FlowControlType">
@@ -1060,6 +1060,17 @@
       <xs:enumeration value="YYYY-MM-DD"/>
       <xs:enumeration value="YYYY-MM"/>
       <xs:enumeration value="YYYY"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:simpleType name="ControlScopeEnum">
+    <xs:annotation>
+      <xs:documentation>Scope can be: "occurrence" or "whole (occurrence: for control in row (dynamic table) or in occurrence level in Roundabout, whole: questionnaire scope)"</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="occurrence"/>
+      <xs:enumeration value="whole"/>
     </xs:restriction>
   </xs:simpleType>
 

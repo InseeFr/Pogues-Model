@@ -13,6 +13,7 @@ import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 
 class JSONSerializerTest {
@@ -233,6 +234,33 @@ class JSONSerializerTest {
 
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 		JSONAssert.assertEquals(expectedJsonWithoutRoot, resultWithoutRoot, JSONCompareMode.STRICT);
+
+	}
+
+	@Test
+	public void serializeRowLevelControl() throws JAXBException, UnsupportedEncodingException, JSONException {
+		Questionnaire questionnaire = new Questionnaire();
+		ComponentType componentType = new QuestionType();
+		ControlType controlOccurrence = new ControlType();
+		controlOccurrence.setScope(ControlScopeEnum.OCCURRENCE);
+		ControlType controlWhole = new ControlType();
+		controlWhole.setScope(ControlScopeEnum.WHOLE);
+		componentType.getControl().addAll(List.of(controlOccurrence,controlWhole));
+		questionnaire.getChild().add(componentType);
+		JSONSerializer serializer = new JSONSerializer(true);
+		String result = serializer.serialize(questionnaire);
+		System.out.println(result);
+		String expectedJson = """
+				{
+				   "Child": [
+				     {
+				       "type": "QuestionType",
+				       "Control": [{ "scope": "occurrence" }, { "scope": "whole" }]
+				     }
+				   ]
+				 }
+				 """;
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 
 	}
 
