@@ -1,13 +1,20 @@
 package fr.insee.pogues.test;
 
 import fr.insee.pogues.conversion.JSONDeserializer;
+import fr.insee.pogues.conversion.JSONSerializer;
+import fr.insee.pogues.model.CodeFilter;
+import fr.insee.pogues.model.QuestionType;
 import fr.insee.pogues.model.Questionnaire;
+import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -81,6 +88,28 @@ class JSONDeserializerTest {
 		JSONDeserializer deserializer = new JSONDeserializer();
 		Questionnaire questionnaire = deserializer.deserializeString(jsonOwner);
 		assertEquals("NiceOwner", questionnaire.getOwner());
+	}
+
+	@Test
+	public void testCodeFilters() throws JAXBException, UnsupportedEncodingException, JSONException {
+		String jsonWithCodeFilters = """
+				{
+				   "Child": [
+				     {
+				       "type": "QuestionType",
+				       "codeFilters": [
+				       		{ "codeValue": "01", "codeListId": "codeListId", "conditionFilter": "$AGE$ > 18" },				       		
+				       		{ "codeValue": "02", "codeListId": "codeListId", "conditionFilter": "$AGE$ > 30" }
+				       	]
+				     }
+				   ]
+				 }
+				 """;
+		JSONDeserializer deserializer = new JSONDeserializer();
+		Questionnaire questionnaire = deserializer.deserializeString(jsonWithCodeFilters);
+		assertEquals(2, ((QuestionType) questionnaire.getChild().get(0)).getCodeFilters().size());
+		assertEquals("$AGE$ > 18", ((QuestionType) questionnaire.getChild().get(0)).getCodeFilters().get(0).getConditionFilter());
+		assertEquals("$AGE$ > 30", ((QuestionType) questionnaire.getChild().get(0)).getCodeFilters().get(1).getConditionFilter());
 	}
 
 }

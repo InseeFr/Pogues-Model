@@ -249,7 +249,6 @@ class JSONSerializerTest {
 		questionnaire.getChild().add(componentType);
 		JSONSerializer serializer = new JSONSerializer(true);
 		String result = serializer.serialize(questionnaire);
-		System.out.println(result);
 		String expectedJson = """
 				{
 				   "Child": [
@@ -261,7 +260,39 @@ class JSONSerializerTest {
 				 }
 				 """;
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+	}
 
+	@Test
+	public void serializeCodeListFilters() throws JAXBException, UnsupportedEncodingException, JSONException {
+		Questionnaire questionnaire = new Questionnaire();
+		QuestionType questionType = new QuestionType();
+		CodeFilter codeFilter18 = new CodeFilter();
+		codeFilter18.setCodeListId("codeListId");
+		codeFilter18.setCodeValue("01");
+		codeFilter18.setConditionFilter("$AGE$ > 18");
+		CodeFilter codeFilter30 = new CodeFilter();
+		codeFilter30.setCodeListId("codeListId");
+		codeFilter30.setCodeValue("02");
+		codeFilter30.setConditionFilter("$AGE$ > 30");
+		questionType.getCodeFilters().add(codeFilter18);;
+		questionType.getCodeFilters().add(codeFilter30);
+		questionnaire.getChild().add(questionType);
+		JSONSerializer serializer = new JSONSerializer(true);
+		String result = serializer.serialize(questionnaire);
+		String expectedJson = """
+				{
+				   "Child": [
+				     {
+				       "type": "QuestionType",
+				       "codeFilters": [
+				       		{ "codeValue": "01", "codeListId": "codeListId", "conditionFilter": "$AGE$ > 18" },
+				       		{ "codeValue": "02", "codeListId": "codeListId", "conditionFilter": "$AGE$ > 30" }
+				       	]
+				     }
+				   ]
+				 }
+				 """;
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
 
 }

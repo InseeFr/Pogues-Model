@@ -213,11 +213,25 @@
                 flowControlType.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="Scope" type="xs:token" minOccurs="0" maxOccurs="1"/>
+          <xs:element name="Scope" type="xs:token" minOccurs="0"/>
+          <xs:element name="codeFilters" type="CodeFilter" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>codeFilters is list of CodeFilter, indicate in this question,
+                codeValue filtered according to a condition</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
         <xs:attribute name="questionType" type="QuestionTypeEnum"/>
       </xs:extension>
     </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CodeFilter">
+    <xs:sequence>
+      <xs:element name="codeValue" type="xs:token"/>
+      <xs:element name="codeListId" type="xs:token"/>
+      <xs:element name="conditionFilter" type="xs:string"/>
+    </xs:sequence>
   </xs:complexType>
 
   <!-- Iterations -->
