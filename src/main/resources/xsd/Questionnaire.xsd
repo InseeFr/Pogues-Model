@@ -229,7 +229,6 @@
   <xs:complexType name="CodeFilter">
     <xs:sequence>
       <xs:element name="codeValue" type="xs:token"/>
-      <xs:element name="codeListId" type="xs:token"/>
       <xs:element name="conditionFilter" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>

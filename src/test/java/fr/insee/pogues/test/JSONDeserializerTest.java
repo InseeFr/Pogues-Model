@@ -98,8 +98,8 @@ class JSONDeserializerTest {
 				     {
 				       "type": "QuestionType",
 				       "codeFilters": [
-				       		{ "codeValue": "01", "codeListId": "codeListId", "conditionFilter": "$AGE$ > 18" },				       		
-				       		{ "codeValue": "02", "codeListId": "codeListId", "conditionFilter": "$AGE$ > 30" }
+				       		{ "codeValue": "01", "conditionFilter": "$AGE$ > 18" },				       		
+				       		{ "codeValue": "02", "conditionFilter": "$AGE$ > 30" }
 				       	]
 				     }
 				   ]
