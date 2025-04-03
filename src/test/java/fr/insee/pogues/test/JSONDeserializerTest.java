@@ -112,7 +112,7 @@ class JSONDeserializerTest {
 
 	@Test
 	public void testExternalElement() throws JAXBException, UnsupportedEncodingException, JSONException {
-		String jsonWithCodeFilters = """
+		String json = """
 				{
 				   "Child": [
 				     {
@@ -123,7 +123,7 @@ class JSONDeserializerTest {
 				 }
 				 """;
 		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeString(jsonWithCodeFilters);
+		Questionnaire questionnaire = deserializer.deserializeString(json);
 		assertEquals(GenericNameEnum.EXTERNAL_ELEMENT, ((SequenceType) questionnaire.getChild().get(0)).getGenericName());
 	}
 
