@@ -1054,6 +1054,13 @@
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
+      <xs:enumeration value="EXTERNAL_ELEMENT">
+        <xs:annotation>
+          <xs:documentation>
+            <xs:documentation>Indicates that Sequence is external (Composition of questionnaire)</xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 
