@@ -293,4 +293,25 @@ class JSONSerializerTest {
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
 
+	@Test
+	public void serializeGenericName() throws JAXBException, UnsupportedEncodingException, JSONException {
+		Questionnaire questionnaire = new Questionnaire();
+		SequenceType sequenceType = new SequenceType();
+		sequenceType.setGenericName(GenericNameEnum.EXTERNAL_ELEMENT);
+		questionnaire.getChild().add(sequenceType);
+		JSONSerializer serializer = new JSONSerializer(true);
+		String result = serializer.serialize(questionnaire);
+		String expectedJson = """
+				{
+				   "Child": [
+				     {
+				       "type": "SequenceType",
+				       "genericName": "EXTERNAL_ELEMENT"
+				     }
+				   ]
+				 }
+				 """;
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+	}
+
 }
