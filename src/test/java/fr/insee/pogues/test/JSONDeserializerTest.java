@@ -127,4 +127,24 @@ class JSONDeserializerTest {
 		assertEquals(GenericNameEnum.EXTERNAL_ELEMENT, ((SequenceType) questionnaire.getChild().get(0)).getGenericName());
 	}
 
+	@Test
+	public void testConditionFilterInDatatypeInTableResponse() throws JAXBException, UnsupportedEncodingException, JSONException {
+		String json = """
+				{
+				   "Child": [
+				     {
+				       "type": "QuestionType",
+				       "Response": [ { "conditionFilter": "$PRENOM$ = \\"Laurent\\"" } ]
+				     }
+				   ]
+				 }
+				 """;
+		JSONDeserializer deserializer = new JSONDeserializer();
+		Questionnaire questionnaire = deserializer.deserializeString(json);
+		assertEquals(
+				"$PRENOM$ = \"Laurent\"",
+				((QuestionType) questionnaire.getChild().get(0))
+						.getResponse().getFirst().getConditionFilter());
+	}
+
 }

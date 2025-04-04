@@ -478,6 +478,11 @@
             element.</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="conditionFilter" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>conditionFilter is used in dynamic table to tell if cell that collects response has to be filtered or not.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required">
       <xs:annotation>
@@ -694,13 +699,6 @@
       <xs:element name="Label" type="xs:string">
         <xs:annotation>
           <xs:documentation>The label of the code.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="Filter" type="ExpressionType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>NOT USED</xs:documentation>
-          <xs:documentation>Specifies a condition for NOT displaying the code
-            value</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="Parent" type="xs:token" minOccurs="0">
