@@ -314,4 +314,27 @@ class JSONSerializerTest {
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
 
+	@Test
+	public void serializeConditionFilterInDatatypeInTableResponse() throws JAXBException, UnsupportedEncodingException, JSONException {
+		Questionnaire questionnaire = new Questionnaire();
+		QuestionType questionType = new QuestionType();
+		ResponseType response = new ResponseType();
+		response.setConditionFilter("$PRENOM$ = \"Laurent\"");
+		questionType.getResponse().add(response);
+		questionnaire.getChild().add(questionType);
+		JSONSerializer serializer = new JSONSerializer(true);
+		String result = serializer.serialize(questionnaire);
+		String expectedJson = """
+				{
+				   "Child": [
+				     {
+				       "type": "QuestionType",
+				       "Response": [ { "conditionFilter": "$PRENOM$ = \\"Laurent\\"" } ]
+				     }
+				   ]
+				 }
+				 """;
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+	}
+
 }

@@ -478,6 +478,11 @@
             element.</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="conditionFilter" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>conditionFilter is used in dynamic table to tell if cell that collects response has to be filtered or not.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
     <xs:attribute name="id" type="xs:ID" use="required">
       <xs:annotation>
