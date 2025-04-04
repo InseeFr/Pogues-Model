@@ -696,13 +696,6 @@
           <xs:documentation>The label of the code.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="Filter" type="ExpressionType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>NOT USED</xs:documentation>
-          <xs:documentation>Specifies a condition for NOT displaying the code
-            value</xs:documentation>
-        </xs:annotation>
-      </xs:element>
       <xs:element name="Parent" type="xs:token" minOccurs="0">
         <xs:annotation>
           <xs:documentation>This attribute is used in hierarchical code lists case (a code may
