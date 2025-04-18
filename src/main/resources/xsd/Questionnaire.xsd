@@ -278,7 +278,7 @@
           <xs:element name="OccurrenceLabel" type="xs:string"/>
           <xs:element name="OccurrenceDescription" type="xs:string" minOccurs="0"/>
           <xs:element name="Locked" type="xs:boolean"/>
-          <xs:element name="Loop" type="DynamicIterationType" maxOccurs="unbounded"/>
+          <xs:element name="Loop" type="DynamicIterationType"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

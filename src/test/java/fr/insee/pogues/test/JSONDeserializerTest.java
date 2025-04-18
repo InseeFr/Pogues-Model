@@ -147,4 +147,74 @@ class JSONDeserializerTest {
 						.getResponse().getFirst().getConditionFilter());
 	}
 
+	@Test
+	public void testLoopArrayToSingleLoopInRoundabout() throws JAXBException {
+		String json = """
+				{
+					"Child": [
+						{
+						  "type": "RoundaboutType",
+						  "Loop": [
+							{
+							  "Name": "RD_POINT_NAME",
+							  "MemberReference": ["id1", "id2"],
+							  "IterableReference": "TEST",
+							  "Filter": "NAME = \\"Laurent\\""
+							}
+						  ]
+						}
+					]
+				}
+				""";
+		JSONDeserializer deserializer = new JSONDeserializer();
+		Questionnaire questionnaire = deserializer.deserializeString(json);
+		assertEquals(
+				"RD_POINT_NAME",
+				((RoundaboutType) questionnaire.getChild().getFirst())
+						.getLoop().getName());
+	}
+
+	@Test
+	public void shouldConvertArrayLoopToSingleLoopInJson() throws JAXBException, UnsupportedEncodingException, JSONException {
+		String json = """
+				{
+					"Child": [
+						{
+						  "type": "RoundaboutType",
+						  "Locked": false,
+						  "Loop": [
+							{
+							  "Name": "RD_POINT_NAME",
+							  "MemberReference": ["id1", "id2"],
+							  "IterableReference": "TEST",
+							  "Filter": "NAME = \\"Laurent\\""
+							}
+						  ]
+						}
+					]
+				}
+				""";
+
+		String expectedJson = """
+				{
+					"Child": [
+						{
+						  "type": "RoundaboutType",
+						  "Locked": false,
+						  "Loop": {
+							  "Name": "RD_POINT_NAME",
+							  "MemberReference": ["id1", "id2"],
+							  "IterableReference": "TEST",
+							  "Filter": "NAME = \\"Laurent\\""
+							}
+						}
+					]
+				}
+				""";
+		JSONDeserializer deserializer = new JSONDeserializer();
+		Questionnaire questionnaire = deserializer.deserializeString(json);
+		JSONSerializer serializer = new JSONSerializer(true);
+		String result = serializer.serialize(questionnaire);
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+	}
 }
