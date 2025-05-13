@@ -230,6 +230,13 @@
     <xs:sequence>
       <xs:element name="codeValue" type="xs:token"/>
       <xs:element name="conditionFilter" type="xs:string"/>
+      <xs:element name="conditionReadOnly" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            conditionReadOnly is used to make a field read-only under certain conditions.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
@@ -481,6 +488,13 @@
       <xs:element name="conditionFilter" type="xs:string">
         <xs:annotation>
           <xs:documentation>conditionFilter is used in dynamic table to tell if cell that collects response has to be filtered or not.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="conditionReadOnly" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            "conditionReadOnly allows defining a condition that makes the field non-editable (read-only).
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
