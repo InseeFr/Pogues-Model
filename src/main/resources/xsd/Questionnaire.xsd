@@ -230,13 +230,6 @@
     <xs:sequence>
       <xs:element name="codeValue" type="xs:token"/>
       <xs:element name="conditionFilter" type="xs:string"/>
-      <xs:element name="conditionReadOnly" type="xs:string" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>
-            conditionReadOnly is used to make a field read-only under certain conditions.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
