@@ -362,4 +362,41 @@ class JSONSerializerTest {
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
 
+	@Test
+	public void serializeMinMaxVTLInDimensionTable() throws JAXBException, UnsupportedEncodingException, JSONException {
+		Questionnaire questionnaire = new Questionnaire();
+		QuestionType questionType = new QuestionType();
+		ResponseStructureType responseStructureType = new ResponseStructureType();
+		DimensionType dimensionType = new DimensionType();
+		ExpressionType min = new ExpressionType();
+		min.setValue("count($PRENOM$)");
+		ExpressionType max = new ExpressionType();
+		max.setValue("count($PRENOM$) + 10");
+		dimensionType.setMinimum(min);
+		dimensionType.setMaximum(max);
+		responseStructureType.getDimension().add(dimensionType);
+		questionType.setResponseStructure(responseStructureType);
+		questionnaire.getChild().add(questionType);
+		JSONSerializer serializer = new JSONSerializer(true);
+		String result = serializer.serialize(questionnaire);
+		String expectedJson = """
+				{
+				    "Child": [
+				      {
+				        "type": "QuestionType",
+				        "ResponseStructure": {
+				          "Dimension": [
+				            {
+				              "minimum": "count($PRENOM$)",
+				              "maximum": "count($PRENOM$) + 10"
+				            }
+				          ]
+				        }
+				      }
+				    ]
+				  }
+				""";
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+	}
+
 }
