@@ -370,8 +370,28 @@
     <xs:sequence>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
       <xs:element name="Label" type="xs:string" minOccurs="0"/>
-      <xs:element name="MinLines" type="xs:integer" minOccurs="0"/>
-      <xs:element name="MaxLines" type="xs:integer" minOccurs="0"/>
+      <xs:element name="MinLines" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>DEPRECATED: since 1.8.1</xs:documentation>
+          <xs:documentation>use "minimum" instead (VTL formula)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MaxLines" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>DEPRECATED: since 1.8.1</xs:documentation>
+          <xs:documentation>use "maximum" instead (VTL formula)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minimum" type="ExpressionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>VTL formula to define the minimum length of dynamic table</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="maximum" type="ExpressionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>VTL formula to define the maximum length of dynamic table</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="FixedLength" type="ExpressionType" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="dimensionType" type="DimensionTypeEnum" use="required"/>

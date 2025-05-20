@@ -237,4 +237,37 @@ class JSONDeserializerTest {
 		String result = serializer.serialize(questionnaire);
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
+
+	@Test
+	public void serializeMinMaxVTLInDimensionTable() throws JAXBException {
+		String json = """
+				{
+				    "Child": [
+				      {
+				        "type": "QuestionType",
+				        "ResponseStructure": {
+				          "Dimension": [
+				            {
+				              "minimum": "count($PRENOM$)",
+				              "maximum": "count($PRENOM$) + 10"
+				            }
+				          ]
+				        }
+				      }
+				    ]
+				  }
+				  """;
+		JSONDeserializer deserializer = new JSONDeserializer();
+		Questionnaire questionnaire = deserializer.deserializeString(json);
+		assertEquals(
+				"count($PRENOM$)",
+				((QuestionType) questionnaire.getChild().getFirst())
+						.getResponseStructure().getDimension().getFirst()
+						.getMinimum().getValue());
+		assertEquals(
+				"count($PRENOM$) + 10",
+				((QuestionType) questionnaire.getChild().getFirst())
+						.getResponseStructure().getDimension().getFirst()
+						.getMaximum().getValue());
+	}
 }
