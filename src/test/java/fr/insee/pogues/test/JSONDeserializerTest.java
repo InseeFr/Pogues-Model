@@ -148,6 +148,26 @@ class JSONDeserializerTest {
 	}
 
 	@Test
+	public void testConditionReadOnlyInDatatypeInTableResponse() throws JAXBException, UnsupportedEncodingException, JSONException {
+		String json = """
+				{
+				   "Child": [
+				     {
+				       "type": "QuestionType",
+				       "Response": [ { "conditionReadOnly": "$PRENOM$ = \\"Remi\\"" } ]
+				     }
+				   ]
+				 }
+				 """;
+		JSONDeserializer deserializer = new JSONDeserializer();
+		Questionnaire questionnaire = deserializer.deserializeString(json);
+		assertEquals(
+				"$PRENOM$ = \"Remi\"",
+				((QuestionType) questionnaire.getChild().get(0))
+						.getResponse().getFirst().getConditionReadOnly());
+	}
+
+	@Test
 	public void testLoopArrayToSingleLoopInRoundabout() throws JAXBException {
 		String json = """
 				{

@@ -55,7 +55,8 @@ class JSONSerializerTest {
 				    	"flowLogic" : "FILTER",
 				    	"Name" : "Without root questionnaire"
 				    }
-				 }""";;
+				 }""";
+		;
 
 		String expectedJsonWithoutRoot = """
 				{
@@ -245,7 +246,7 @@ class JSONSerializerTest {
 		controlOccurrence.setScope(ControlScopeEnum.OCCURRENCE);
 		ControlType controlWhole = new ControlType();
 		controlWhole.setScope(ControlScopeEnum.WHOLE);
-		componentType.getControl().addAll(List.of(controlOccurrence,controlWhole));
+		componentType.getControl().addAll(List.of(controlOccurrence, controlWhole));
 		questionnaire.getChild().add(componentType);
 		JSONSerializer serializer = new JSONSerializer(true);
 		String result = serializer.serialize(questionnaire);
@@ -258,7 +259,7 @@ class JSONSerializerTest {
 				     }
 				   ]
 				 }
-				 """;
+				""";
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
 
@@ -272,7 +273,8 @@ class JSONSerializerTest {
 		CodeFilter codeFilter30 = new CodeFilter();
 		codeFilter30.setCodeValue("02");
 		codeFilter30.setConditionFilter("$AGE$ > 30");
-		questionType.getCodeFilters().add(codeFilter18);;
+		questionType.getCodeFilters().add(codeFilter18);
+		;
 		questionType.getCodeFilters().add(codeFilter30);
 		questionnaire.getChild().add(questionType);
 		JSONSerializer serializer = new JSONSerializer(true);
@@ -289,7 +291,7 @@ class JSONSerializerTest {
 				     }
 				   ]
 				 }
-				 """;
+				""";
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
 
@@ -310,7 +312,7 @@ class JSONSerializerTest {
 				     }
 				   ]
 				 }
-				 """;
+				""";
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
 
@@ -333,7 +335,30 @@ class JSONSerializerTest {
 				     }
 				   ]
 				 }
-				 """;
+				""";
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+	}
+
+	@Test
+	public void serializeConditionReadOnlyInDatatypeInTableResponse() throws JAXBException, UnsupportedEncodingException, JSONException {
+		Questionnaire questionnaire = new Questionnaire();
+		QuestionType questionType = new QuestionType();
+		ResponseType response = new ResponseType();
+		response.setConditionReadOnly("$PRENOM$ = \"Remi\"");
+		questionType.getResponse().add(response);
+		questionnaire.getChild().add(questionType);
+		JSONSerializer serializer = new JSONSerializer(true);
+		String result = serializer.serialize(questionnaire);
+		String expectedJson = """
+				{
+				   "Child": [
+				     {
+				       "type": "QuestionType",
+				       "Response": [ { "conditionReadOnly": "$PRENOM$ = \\"Remi\\"" } ]
+				     }
+				   ]
+				 }
+				""";
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
 
