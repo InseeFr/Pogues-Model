@@ -367,42 +367,70 @@
   </xs:complexType>
 
   <xs:complexType name="DimensionType">
+    <xs:annotation>
+    <xs:documentation>
+      Defines a dimension of a table (e.g., PRIMARY, SECONDARY, MEASURE).
+      The behavior of the dimension is controlled by the 'dynamic' attribute:
+      - NON_DYNAMIC: fixed size, potentially based on a codeList.
+      - DYNAMIC: dynamic size with minimum different from maximum.
+      - DYNAMIC_FIXED: dynamic size with minimum equal to maximum (using the 'size' field).
+    </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
-      <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
-      <xs:element name="Label" type="xs:string" minOccurs="0"/>
-      <xs:element name="MinLines" type="xs:integer" minOccurs="0">
+      <xs:element name="CodeListReference" type="xs:token" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>DEPRECATED: since 1.8.1</xs:documentation>
-          <xs:documentation>use "minimum" instead (VTL formula)</xs:documentation>
+          <xs:documentation>Reference to an external code list (codeList), used for NON_DYNAMIC dimensions.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="MaxLines" type="xs:integer" minOccurs="0">
+      <xs:element name="Label" type="xs:string" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>DEPRECATED: since 1.8.1</xs:documentation>
-          <xs:documentation>use "maximum" instead (VTL formula)</xs:documentation>
+          <xs:documentation>Optional label for the dimension.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="minimum" type="ExpressionType" minOccurs="0">
+      <xs:element name="minimum" type="TypedValueType" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>VTL formula to define the minimum length of dynamic table</xs:documentation>
+          <xs:documentation>Minimum allowed value for a DYNAMIC dimension (type: number or VTL).</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="maximum" type="ExpressionType" minOccurs="0">
+      <xs:element name="maximum" type="TypedValueType" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>VTL formula to define the maximum length of dynamic table</xs:documentation>
+          <xs:documentation>Maximum allowed value for a DYNAMIC dimension (type: number or VTL).</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="FixedLength" type="ExpressionType" minOccurs="0"/>
+      <xs:element name="size" type="TypedValueType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Used only if dynamic = DYNAMIC_FIXED. Size dynamically fixed by a formula or a value (min = max).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
     <xs:attribute name="dimensionType" type="DimensionTypeEnum" use="required"/>
-    <xs:attribute name="dynamic" type="xs:token">
-      <xs:annotation>
-        <xs:documentation>previous modeling: '0': no constraint; 'm-': min m, no max; '-n': no min, n max; 'm-n': m min, n max</xs:documentation>
-        <xs:documentation>new modeling (not Enum because of the existing questionnaires): NON_DYNAMIC (previously '0'; default value); DYNAMIC_LENGTH (used with MinLines and MaxLines)</xs:documentation>
-        <xs:documentation>new value: FIXED_LENGTH (used with FixedLength): dynamic dimension with length fixed by a formula based on previous values</xs:documentation>
-      </xs:annotation>
+    <xs:attribute name="dynamic" type="DynamicTypeEnum">
     </xs:attribute>
   </xs:complexType>
+
+  <xs:complexType name="TypedValueType">
+    <xs:sequence>
+      <xs:element name="type" type="ValueTypeEnum"/>
+      <xs:element name="value" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="ValueTypeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="number"/>
+      <xs:enumeration value="VTL"/>
+      <xs:enumeration value="TXT"/>
+      <xs:enumeration value="VTL|MD"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DynamicTypeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="NON_DYNAMIC"/>
+      <xs:enumeration value="DYNAMIC"/>
+      <xs:enumeration value="DYNAMIC_FIXED"/>
+    </xs:restriction>
+  </xs:simpleType>
 
   <xs:complexType name="AttributeType">
     <xs:sequence>
