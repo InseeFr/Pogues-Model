@@ -239,7 +239,7 @@ class JSONSerializerTest {
 	}
 
 	@Test
-	public void serializeRowLevelControl() throws JAXBException, UnsupportedEncodingException, JSONException {
+	void serializeRowLevelControl() throws JAXBException, UnsupportedEncodingException, JSONException {
 		Questionnaire questionnaire = new Questionnaire();
 		ComponentType componentType = new QuestionType();
 		ControlType controlOccurrence = new ControlType();
@@ -264,7 +264,7 @@ class JSONSerializerTest {
 	}
 
 	@Test
-	public void serializeCodeListFilters() throws JAXBException, UnsupportedEncodingException, JSONException {
+	void serializeCodeListFilters() throws JAXBException, UnsupportedEncodingException, JSONException {
 		Questionnaire questionnaire = new Questionnaire();
 		QuestionType questionType = new QuestionType();
 		CodeFilter codeFilter18 = new CodeFilter();
@@ -274,7 +274,6 @@ class JSONSerializerTest {
 		codeFilter30.setCodeValue("02");
 		codeFilter30.setConditionFilter("$AGE$ > 30");
 		questionType.getCodeFilters().add(codeFilter18);
-		;
 		questionType.getCodeFilters().add(codeFilter30);
 		questionnaire.getChild().add(questionType);
 		JSONSerializer serializer = new JSONSerializer(true);
@@ -296,7 +295,7 @@ class JSONSerializerTest {
 	}
 
 	@Test
-	public void serializeGenericName() throws JAXBException, UnsupportedEncodingException, JSONException {
+	void serializeGenericName() throws JAXBException, UnsupportedEncodingException, JSONException {
 		Questionnaire questionnaire = new Questionnaire();
 		SequenceType sequenceType = new SequenceType();
 		sequenceType.setGenericName(GenericNameEnum.EXTERNAL_ELEMENT);
@@ -317,7 +316,7 @@ class JSONSerializerTest {
 	}
 
 	@Test
-	public void serializeConditionFilterInDatatypeInTableResponse() throws JAXBException, UnsupportedEncodingException, JSONException {
+	void serializeConditionFilterInDatatypeInTableResponse() throws JAXBException, UnsupportedEncodingException, JSONException {
 		Questionnaire questionnaire = new Questionnaire();
 		QuestionType questionType = new QuestionType();
 		ResponseType response = new ResponseType();
@@ -340,7 +339,7 @@ class JSONSerializerTest {
 	}
 
 	@Test
-	public void serializeConditionReadOnlyInDatatypeInTableResponse() throws JAXBException, UnsupportedEncodingException, JSONException {
+	void serializeConditionReadOnlyInDatatypeInTableResponse() throws JAXBException, UnsupportedEncodingException, JSONException {
 		Questionnaire questionnaire = new Questionnaire();
 		QuestionType questionType = new QuestionType();
 		ResponseType response = new ResponseType();
@@ -369,7 +368,7 @@ class JSONSerializerTest {
 		ResponseStructureType responseStructureType = new ResponseStructureType();
 		DimensionType dimensionType = new DimensionType();
 		dimensionType.setDimensionType(DimensionTypeEnum.PRIMARY);
-		dimensionType.setDynamic(DynamicTypeEnum.DYNAMIC);
+		dimensionType.setDynamic("DYNAMIC");
 		TypedValueType min = new TypedValueType();
 		min.setType(ValueTypeEnum.NUMBER);
 		min.setValue("2");
@@ -385,28 +384,28 @@ class JSONSerializerTest {
 		String result = serializer.serialize(questionnaire);
 		String expectedJson = """
 				{
-				    "Child": [
-				      {
-				        "type": "QuestionType",
-				        "ResponseStructure": {
-				          "Dimension": [
-				            {
-				                "dimensionType": "PRIMARY",
-				                "dynamic": "DYNAMIC",
-				                "minimum": {
-				                    "type": "number",
-				                    "value": "2"
-				                },
-				                "maximum":{
-				                    "type": "number",
-				                    "value": "10"
-				                }
+				  "Child": [
+				    {
+				      "type": "QuestionType",
+				      "ResponseStructure": {
+				        "Dimension": [
+				          {
+				            "dimensionType": "PRIMARY",
+				            "dynamic": "DYNAMIC",
+				            "minimum": {
+				              "type": "number",
+				              "value": "2"
+				            },
+				            "maximum": {
+				              "type": "number",
+				              "value": "10"
 				            }
-				          ]
-				        }
+				          }
+				        ]
 				      }
-				    ]
-				  }
+				    }
+				  ]
+				}
 				""";
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
@@ -418,7 +417,7 @@ class JSONSerializerTest {
 		ResponseStructureType responseStructureType = new ResponseStructureType();
 		DimensionType dimensionType = new DimensionType();
 		dimensionType.setDimensionType(DimensionTypeEnum.PRIMARY);
-		dimensionType.setDynamic(DynamicTypeEnum.DYNAMIC);
+		dimensionType.setDynamic("DYNAMIC");
 		TypedValueType min = new TypedValueType();
 		min.setType(ValueTypeEnum.VTL);
 		min.setValue("count($PRENOM$)");
@@ -434,28 +433,29 @@ class JSONSerializerTest {
 		String result = serializer.serialize(questionnaire);
 		String expectedJson = """
 				{
-				    "Child": [
-				      {
-				        "type": "QuestionType",
-				        "ResponseStructure": {
-				          "Dimension": [
-				            {
-				                "dimensionType": "PRIMARY",
-				                "dynamic": "DYNAMIC",
-				                "minimum": {
-				                    "type": "VTL",
-				                    "value": "count($PRENOM$)"
-				                },
-				                "maximum":{
-				                    "type": "VTL",
-				                    "value": "count($PRENOM$) + 10"
-				                }
+				  "Child": [
+				    {
+				      "type": "QuestionType",
+				      "ResponseStructure": {
+				        "Dimension": [
+				          {
+				            "dimensionType": "PRIMARY",
+				            "dynamic": "DYNAMIC",
+				            "minimum": {
+				              "type": "VTL",
+				              "value": "count($PRENOM$)"
+				            },
+				            "maximum": {
+				              "type": "VTL",
+				              "value": "count($PRENOM$) + 10"
 				            }
-				          ]
-				        }
+				          }
+				        ]
 				      }
-				    ]
-				  }
+				    }
+				  ]
+				}
+				
 				""";
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
@@ -467,10 +467,10 @@ class JSONSerializerTest {
 		ResponseStructureType responseStructureType = new ResponseStructureType();
 		DimensionType dimensionType = new DimensionType();
 		dimensionType.setDimensionType(DimensionTypeEnum.PRIMARY);
-		dimensionType.setDynamic(DynamicTypeEnum.DYNAMIC_FIXED);
+		dimensionType.setDynamic("DYNAMIC_FIXED");
 		TypedValueType size = new TypedValueType();
-		size.setType(ValueTypeEnum.NUMBER);
-		size.setValue("5");
+		size.setType(ValueTypeEnum.VTL);
+		size.setValue("count($PRENOM$)");
 		dimensionType.setSize(size);
 		responseStructureType.getDimension().add(dimensionType);
 		questionType.setResponseStructure(responseStructureType);
@@ -479,24 +479,24 @@ class JSONSerializerTest {
 		String result = serializer.serialize(questionnaire);
 		String expectedJson = """
 				{
-				    "Child": [
-				      {
-				        "type": "QuestionType",
-				        "ResponseStructure": {
-				          "Dimension": [
-				            {
-				                "dimensionType": "PRIMARY",
-				                "dynamic": "DYNAMIC_FIXED",
-				                "size": {
-				                    "type": "number",
-				                    "value": "5"
-				                }
+				  "Child": [
+				    {
+				      "type": "QuestionType",
+				      "ResponseStructure": {
+				        "Dimension": [
+				          {
+				            "dimensionType": "PRIMARY",
+				            "dynamic": "DYNAMIC_FIXED",
+				            "size": {
+				              "type": "VTL",
+				              "value": "count($PRENOM$)"
 				            }
-				          ]
-				        }
+				          }
+				        ]
 				      }
-				    ]
-				  }
+				    }
+				  ]
+				}
 				""";
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
@@ -508,7 +508,7 @@ class JSONSerializerTest {
 		ResponseStructureType responseStructureType = new ResponseStructureType();
 		DimensionType dimensionType = new DimensionType();
 		dimensionType.setDimensionType(DimensionTypeEnum.PRIMARY);
-		dimensionType.setDynamic(DynamicTypeEnum.NON_DYNAMIC);
+		dimensionType.setDynamic("NON_DYNAMIC");
 		dimensionType.setCodeListReference("refCodeList");
 		responseStructureType.getDimension().add(dimensionType);
 		questionType.setResponseStructure(responseStructureType);
@@ -517,21 +517,21 @@ class JSONSerializerTest {
 		String result = serializer.serialize(questionnaire);
 		String expectedJson = """
 				{
-				    "Child": [
-				      {
-				        "type": "QuestionType",
-				        "ResponseStructure": {
-				          "Dimension": [
-				            {
-				                "CodeListReference": "refCodeList",
-				                "dimensionType": "PRIMARY",
-				                "dynamic": "NON_DYNAMIC"
-				            }
-				          ]
-				        }
+				  "Child": [
+				    {
+				      "type": "QuestionType",
+				      "ResponseStructure": {
+				        "Dimension": [
+				          {
+				            "CodeListReference": "refCodeList",
+				            "dimensionType": "PRIMARY",
+				            "dynamic": "NON_DYNAMIC"
+				          }
+				        ]
 				      }
-				    ]
-				  }
+				    }
+				  ]
+				}
 				""";
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
