@@ -501,4 +501,39 @@ class JSONSerializerTest {
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
 
+	@Test
+	void serializeNonDynamicInDimensionTable() throws JAXBException, UnsupportedEncodingException, JSONException {
+		Questionnaire questionnaire = new Questionnaire();
+		QuestionType questionType = new QuestionType();
+		ResponseStructureType responseStructureType = new ResponseStructureType();
+		DimensionType dimensionType = new DimensionType();
+		dimensionType.setDimensionType(DimensionTypeEnum.PRIMARY);
+		dimensionType.setDynamic(DynamicTypeEnum.NON_DYNAMIC);
+		dimensionType.setCodeListReference("refCodeList");
+		responseStructureType.getDimension().add(dimensionType);
+		questionType.setResponseStructure(responseStructureType);
+		questionnaire.getChild().add(questionType);
+		JSONSerializer serializer = new JSONSerializer(true);
+		String result = serializer.serialize(questionnaire);
+		String expectedJson = """
+				{
+				    "Child": [
+				      {
+				        "type": "QuestionType",
+				        "ResponseStructure": {
+				          "Dimension": [
+				            {
+				                "CodeListReference": "refCodeList",
+				                "dimensionType": "PRIMARY",
+				                "dynamic": "NON_DYNAMIC"
+				            }
+				          ]
+				        }
+				      }
+				    ]
+				  }
+				""";
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+	}
+
 }
