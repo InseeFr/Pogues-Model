@@ -416,7 +416,13 @@
       </xs:element>
     </xs:sequence>
     <xs:attribute name="dimensionType" type="DimensionTypeEnum" use="required"/>
-    <xs:attribute name="dynamic" type="xs:token"/>
+    <xs:attribute name="dynamic" type="xs:token">
+      <xs:annotation>
+        <xs:documentation>
+          For now, we keep this as xs:token. Later, this will be replaced by an enumeration based on DynamicTypeEnum.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
   </xs:complexType>
 
   <xs:complexType name="TypedValueType">
