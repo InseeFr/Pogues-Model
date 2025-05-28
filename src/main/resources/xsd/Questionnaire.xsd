@@ -410,7 +410,7 @@
 
   <xs:complexType name="TypedValueType">
     <xs:sequence>
-      <xs:element name="type" type="ValueTypeEnum"/>
+      <xs:element name="type" type="ValueTypeEnum" minOccurs="0" default="number"/>
       <xs:element name="value" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
