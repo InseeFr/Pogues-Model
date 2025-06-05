@@ -414,6 +414,12 @@
           <xs:documentation>Used only if dynamic = DYNAMIC_FIXED. Size dynamically fixed by a formula or a value (min = max).</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="FixedLength" type="ExpressionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>DEPRECATED: since 1.9.0</xs:documentation>
+          <xs:documentation>use "size" instead (VTL formula)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
     <xs:attribute name="dimensionType" type="DimensionTypeEnum" use="required"/>
     <xs:attribute name="dynamic" type="xs:token">
