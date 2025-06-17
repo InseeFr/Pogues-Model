@@ -536,4 +536,72 @@ class JSONSerializerTest {
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
 
+	@Test
+	void serializeIterationPagination() throws JAXBException, UnsupportedEncodingException, JSONException {
+		Questionnaire questionnaire = new Questionnaire();
+		DynamicIterationType dynamicIterationType = new DynamicIterationType();
+		ExpressionType minimum = new ExpressionType();
+		minimum.setValue("1");
+		ExpressionType maximum = new ExpressionType();
+		maximum.setValue("5");
+		dynamicIterationType.setMinimum(minimum);
+		dynamicIterationType.setMaximum(maximum);
+		dynamicIterationType.setShouldSplitIterations(true);
+
+		Questionnaire.Iterations iterations = new Questionnaire.Iterations();
+		iterations.getIteration().add(dynamicIterationType);
+		questionnaire.setIterations(iterations);
+
+		JSONSerializer serializer = new JSONSerializer(true);
+		String result = serializer.serialize(questionnaire);
+		String expectedJson = """
+				{
+				  "Iterations": {
+				  	"Iteration": [
+				  		{
+				  			"type": "DynamicIterationType",
+				  			"minimum": "1",
+				  			"maximum": "5",
+				  			"shouldSplitIterations": true
+				  		}
+				  	]
+				  }
+				}
+				""";
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+	}
+
+	@Test
+	void serializeIterationPaginationFixedLength() throws JAXBException, UnsupportedEncodingException, JSONException {
+		Questionnaire questionnaire = new Questionnaire();
+		DynamicIterationType dynamicIterationType = new DynamicIterationType();
+		ExpressionType size = new ExpressionType();
+		size.setValue("42");
+		dynamicIterationType.setSize(size);
+		dynamicIterationType.setIsFixedLength(true);
+		dynamicIterationType.setShouldSplitIterations(true);
+
+		Questionnaire.Iterations iterations = new Questionnaire.Iterations();
+		iterations.getIteration().add(dynamicIterationType);
+		questionnaire.setIterations(iterations);
+
+		JSONSerializer serializer = new JSONSerializer(true);
+		String result = serializer.serialize(questionnaire);
+		String expectedJson = """
+				{
+				  "Iterations": {
+				  	"Iteration": [
+				  		{
+				  			"type": "DynamicIterationType",
+				  			"size": "42",
+				  			"isFixedLength": true,
+				  			"shouldSplitIterations": true
+				  		}
+				  	]
+				  }
+				}
+				""";
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+	}
+
 }

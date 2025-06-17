@@ -270,4 +270,60 @@ class JSONDeserializerTest {
 						.getResponseStructure().getDimension().getFirst()
 						.getMaximum().getValue());
 	}
+
+	@Test
+	public void shouldHandleMinMaxDynamicIteration_notCaseSensitive() throws JAXBException {
+		String oldJson = """
+				{
+				  "Iterations": {
+				  	"Iteration": [
+				  		{
+				  			"type": "DynamicIterationType",
+				  			"Minimum": "1",
+				  			"Maximum": "5"
+				  		}
+				  	]
+				  }
+				}
+				""";
+
+		String newJson = """
+				{
+				  "Iterations": {
+				  	"Iteration": [
+				  		{
+				  			"type": "DynamicIterationType",
+				  			"minimum": "1",
+				  			"maximum": "5",
+				  			"shouldSplitIterations": true
+				  		}
+				  	]
+				  }
+				}
+				""";
+		JSONDeserializer deserializer = new JSONDeserializer();
+		Questionnaire oldQuestionnaire = deserializer.deserializeString(oldJson);
+		assertEquals(
+				"1",
+				((DynamicIterationType) oldQuestionnaire.getIterations().getIteration().getFirst())
+						.getDeprecatedMinimum().getValue());
+		assertEquals(
+				"5",
+				((DynamicIterationType) oldQuestionnaire.getIterations().getIteration().getFirst())
+						.getDeprecatedMaximum().getValue());
+
+
+		Questionnaire newQuestionnaire = deserializer.deserializeString(newJson);
+		assertEquals(
+				"1",
+				((DynamicIterationType) newQuestionnaire.getIterations().getIteration().getFirst())
+						.getMinimum().getValue());
+		assertEquals(
+				"5",
+				((DynamicIterationType) newQuestionnaire.getIterations().getIteration().getFirst())
+						.getMaximum().getValue());
+		assertTrue(
+				((DynamicIterationType) newQuestionnaire.getIterations().getIteration().getFirst())
+						.isShouldSplitIterations());
+	}
 }
