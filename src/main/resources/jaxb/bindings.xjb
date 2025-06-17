@@ -4,5 +4,22 @@
         <jxb:schemaBindings>
             <jxb:package name="fr.insee.pogues.model"/>
         </jxb:schemaBindings>
+
+        <!-- Bindings spécifiques pour DynamicIterationType -->
+        <jxb:bindings node="//xs:complexType[@name='DynamicIterationType']/xs:complexContent/xs:extension/xs:sequence/xs:element[@name='Minimum']">
+            <jxb:property name="deprecatedMinimum"/>
+        </jxb:bindings>
+
+        <jxb:bindings node="//xs:complexType[@name='DynamicIterationType']/xs:complexContent/xs:extension/xs:sequence/xs:element[@name='Maximum']">
+            <jxb:property name="deprecatedMaximum"/>
+        </jxb:bindings>
+
+        <jxb:bindings node="//xs:complexType[@name='DynamicIterationType']/xs:complexContent/xs:extension/xs:sequence/xs:element[@name='minimum']">
+            <jxb:property name="minimum"/>
+        </jxb:bindings>
+
+        <jxb:bindings node="//xs:complexType[@name='DynamicIterationType']/xs:complexContent/xs:extension/xs:sequence/xs:element[@name='maximum']">
+            <jxb:property name="maximum"/>
+        </jxb:bindings>
     </jxb:bindings>
 </jxb:bindings>

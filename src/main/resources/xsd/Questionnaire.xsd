@@ -249,6 +249,18 @@
     <xs:complexContent>
       <xs:extension base="IterationType">
         <xs:sequence>
+          <xs:element name="Minimum" type="ExpressionType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>DEPRECATED: since 1.10.0</xs:documentation>
+              <xs:documentation>use "minimum" instead (VTL formula)</xs:documentation>
+          </xs:annotation>
+          </xs:element>
+          <xs:element name="Maximum" type="ExpressionType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>DEPRECATED: since 1.10.0</xs:documentation>
+              <xs:documentation>use "maximum" instead (VTL formula)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="isFixedLength" type="xs:boolean" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Default value is false.
