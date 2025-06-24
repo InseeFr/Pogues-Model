@@ -249,8 +249,45 @@
     <xs:complexContent>
       <xs:extension base="IterationType">
         <xs:sequence>
-          <xs:element name="Minimum" type="ExpressionType" minOccurs="0"/>
-          <xs:element name="Maximum" type="ExpressionType" minOccurs="0"/>
+          <xs:element name="Minimum" type="ExpressionType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>DEPRECATED: since 1.10.0</xs:documentation>
+              <xs:documentation>use "minimum" instead (VTL formula)</xs:documentation>
+          </xs:annotation>
+          </xs:element>
+          <xs:element name="Maximum" type="ExpressionType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>DEPRECATED: since 1.10.0</xs:documentation>
+              <xs:documentation>use "maximum" instead (VTL formula)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="isFixedLength" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Default value is false.
+                When there is no IterableReference, ables to know if a loop dimension is fixed (with a size value) or not (with minimum and maximum values)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="minimum" type="ExpressionType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Minimum allowed value for a loop dimension. Used only if isFixedLength is false/undefined.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="maximum" type="ExpressionType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Maximum allowed value for a loop dimension. Used only if isFixedLength is false/undefined.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="size" type="ExpressionType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Size of a loop. Used only if isFixedLength is true.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="shouldSplitIterations" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Default value is false.
+                When there is a size, it allows to display a loop with one page per iteration</xs:documentation>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="Step" type="xs:nonNegativeInteger" minOccurs="0"/>
           <xs:element name="IterableReference" type="xs:token">
             <xs:annotation>
