@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:include schemaLocation="../TypesUtils.xsd"/>
+
+    <xs:complexType name="Multimode">
+        <xs:sequence>
+            <xs:element name="questionnaire" type="Rules" minOccurs="0"/>
+            <xs:element name="leaf" type="Rules" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Rules">
+        <xs:sequence>
+            <xs:element name="rules" type="Rule" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="MultimodeRuleNameEnum">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="IS_MOVED"/>
+            <xs:enumeration value="IS_SPLIT"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:complexType name="Rule">
+        <xs:sequence>
+            <xs:element name="name" type="MultimodeRuleNameEnum"/>
+            <xs:element name="type" type="ValueTypeEnum" minOccurs="0" default="number"/>
+            <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
