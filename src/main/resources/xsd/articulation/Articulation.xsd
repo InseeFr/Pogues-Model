@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:include schemaLocation="../TypesUtils.xsd"/>
+
+    <xs:complexType name="Articulation">
+        <xs:sequence>
+            <xs:element name="items" type="Item" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="Item">
+        <xs:sequence>
+            <xs:element name="label" type="xs:string"/>
+            <xs:element name="type" type="ValueTypeEnum" minOccurs="0" default="number"/>
+            <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
