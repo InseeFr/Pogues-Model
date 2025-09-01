@@ -52,22 +52,29 @@ jobs:
           fi
 
   deploy-maven-repo:
+    name: Publish Pogues-Model on Maven
     needs: check-version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Maven Central Repository
-        uses: actions/setup-java@v4
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v1
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+      - uses: s4u/maven-settings-action@v3.0.0
         with:
-          java-version: '21'
-          distribution: 'temurin'
-          server-id: central
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
-          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-          gpg-passphrase: MAVEN_GPG_PASSPHRASE
-      - name: Deploy with Maven
-        run: mvn --batch-mode clean deploy -Pdeploy -DskipTests=true --no-transfer-progress
+          githubServer: false
+          servers: |
+            [
+              {
+                  "id": "central",
+                  "username": "${{ secrets.MAVEN_CENTRAL_USERNAME }}",
+                  "password": "${{ secrets.MAVEN_CENTRAL_TOKEN }}"
+              }
+            ]
+      - name: Publish Pogues-Model
+        run: mvn -B deploy -Prelease -DskipTests=true --no-transfer-progress
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
