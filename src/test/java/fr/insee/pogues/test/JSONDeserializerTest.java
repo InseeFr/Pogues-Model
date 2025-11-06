@@ -11,7 +11,6 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
@@ -108,6 +107,23 @@ class JSONDeserializerTest {
 		assertEquals(2, ((QuestionType) questionnaire.getChild().get(0)).getCodeFilters().size());
 		assertEquals("$AGE$ > 18", ((QuestionType) questionnaire.getChild().get(0)).getCodeFilters().get(0).getConditionFilter());
 		assertEquals("$AGE$ > 30", ((QuestionType) questionnaire.getChild().get(0)).getCodeFilters().get(1).getConditionFilter());
+	}
+
+	@Test
+	public void testMandatoryQuestion() throws JAXBException {
+		String jsonWithCodeFilters = """
+				{
+				   "Child": [
+				     {
+				       "type": "QuestionType",
+							 "mandatory": true,
+				     }
+				   ]
+				 }
+				 """;
+		JSONDeserializer deserializer = new JSONDeserializer();
+		Questionnaire questionnaire = deserializer.deserializeString(jsonWithCodeFilters);
+		assertTrue(((QuestionType) questionnaire.getChild().get(0)).isMandatory());
 	}
 
 	@Test
