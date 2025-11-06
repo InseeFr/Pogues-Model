@@ -227,6 +227,11 @@
           </xs:element>
         </xs:sequence>
         <xs:attribute name="questionType" type="QuestionTypeEnum"/>
+        <xs:attribute name="mandatory" type="xs:boolean">
+          <xs:annotation>
+            <xs:documentation>Whether the question is mandatory. Only used by multiple choice question for now.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -595,7 +600,11 @@
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="simple" type="xs:boolean"/>
-    <xs:attribute name="mandatory" type="xs:boolean"/>
+    <xs:attribute name="mandatory" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Whether the response is mandatory. Used by simple and single choice questions.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
   </xs:complexType>
 
   <xs:complexType name="NonResponseModalityType">
