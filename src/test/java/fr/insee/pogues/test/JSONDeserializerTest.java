@@ -111,19 +111,19 @@ class JSONDeserializerTest {
 
 	@Test
 	public void testMandatoryQuestion() throws JAXBException {
-		String jsonWithCodeFilters = """
+		String json = """
 				{
 				   "Child": [
 				     {
 				       "type": "QuestionType",
-							 "mandatory": true,
+				       "mandatory": true,
 				     }
 				   ]
 				 }
 				 """;
 		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeString(jsonWithCodeFilters);
-		assertTrue(((QuestionType) questionnaire.getChild().get(0)).isMandatory());
+		Questionnaire questionnaire = deserializer.deserializeString(json);
+		assertTrue(((QuestionType) questionnaire.getChild().getFirst()).isMandatory());
 	}
 
 	@Test
