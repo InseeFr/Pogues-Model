@@ -227,6 +227,13 @@
           </xs:element>
         </xs:sequence>
         <xs:attribute name="questionType" type="QuestionTypeEnum"/>
+        <xs:attribute name="mandatory" type="xs:boolean">
+          <xs:annotation>
+            <xs:documentation>Whether the question is mandatory. Only used by multiple choice question for now:
+            we need it at the question root as it is related to multiple responses. For simple questions and QCU
+            we put it at the response level.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -595,7 +602,13 @@
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="simple" type="xs:boolean"/>
-    <xs:attribute name="mandatory" type="xs:boolean"/>
+    <xs:attribute name="mandatory" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>Whether the response is mandatory. Used by simple and single choice questions.
+        Note that for QCM we use the mandatory attribute at the question root since it is not related
+        to a single response.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
   </xs:complexType>
 
   <xs:complexType name="NonResponseModalityType">
