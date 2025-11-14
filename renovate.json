@@ -1,37 +1,61 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", ":semanticCommits", ":disableRateLimiting"],
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":disableRateLimiting"
+  ],
   "packageRules": [
     {
-      "matchPackagePatterns": ["*"],
-      "labels": ["dependencies"],
+      "labels": [
+        "dependencies"
+      ],
       "bumpVersion": "patch",
-      "dependencyDashboardApproval": true
+      "dependencyDashboardApproval": true,
+      "matchPackageNames": [
+        "*"
+      ]
     },
     {
       "groupName": "all minor dependencies",
       "groupSlug": "all-minor-patch",
-      "matchPackagePatterns": ["*"],
-      "excludePackagePatterns": ["org.eclipse.*"],
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
       "bumpVersion": "patch",
-      "dependencyDashboardApproval": false
+      "dependencyDashboardApproval": false,
+      "matchPackageNames": [
+        "*",
+        "!/org.eclipse.*/"
+      ]
     },
     {
       "groupName": "eclipse dependencies",
       "groupSlug": "eclipse-patch",
-      "matchPackagePatterns": ["org.eclipse.*"],
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
       "bumpVersion": "patch",
-      "dependencyDashboardApproval": false
+      "dependencyDashboardApproval": false,
+      "matchPackageNames": [
+        "/org.eclipse.*/"
+      ]
     }
   ],
   "vulnerabilityAlerts": {
     "enabled": true,
-    "addLabels": ["security"],
+    "addLabels": [
+      "security"
+    ],
     "bumpVersion": "patch",
-    "schedule": ["before 5:00am"]
+    "schedule": [
+      "before 5:00am"
+    ]
   },
-  "schedule": ["every weekend"],
+  "schedule": [
+    "every weekend"
+  ],
   "timezone": "Europe/Paris"
 }
