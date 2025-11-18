@@ -4,7 +4,7 @@
 
 	<groupId>fr.insee.pogues</groupId>
 	<artifactId>pogues-model</artifactId>
-	<version>1.12.1</version>
+	<version>1.12.2</version>
 	<packaging>jar</packaging>
 
 	<name>Pogues Model</name>
@@ -270,6 +270,7 @@
 						<extensions>true</extensions>
 						<configuration>
 							<publishingServerId>central</publishingServerId>
+							<autoPublish>true</autoPublish>
 						</configuration>
 					</plugin>
 					<plugin>
