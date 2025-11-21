@@ -387,13 +387,39 @@
 
   <xs:complexType name="ExternalVariableType">
     <xs:annotation>
-      <xs:documentation> An external variable refers to a variable not collected in the
-        questionnaire, but useful for personalization. For example, it may be a collection wave
-        number for filtering questions, a date to be displayed in the wording of a question, etc.
+      <xs:documentation>
+        An external variable refers to a variable not collected in the questionnaire,
+        but useful for personalization. For example, it may be a collection wave number
+        for filtering questions, a date to be displayed in the wording of a question, etc.
+
+        The 'isDeletedOnReset' attribute indicates whether this external variable
+        must be deleted when Sabiane performs a questionnaire reset. Such a reset
+        may be triggered either manually by the interviewer (for instance when
+        selecting "move" in the survey identification form) or automatically when
+        Sabiane receives a move event from Platine.
       </xs:documentation>
     </xs:annotation>
+
     <xs:complexContent>
-      <xs:extension base="VariableType"/>
+        <xs:extension base="VariableType">
+            <xs:attribute name="isDeletedOnReset" type="xs:boolean" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Indicates whether the external variable should be deleted when a
+                        questionnaire reset is performed by Sabiane.
+
+                        - true  : the value is deleted
+                        - false : the value is preserved
+
+                        This attribute is used in particular to distinguish:
+                        * external variables related to the household, which must be
+                        deleted when a move or a reset occurs,
+                        * from external variables describing the dwelling, which must be
+                        preserved.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
