@@ -342,4 +342,33 @@ class JSONDeserializerTest {
 				((DynamicIterationType) newQuestionnaire.getIterations().getIteration().getFirst())
 						.isShouldSplitIterations());
 	}
+
+    @Test
+    void testExternalVariableIsDeletedOnReset() throws JAXBException {
+        String json = """
+            {
+                "Variables": {
+                    "Variable": [
+                        {
+                            "id": "ext1",
+                            "type": "ExternalVariableType",
+                            "Name": "NUMERO_MENAGE",
+                            "Label": "Numéro du ménage",
+                            "isDeletedOnReset": true
+                        }
+                    ]
+                }
+            }
+            """;
+
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+
+        ExternalVariableType externalVariableType = (ExternalVariableType)
+                questionnaire.getVariables().getVariable().getFirst();
+
+        assertNotNull(externalVariableType);
+        assertEquals("NUMERO_MENAGE", externalVariableType.getName());
+        assertTrue(externalVariableType.isIsDeletedOnReset());
+    }
 }
