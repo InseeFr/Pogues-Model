@@ -26,7 +26,8 @@
       <xs:sequence>
         <xs:element name="Name" type="xs:token">
           <xs:annotation>
-            <xs:documentation>Datacollection name (label). Exemple : "Enquête sectorielle annuelle
+            <xs:documentation>Datacollection name (label). Ex
+                emple : "Enquête sectorielle annuelle
               2018"</xs:documentation>
           </xs:annotation>
         </xs:element>
@@ -410,6 +411,8 @@
 
                         - true  : the value is deleted
                         - false : the value is preserved
+
+                        Default value is false if the attribute is not provided in the JSON.
 
                         This attribute is used in particular to distinguish:
                         * external variables related to the household, which must be
