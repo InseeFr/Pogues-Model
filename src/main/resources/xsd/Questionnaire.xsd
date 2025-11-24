@@ -393,11 +393,8 @@
         but useful for personalization. For example, it may be a collection wave number
         for filtering questions, a date to be displayed in the wording of a question, etc.
 
-        The 'isDeletedOnReset' attribute indicates whether this external variable
-        must be deleted when Sabiane performs a questionnaire reset. Such a reset
-        may be triggered either manually by the interviewer (for instance when
-        selecting "move" in the survey identification form) or automatically when
-        Sabiane receives a move event from Platine.
+        External variables are immutable by default. The 'isDeletedOnReset' attribute indicates
+        whether the variable value is allowed to be emptied when the questionnaire is reset.
       </xs:documentation>
     </xs:annotation>
 
@@ -406,19 +403,13 @@
             <xs:attribute name="isDeletedOnReset" type="xs:boolean" use="optional">
                 <xs:annotation>
                     <xs:documentation>
-                        Indicates whether the external variable should be deleted when a
-                        questionnaire reset is performed by Sabiane.
+                        This attribute allows distinguishing external variables whose values
+                        should be reset in some scenarios from those that should remain unchanged.
 
                         - true  : the value is deleted
                         - false : the value is preserved
 
-                        Default value is false if the attribute is not provided in the JSON.
-
-                        This attribute is used in particular to distinguish:
-                        * external variables related to the household, which must be
-                        deleted when a move or a reset occurs,
-                        * from external variables describing the dwelling, which must be
-                        preserved.
+                        Default value is false if the attribute is not provided.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
