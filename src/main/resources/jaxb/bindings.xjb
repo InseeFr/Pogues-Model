@@ -21,5 +21,9 @@
         <jxb:bindings node="//xs:complexType[@name='DynamicIterationType']/xs:complexContent/xs:extension/xs:sequence/xs:element[@name='maximum']">
             <jxb:property name="maximum"/>
         </jxb:bindings>
+
+        <jxb:bindings node="//xs:complexType[@name='ExternalVariableType']/xs:complexContent/xs:extension/xs:attribute[@name='isDeletedOnReset']">
+            <jxb:property name="deletedOnReset"/>
+        </jxb:bindings>
     </jxb:bindings>
 </jxb:bindings>

@@ -56,7 +56,6 @@ class JSONSerializerTest {
 				    	"Name" : "Without root questionnaire"
 				    }
 				 }""";
-		;
 
 		String expectedJsonWithoutRoot = """
 				{
@@ -612,7 +611,7 @@ class JSONSerializerTest {
         externalVariableType.setId("ext1");
         externalVariableType.setName("NUMERO_MENAGE");
         externalVariableType.setLabel("Numéro du ménage");
-        externalVariableType.setIsDeletedOnReset(true);
+        externalVariableType.setDeletedOnReset(true);
 
         Questionnaire.Variables variables = new Questionnaire.Variables();
         variables.getVariable().add(externalVariableType);

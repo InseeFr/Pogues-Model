@@ -88,46 +88,46 @@ class JSONDeserializerTest {
 	}
 
 	@Test
-	public void testCodeFilters() throws JAXBException, UnsupportedEncodingException, JSONException {
+    void testCodeFilters() throws JAXBException {
 		String jsonWithCodeFilters = """
 				{
 				   "Child": [
 				     {
 				       "type": "QuestionType",
 				       "codeFilters": [
-				       		{ "codeValue": "01", "conditionFilter": "$AGE$ > 18" },				       		
+				       		{ "codeValue": "01", "conditionFilter": "$AGE$ > 18" },
 				       		{ "codeValue": "02", "conditionFilter": "$AGE$ > 30" }
 				       	]
 				     }
 				   ]
 				 }
-				 """;
+				""";
 		JSONDeserializer deserializer = new JSONDeserializer();
 		Questionnaire questionnaire = deserializer.deserializeString(jsonWithCodeFilters);
-		assertEquals(2, ((QuestionType) questionnaire.getChild().get(0)).getCodeFilters().size());
-		assertEquals("$AGE$ > 18", ((QuestionType) questionnaire.getChild().get(0)).getCodeFilters().get(0).getConditionFilter());
-		assertEquals("$AGE$ > 30", ((QuestionType) questionnaire.getChild().get(0)).getCodeFilters().get(1).getConditionFilter());
+		assertEquals(2, ((QuestionType) questionnaire.getChild().getFirst()).getCodeFilters().size());
+		assertEquals("$AGE$ > 18", ((QuestionType) questionnaire.getChild().getFirst()).getCodeFilters().get(0).getConditionFilter());
+		assertEquals("$AGE$ > 30", ((QuestionType) questionnaire.getChild().getFirst()).getCodeFilters().get(1).getConditionFilter());
 	}
 
 	@Test
-	public void testMandatoryQuestion() throws JAXBException {
+    void testMandatoryQuestion() throws JAXBException {
 		String json = """
 				{
 				   "Child": [
 				     {
 				       "type": "QuestionType",
-				       "mandatory": true,
+				       "mandatory": true
 				     }
 				   ]
 				 }
-				 """;
+				""";
 		JSONDeserializer deserializer = new JSONDeserializer();
 		Questionnaire questionnaire = deserializer.deserializeString(json);
 		assertTrue(((QuestionType) questionnaire.getChild().getFirst()).isMandatory());
 	}
 
 	@Test
-	public void testExternalElement() throws JAXBException, UnsupportedEncodingException, JSONException {
+    void testExternalElement() throws JAXBException {
 		String json = """
 				{
 				   "Child": [
@@ -137,14 +137,14 @@ class JSONDeserializerTest {
 				     }
 				   ]
 				 }
-				 """;
+				""";
 		JSONDeserializer deserializer = new JSONDeserializer();
 		Questionnaire questionnaire = deserializer.deserializeString(json);
-		assertEquals(GenericNameEnum.EXTERNAL_ELEMENT, ((SequenceType) questionnaire.getChild().get(0)).getGenericName());
+		assertEquals(GenericNameEnum.EXTERNAL_ELEMENT, ((SequenceType) questionnaire.getChild().getFirst()).getGenericName());
 	}
 
 	@Test
-	public void testConditionFilterInDatatypeInTableResponse() throws JAXBException, UnsupportedEncodingException, JSONException {
+    void testConditionFilterInDatatypeInTableResponse() throws JAXBException {
 		String json = """
 				{
 				   "Child": [
@@ -154,17 +154,17 @@ class JSONDeserializerTest {
 				     }
 				   ]
 				 }
-				 """;
+				""";
 		JSONDeserializer deserializer = new JSONDeserializer();
 		Questionnaire questionnaire = deserializer.deserializeString(json);
 		assertEquals(
 				"$PRENOM$ = \"Laurent\"",
-				((QuestionType) questionnaire.getChild().get(0))
+				((QuestionType) questionnaire.getChild().getFirst())
 						.getResponse().getFirst().getConditionFilter());
 	}
 
 	@Test
-	public void testConditionReadOnlyInDatatypeInTableResponse() throws JAXBException, UnsupportedEncodingException, JSONException {
+    void testConditionReadOnlyInDatatypeInTableResponse() throws JAXBException {
 		String json = """
 				{
 				   "Child": [
@@ -174,17 +174,17 @@ class JSONDeserializerTest {
 				     }
 				   ]
 				 }
-				 """;
+				""";
 		JSONDeserializer deserializer = new JSONDeserializer();
 		Questionnaire questionnaire = deserializer.deserializeString(json);
 		assertEquals(
 				"$PRENOM$ = \"Remi\"",
-				((QuestionType) questionnaire.getChild().get(0))
+				((QuestionType) questionnaire.getChild().getFirst())
 						.getResponse().getFirst().getConditionReadOnly());
 	}
 
 	@Test
-	public void testLoopArrayToSingleLoopInRoundabout() throws JAXBException {
+    void testLoopArrayToSingleLoopInRoundabout() throws JAXBException {
 		String json = """
 				{
 					"Child": [
@@ -211,7 +211,7 @@ class JSONDeserializerTest {
 	}
 
 	@Test
-	public void shouldConvertArrayLoopToSingleLoopInJson() throws JAXBException, UnsupportedEncodingException, JSONException {
+    void shouldConvertArrayLoopToSingleLoopInJson() throws JAXBException, UnsupportedEncodingException, JSONException {
 		String json = """
 				{
 					"Child": [
@@ -255,24 +255,30 @@ class JSONDeserializerTest {
 	}
 
 	@Test
-	public void serializeMinMaxVTLInDimensionTable() throws JAXBException {
+    void serializeMinMaxVTLInDimensionTable() throws JAXBException {
 		String json = """
-				{
-				    "Child": [
-				      {
-				        "type": "QuestionType",
-				        "ResponseStructure": {
-				          "Dimension": [
-				            {
-				              "minimum": "count($PRENOM$)",
-				              "maximum": "count($PRENOM$) + 10"
-				            }
-				          ]
-				        }
-				      }
-				    ]
-				  }
-				  """;
+                {
+                    "Child": [
+                      {
+                        "type": "QuestionType",
+                        "ResponseStructure": {
+                          "Dimension": [
+                             {
+                                         "minimum": {
+                                             "type": "VTL",
+                                             "value": "count($PRENOM$)"
+                                           },
+                                           "maximum": {
+                                             "type": "VTL",
+                                             "value": "count($PRENOM$) + 10"
+                                           }
+                                         }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                """;
 		JSONDeserializer deserializer = new JSONDeserializer();
 		Questionnaire questionnaire = deserializer.deserializeString(json);
 		assertEquals(
@@ -288,7 +294,7 @@ class JSONDeserializerTest {
 	}
 
 	@Test
-	public void shouldHandleMinMaxDynamicIteration_notCaseSensitive() throws JAXBException {
+    void shouldHandleMinMaxDynamicIteration_notCaseSensitive() throws JAXBException {
 		String oldJson = """
 				{
 				  "Iterations": {
@@ -369,6 +375,6 @@ class JSONDeserializerTest {
 
         assertNotNull(externalVariableType);
         assertEquals("NUMERO_MENAGE", externalVariableType.getName());
-        assertTrue(externalVariableType.isIsDeletedOnReset());
+        assertTrue(externalVariableType.isDeletedOnReset());
     }
 }
