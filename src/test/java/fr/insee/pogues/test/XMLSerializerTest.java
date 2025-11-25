@@ -1,18 +1,21 @@
 package fr.insee.pogues.test;
 
+import fr.insee.pogues.conversion.JSONDeserializer;
 import fr.insee.pogues.conversion.XMLSerializer;
 import fr.insee.pogues.mock.CodeListFactory;
 import fr.insee.pogues.mock.QuestionnaireFactory;
 import fr.insee.pogues.mock.SequenceFactory;
 import fr.insee.pogues.model.*;
 import org.apache.commons.io.FileUtils;
-import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.xmlunit.assertj3.XmlAssert;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class XMLSerializerTest {
 
@@ -85,7 +88,7 @@ class XMLSerializerTest {
 	}
 
 	@Test
-	void serializeCodeList() throws JAXBException, UnsupportedEncodingException, JSONException {
+	void serializeCodeList() throws JAXBException, UnsupportedEncodingException {
 		// Given
 		CodeList codeList = new CodeList();
 		codeList.setId("code-list-id");
@@ -122,7 +125,7 @@ class XMLSerializerTest {
 
 
 	@Test
-	void serializeLastUpdated() throws JAXBException, UnsupportedEncodingException, JSONException {
+	void serializeLastUpdated() throws JAXBException, UnsupportedEncodingException {
 		// Given
 		Questionnaire questionnaire = new Questionnaire();
 		questionnaire.setLastUpdatedDate("fake-date");
@@ -138,7 +141,7 @@ class XMLSerializerTest {
 	}
 
 	@Test
-	void serializeChildQuestionnaireRef() throws JAXBException, UnsupportedEncodingException, JSONException {
+	void serializeChildQuestionnaireRef() throws JAXBException, UnsupportedEncodingException {
 		// Given
 		Questionnaire questionnaire = new Questionnaire();
 		questionnaire.getChildQuestionnaireRef().add("id-ref-1");
@@ -173,4 +176,41 @@ class XMLSerializerTest {
 				""";
 		XmlAssert.assertThat(result).and(expectedXml).ignoreWhitespace().areIdentical();
 	}
+
+    @Test
+    void shouldSerializeExternalVariableFromJsonToXml() throws Exception {
+
+        String json = """
+            {
+              "Variables": {
+                "Variable": [
+                  {
+                    "type": "ExternalVariableType",
+                    "id": "ext1",
+                    "Name": "NUMERO_MENAGE",
+                    "Label": "Numéro du ménage",
+                    "isDeletedOnReset": true
+                  }
+                ]
+              }
+            }
+            """;
+
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        
+        ExternalVariableType variable = (ExternalVariableType)
+                questionnaire.getVariables().getVariable().getFirst();
+
+        assertEquals("NUMERO_MENAGE", variable.getName());
+        assertEquals("Numéro du ménage", variable.getLabel());
+        assertTrue(variable.isDeletedOnReset());
+        
+        XMLSerializer serializer = new XMLSerializer();
+        String xml = serializer.serialize(questionnaire);
+        
+        assertTrue(xml.contains("xsi:type=\"ExternalVariableType\""));
+        assertTrue(xml.contains("<Name>NUMERO_MENAGE</Name>"));
+        assertTrue(xml.contains("isDeletedOnReset=\"true\""));
+    }
 }
