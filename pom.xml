@@ -4,7 +4,7 @@
 
 	<groupId>fr.insee.pogues</groupId>
 	<artifactId>pogues-model</artifactId>
-	<version>1.13.0</version>
+	<version>1.13.1</version>
 	<packaging>jar</packaging>
 
 	<name>Pogues Model</name>
@@ -61,7 +61,7 @@
 		<xmlunit.version>2.11.0</xmlunit.version>
 		<log4j-slf4j2.version>2.25.2</log4j-slf4j2.version>
 		<!-- Build plugin versions -->
-		<surefire.plugin.version>2.22.2</surefire.plugin.version>
+		<surefire.plugin.version>3.5.4</surefire.plugin.version>
 		<jaxb2.plugin.version>2.5.0</jaxb2.plugin.version>
 		<resources.plugin.version>3.3.1</resources.plugin.version>
 		<build-helper.plugin.version>1.12</build-helper.plugin.version>
