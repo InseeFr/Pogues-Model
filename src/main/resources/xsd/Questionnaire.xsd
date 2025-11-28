@@ -26,7 +26,8 @@
       <xs:sequence>
         <xs:element name="Name" type="xs:token">
           <xs:annotation>
-            <xs:documentation>Datacollection name (label). Exemple : "Enquête sectorielle annuelle
+            <xs:documentation>Datacollection name (label). Ex
+                emple : "Enquête sectorielle annuelle
               2018"</xs:documentation>
           </xs:annotation>
         </xs:element>
@@ -387,13 +388,32 @@
 
   <xs:complexType name="ExternalVariableType">
     <xs:annotation>
-      <xs:documentation> An external variable refers to a variable not collected in the
-        questionnaire, but useful for personalization. For example, it may be a collection wave
-        number for filtering questions, a date to be displayed in the wording of a question, etc.
+      <xs:documentation>
+        An external variable refers to a variable not collected in the questionnaire,
+        but useful for personalization. For example, it may be a collection wave number
+        for filtering questions, a date to be displayed in the wording of a question, etc.
+
+        External variables are immutable by default. The 'isDeletedOnReset' attribute indicates
+        whether the variable value is allowed to be emptied when the questionnaire is reset.
       </xs:documentation>
     </xs:annotation>
+
     <xs:complexContent>
-      <xs:extension base="VariableType"/>
+        <xs:extension base="VariableType">
+            <xs:attribute name="isDeletedOnReset" type="xs:boolean" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        This attribute allows distinguishing external variables whose values
+                        should be reset in some scenarios from those that should remain unchanged.
+
+                        - true  : the value is deleted
+                        - false : the value is preserved
+
+                        Default value is false if the attribute is not provided.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 

@@ -56,7 +56,6 @@ class JSONSerializerTest {
 				    	"Name" : "Without root questionnaire"
 				    }
 				 }""";
-		;
 
 		String expectedJsonWithoutRoot = """
 				{
@@ -604,4 +603,39 @@ class JSONSerializerTest {
 		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
 	}
 
+    @Test
+    void serializeExternalVariableIsDeletedOnReset() throws JAXBException, UnsupportedEncodingException, JSONException {
+        Questionnaire questionnaire = new Questionnaire();
+
+        ExternalVariableType externalVariableType = new ExternalVariableType();
+        externalVariableType.setId("ext1");
+        externalVariableType.setName("NUMERO_MENAGE");
+        externalVariableType.setLabel("Numéro du ménage");
+        externalVariableType.setDeletedOnReset(true);
+
+        Questionnaire.Variables variables = new Questionnaire.Variables();
+        variables.getVariable().add(externalVariableType);
+        questionnaire.setVariables(variables);
+
+        JSONSerializer serializer = new JSONSerializer(true);
+        String result = serializer.serialize(questionnaire);
+
+        String expectedJson = """
+            {
+              "Variables": {
+                "Variable": [
+                  {
+                    "type": "ExternalVariableType",
+                    "id": "ext1",
+                    "Name": "NUMERO_MENAGE",
+                    "Label": "Numéro du ménage",
+                    "isDeletedOnReset": true
+                  }
+                ]
+              }
+            }
+            """;
+
+        JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+    }
 }
