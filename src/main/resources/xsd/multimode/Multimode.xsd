@@ -23,7 +23,6 @@
         </xs:restriction>
     </xs:simpleType>
 
-
     <xs:complexType name="Rule">
         <xs:sequence>
             <xs:element name="name" type="MultimodeRuleNameEnum"/>
