@@ -6,6 +6,7 @@
 
   <xs:include schemaLocation="articulation/Articulation.xsd"/>
   <xs:include schemaLocation="multimode/Multimode.xsd"/>
+  <xs:include schemaLocation="pairwise/Pairwise.xsd"/>
   <xs:include schemaLocation="TypesUtils.xsd"/>
 
   <xs:annotation>
@@ -220,6 +221,12 @@
             </xs:annotation>
           </xs:element>
           <xs:element name="Scope" type="xs:token" minOccurs="0"/>
+          <xs:element name="sourceVariableReferences" type="SourceVariableReferences" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>References of variables used by pairwise
+              questions to define the indivisuals.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="codeFilters" type="CodeFilter" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>codeFilters is list of CodeFilter, indicate in this question,

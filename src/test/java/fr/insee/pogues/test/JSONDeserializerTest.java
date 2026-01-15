@@ -377,4 +377,35 @@ class JSONDeserializerTest {
         assertEquals("NUMERO_MENAGE", externalVariableType.getName());
         assertTrue(externalVariableType.isDeletedOnReset());
     }
+
+    @Test
+    void testPairwiseSourceVariableReferences() throws JAXBException {
+				// Given the JSON of a question with sourceVariableReferences
+        String json = """
+            {
+							"Child": [
+								{
+									"type": "QuestionType",
+									"sourceVariableReferences": {
+										"name": "var-name-id",
+										"gender": "var-gender-id",
+										"age": "var-age-id"
+									}
+								}
+							]
+            }
+            """;
+
+				// When it is deserialized
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+
+				// Then the sourceVariableReferences are correctly deserialized
+        QuestionType pairwiseQuestion = (QuestionType) questionnaire.getChild().getFirst();
+
+        assertNotNull(pairwiseQuestion);
+        assertEquals("var-name-id", pairwiseQuestion.getSourceVariableReferences().getName());
+        assertEquals("var-gender-id", pairwiseQuestion.getSourceVariableReferences().getGender());
+        assertEquals("var-age-id", pairwiseQuestion.getSourceVariableReferences().getAge());
+    }
 }

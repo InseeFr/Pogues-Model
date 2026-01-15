@@ -4,6 +4,7 @@ import fr.insee.pogues.conversion.JSONSerializer;
 import fr.insee.pogues.mock.*;
 import fr.insee.pogues.model.*;
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.core.util.Source;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -636,6 +637,43 @@ class JSONSerializerTest {
             }
             """;
 
+        JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    void serializePairwiseSourceVariableReferences() throws JAXBException, UnsupportedEncodingException, JSONException {
+				// Given a questionnaire with a question with sourceVariableReferences
+        Questionnaire questionnaire = new Questionnaire();
+
+        QuestionType pairwiseQuestion = new QuestionType();
+				SourceVariableReferences sourceVariableReferences = new SourceVariableReferences();
+				sourceVariableReferences.setName("var-name-id");
+				sourceVariableReferences.setGender("var-gender-id");
+				sourceVariableReferences.setAge("var-age-id");
+				pairwiseQuestion.setSourceVariableReferences(sourceVariableReferences);
+		
+				questionnaire.getChild().add(pairwiseQuestion);
+
+				// When it is serialized
+        JSONSerializer serializer = new JSONSerializer(true);
+        String result = serializer.serialize(questionnaire);
+
+        String expectedJson = """
+            {
+							"Child": [
+								{
+									"type": "QuestionType",
+									"sourceVariableReferences": {
+										"name": "var-name-id",
+										"gender": "var-gender-id",
+										"age": "var-age-id"
+									}
+								}
+							]
+            }
+            """;
+
+				// Then the sourceVariableReferences are correctly serialized
         JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:include schemaLocation="../TypesUtils.xsd"/>
+
+    <xs:complexType name="SourceVariableReferences">
+        <xs:annotation>
+          <xs:documentation>A pairwise question is defined from source variables
+          which allow to know the individuals we are specifying the links of.
+          </xs:documentation>
+          <xs:documentation>The name source variable allow to ask the question
+          "what is he nature of the relationship between A and B?".
+          </xs:documentation>
+          <xs:documentation>The gender and age source variable allow to compute
+          additional information about the indivisuals (to display a recap or to
+          generate complex variables to create filters from).</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="name" type="xs:token"/>
+            <xs:element name="gender" type="xs:token" minOccurs="0"/>
+            <xs:element name="age" type="xs:token" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
