@@ -56,14 +56,14 @@
 		<eclipse.version>2.6.0</eclipse.version>
 		<commons-io.version>2.21.0</commons-io.version>
 		<slf4j.version>2.0.17</slf4j.version>
-		<junit.version>5.14.1</junit.version>
+		<junit.version>5.14.2</junit.version>
 		<jsonassert.version>1.5.3</jsonassert.version>
 		<xmlunit.version>2.11.0</xmlunit.version>
-		<log4j-slf4j2.version>2.25.2</log4j-slf4j2.version>
+		<log4j-slf4j2.version>2.25.3</log4j-slf4j2.version>
 		<!-- Build plugin versions -->
-		<surefire.plugin.version>2.22.2</surefire.plugin.version>
+		<surefire.plugin.version>3.5.4</surefire.plugin.version>
 		<jaxb2.plugin.version>2.5.0</jaxb2.plugin.version>
-		<resources.plugin.version>3.3.1</resources.plugin.version>
+		<resources.plugin.version>3.4.0</resources.plugin.version>
 		<build-helper.plugin.version>1.12</build-helper.plugin.version>
 	</properties>
 
@@ -240,7 +240,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
-						<version>3.3.1</version>
+						<version>3.4.0</version>
 						<executions>
 							<execution>
 								<id>attach-sources</id>
@@ -266,7 +266,7 @@
 					<plugin>
 						<groupId>org.sonatype.central</groupId>
 						<artifactId>central-publishing-maven-plugin</artifactId>
-						<version>0.9.0</version>
+						<version>0.10.0</version>
 						<extensions>true</extensions>
 						<configuration>
 							<publishingServerId>central</publishingServerId>
