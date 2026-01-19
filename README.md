@@ -9,10 +9,6 @@ Navigation: [Client][1] | [Back-office][2] | **Pogues model**
 
 Pogues is a tool that allow to design questionnaires with components that are structural (sequences, questions...) and dynamic (filters, controls, loops...).
 
-This is the repository of the Pogues model.
-
-## Introduction
-
 This repository hosts the Pogues questionnaire model which then generates classes and converter.
 
 The model has its own [documentation](./src/main/resources/xsd/Questionnaire.xsd) that describe its attributes, and some features have additional [explanations](./docs) in `/docs`.
