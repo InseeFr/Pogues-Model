@@ -411,7 +411,7 @@ class JSONDeserializerTest {
     }
 
     @Test
-    void testChoiceType() throws JAXBException {
+    void testChoiceTypeVariableResponses() throws JAXBException {
         String json = """
                 {
                    "Child": [
@@ -425,6 +425,24 @@ class JSONDeserializerTest {
         JSONDeserializer deserializer = new JSONDeserializer();
         Questionnaire questionnaire = deserializer.deserializeString(json);
         assertEquals(ChoiceTypeEnum.VARIABLE_RESPONSES, ((QuestionType) questionnaire.getChild().getFirst()).getChoiceType());
+    }
+
+    @Test
+    void testChoiceTypeSuggester() throws JAXBException {
+        String json = """
+            {
+               "Child": [
+                 {
+                   "type": "QuestionType",
+                   "choiceType": "SUGGESTER"
+                 }
+               ]
+             }
+            """;
+
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        assertEquals(ChoiceTypeEnum.SUGGESTER, ((QuestionType) questionnaire.getChild().getFirst()).getChoiceType());
     }
 
     @Test
