@@ -233,8 +233,26 @@
                 codeValue filtered according to a condition</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="OptionFilter" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>
+                OptionFilter defines a VTL expression used to dynamically filter
+                response options when the choiceType is set to VARIABLE_RESPONSES.
+                For CODE_LIST questions, filtering must be defined at the individual
+                option level.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
         <xs:attribute name="questionType" type="QuestionTypeEnum"/>
+        <xs:attribute name="choiceType" type="ChoiceTypeEnum" default="CODE_LIST">
+          <xs:annotation>
+            <xs:documentation>
+            choiceType specifies whether the response options are defined by a static
+            code list (CODE_LIST) or dynamically generated from a collected variable
+            (VARIABLE_RESPONSES). The default value is CODE_LIST.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="mandatory" type="xs:boolean">
           <xs:annotation>
             <xs:documentation>Whether the question is mandatory. Only used by multiple choice question for now:
@@ -591,6 +609,16 @@
   <xs:complexType name="ResponseType">
     <xs:sequence>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
+      <xs:element name="VariableReference" type="xs:token" minOccurs="0">
+       <xs:annotation>
+         <xs:documentation>
+         VariableReference indicates the collected variable whose values
+         dynamically define the response options when the question
+         choiceType is set to VARIABLE_RESPONSES.
+         It must not be used when choiceType is CODE_LIST.
+         </xs:documentation>
+       </xs:annotation>
+      </xs:element>
       <xs:element name="Datatype" type="DatatypeType"/>
       <xs:element name="Value" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="NonResponseModality" type="NonResponseModalityType" minOccurs="0"
@@ -1102,6 +1130,28 @@
             Moreover, as far as possible we would like to infer some relationships instead of asking redundant questions.
             For example, if Alice is the mother of Bob, then Bob is the child of Alice.</xs:documentation>
         </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ChoiceTypeEnum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CODE_LIST">
+        <xs:annotation>
+          <xs:documentation>
+          CODE_LIST indicates that the response options are defined by
+          a static code list reference.
+        </xs:documentation>
+         </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="VARIABLE_RESPONSES">
+         <xs:annotation>
+        <xs:documentation>
+        VARIABLE_RESPONSES indicates that the response options are
+        dynamically generated from the values of a collected variable,
+        typically defined in a loop.
+        </xs:documentation>
+         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
