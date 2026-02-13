@@ -1141,17 +1141,26 @@
           <xs:documentation>
           CODE_LIST indicates that the response options are defined by
           a static code list reference.
-        </xs:documentation>
-         </xs:annotation>
+          </xs:documentation>
+        </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="VARIABLE_RESPONSES">
-         <xs:annotation>
-        <xs:documentation>
-        VARIABLE_RESPONSES indicates that the response options are
-        dynamically generated from the values of a collected variable,
-        typically defined in a loop.
-        </xs:documentation>
-         </xs:annotation>
+        <xs:annotation>
+          <xs:documentation>
+          VARIABLE_RESPONSES indicates that the response options are
+          dynamically generated from the values of a collected variable,
+          typically defined in a loop.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SUGGESTER">
+        <xs:annotation>
+          <xs:documentation>
+          SUGGESTER (also referred to as nomenclature) indicates that
+          the response options are provided through a suggester
+          component based on a large external code list.
+          </xs:documentation>
+        </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
