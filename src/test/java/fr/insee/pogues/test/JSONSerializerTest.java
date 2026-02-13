@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 class JSONSerializerTest {
 
@@ -675,5 +677,29 @@ class JSONSerializerTest {
 
 				// Then the sourceVariableReferences are correctly serialized
         JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    void testSerializeVariableResponsesFullConfiguration() throws Exception {
+
+        QuestionType question = new QuestionType();
+        question.setQuestionType(QuestionTypeEnum.SINGLE_CHOICE);
+        question.setChoiceType(ChoiceTypeEnum.VARIABLE_RESPONSES);
+        question.setOptionFilter("nvl($AGE$, 0) > 18");
+
+        ResponseType response = new ResponseType();
+        response.setVariableReference("id-loop-variable");
+
+        question.getResponse().add(response);
+
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.getChild().add(question);
+
+        JSONSerializer serializer = new JSONSerializer();
+        String json = serializer.serialize(questionnaire);
+
+        assertTrue(json.contains("\"choiceType\":\"VARIABLE_RESPONSES\""));
+        assertTrue(json.contains("\"OptionFilter\":\"nvl($AGE$, 0) > 18\""));
+        assertTrue(json.contains("\"VariableReference\":\"id-loop-variable\""));
     }
 }

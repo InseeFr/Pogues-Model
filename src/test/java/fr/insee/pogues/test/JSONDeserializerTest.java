@@ -19,244 +19,245 @@ import static org.junit.jupiter.api.Assertions.*;
 class JSONDeserializerTest {
 
 
-	private String jsonLastUpdatedDate;
-	private String jsonChildQuestionnaireRef;
-	private String jsonOwner;
+    private String jsonLastUpdatedDate;
+    private String jsonChildQuestionnaireRef;
+    private String jsonOwner;
 
-	@BeforeEach
-	void setup() {
-		jsonLastUpdatedDate = """
+    @BeforeEach
+    void setup() {
+        jsonLastUpdatedDate = """
                 {
                   "id": "questionnaire-id",
                   "lastUpdatedDate": "Tue Dec 10 2024 10:33:38 GMT+0100 (heure normale d’Europe centrale)"
                 }
                 """;
-		jsonChildQuestionnaireRef = """
+        jsonChildQuestionnaireRef = """
                 {
                   "id": "questionnaire-id",
                   "childQuestionnaireRef": [ "ref-id-1", "ref-id-2" ]
                 }
                 """;
-		jsonOwner = """
+        jsonOwner = """
                 {
                   "id": "questionnaire-id",
                   "owner": "NiceOwner"
                 }
                 """;
-	}
+    }
 
-	@Test // Note: this test should be replaced by an exception test, see comment in deserializer class.
-	void deserializeFileFromNullInput_resultShouldBeNull() throws JAXBException, IOException {
-		String nullFileName = null;
-		assertNull(new JSONDeserializer().deserialize(nullFileName));
-	}
+    @Test
+        // Note: this test should be replaced by an exception test, see comment in deserializer class.
+    void deserializeFileFromNullInput_resultShouldBeNull() throws JAXBException, IOException {
+        String nullFileName = null;
+        assertNull(new JSONDeserializer().deserialize(nullFileName));
+    }
 
-	@Test
-	void testQuestionnaire() throws Exception {
+    @Test
+    void testQuestionnaire() throws Exception {
 
-		long startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
 
-		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserialize("src/main/resources/examples/fr.insee-POPO-QPO-DOC.json");
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserialize("src/main/resources/examples/fr.insee-POPO-QPO-DOC.json");
 
-		long elapsedTime = System.currentTimeMillis() - startTime;
+        long elapsedTime = System.currentTimeMillis() - startTime;
 
-		assertEquals("fr.insee-POPO-QPO-DOC",questionnaire.getId());
-		System.out.println("Serialization time: " + elapsedTime);
-		assertNotNull(questionnaire);
-	}
+        assertEquals("fr.insee-POPO-QPO-DOC", questionnaire.getId());
+        System.out.println("Serialization time: " + elapsedTime);
+        assertNotNull(questionnaire);
+    }
 
-	@Test
-	void testLastUpdatedDate() throws Exception {
-		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeString(jsonLastUpdatedDate);
-		assertEquals("Tue Dec 10 2024 10:33:38 GMT+0100 (heure normale d’Europe centrale)", questionnaire.getLastUpdatedDate());
-	}
+    @Test
+    void testLastUpdatedDate() throws Exception {
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(jsonLastUpdatedDate);
+        assertEquals("Tue Dec 10 2024 10:33:38 GMT+0100 (heure normale d’Europe centrale)", questionnaire.getLastUpdatedDate());
+    }
 
-	@Test
-	void testChildQuestionnaireRef() throws Exception {
-		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeString(jsonChildQuestionnaireRef);
-		assertEquals(Arrays.asList("ref-id-1", "ref-id-2"), questionnaire.getChildQuestionnaireRef());
-	}
+    @Test
+    void testChildQuestionnaireRef() throws Exception {
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(jsonChildQuestionnaireRef);
+        assertEquals(Arrays.asList("ref-id-1", "ref-id-2"), questionnaire.getChildQuestionnaireRef());
+    }
 
-	@Test
-	void testOwner() throws Exception {
-		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeString(jsonOwner);
-		assertEquals("NiceOwner", questionnaire.getOwner());
-	}
+    @Test
+    void testOwner() throws Exception {
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(jsonOwner);
+        assertEquals("NiceOwner", questionnaire.getOwner());
+    }
 
-	@Test
+    @Test
     void testCodeFilters() throws JAXBException {
-		String jsonWithCodeFilters = """
-				{
-				   "Child": [
-				     {
-				       "type": "QuestionType",
-				       "codeFilters": [
-				       		{ "codeValue": "01", "conditionFilter": "$AGE$ > 18" },
-				       		{ "codeValue": "02", "conditionFilter": "$AGE$ > 30" }
-				       	]
-				     }
-				   ]
-				 }
-				""";
-		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeString(jsonWithCodeFilters);
-		assertEquals(2, ((QuestionType) questionnaire.getChild().getFirst()).getCodeFilters().size());
-		assertEquals("$AGE$ > 18", ((QuestionType) questionnaire.getChild().getFirst()).getCodeFilters().get(0).getConditionFilter());
-		assertEquals("$AGE$ > 30", ((QuestionType) questionnaire.getChild().getFirst()).getCodeFilters().get(1).getConditionFilter());
-	}
+        String jsonWithCodeFilters = """
+                {
+                   "Child": [
+                     {
+                       "type": "QuestionType",
+                       "codeFilters": [
+                       		{ "codeValue": "01", "conditionFilter": "$AGE$ > 18" },
+                       		{ "codeValue": "02", "conditionFilter": "$AGE$ > 30" }
+                       	]
+                     }
+                   ]
+                 }
+                """;
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(jsonWithCodeFilters);
+        assertEquals(2, ((QuestionType) questionnaire.getChild().getFirst()).getCodeFilters().size());
+        assertEquals("$AGE$ > 18", ((QuestionType) questionnaire.getChild().getFirst()).getCodeFilters().get(0).getConditionFilter());
+        assertEquals("$AGE$ > 30", ((QuestionType) questionnaire.getChild().getFirst()).getCodeFilters().get(1).getConditionFilter());
+    }
 
-	@Test
+    @Test
     void testMandatoryQuestion() throws JAXBException {
-		String json = """
-				{
-				   "Child": [
-				     {
-				       "type": "QuestionType",
-				       "mandatory": true
-				     }
-				   ]
-				 }
-				""";
-		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeString(json);
-		assertTrue(((QuestionType) questionnaire.getChild().getFirst()).isMandatory());
-	}
+        String json = """
+                {
+                   "Child": [
+                     {
+                       "type": "QuestionType",
+                       "mandatory": true
+                     }
+                   ]
+                 }
+                """;
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        assertTrue(((QuestionType) questionnaire.getChild().getFirst()).isMandatory());
+    }
 
-	@Test
+    @Test
     void testExternalElement() throws JAXBException {
-		String json = """
-				{
-				   "Child": [
-				     {
-				       "type": "SequenceType",
-				       "genericName": "EXTERNAL_ELEMENT"
-				     }
-				   ]
-				 }
-				""";
-		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeString(json);
-		assertEquals(GenericNameEnum.EXTERNAL_ELEMENT, ((SequenceType) questionnaire.getChild().getFirst()).getGenericName());
-	}
+        String json = """
+                {
+                   "Child": [
+                     {
+                       "type": "SequenceType",
+                       "genericName": "EXTERNAL_ELEMENT"
+                     }
+                   ]
+                 }
+                """;
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        assertEquals(GenericNameEnum.EXTERNAL_ELEMENT, ((SequenceType) questionnaire.getChild().getFirst()).getGenericName());
+    }
 
-	@Test
+    @Test
     void testConditionFilterInDatatypeInTableResponse() throws JAXBException {
-		String json = """
-				{
-				   "Child": [
-				     {
-				       "type": "QuestionType",
-				       "Response": [ { "conditionFilter": "$PRENOM$ = \\"Laurent\\"" } ]
-				     }
-				   ]
-				 }
-				""";
-		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeString(json);
-		assertEquals(
-				"$PRENOM$ = \"Laurent\"",
-				((QuestionType) questionnaire.getChild().getFirst())
-						.getResponse().getFirst().getConditionFilter());
-	}
+        String json = """
+                {
+                   "Child": [
+                     {
+                       "type": "QuestionType",
+                       "Response": [ { "conditionFilter": "$PRENOM$ = \\"Laurent\\"" } ]
+                     }
+                   ]
+                 }
+                """;
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        assertEquals(
+                "$PRENOM$ = \"Laurent\"",
+                ((QuestionType) questionnaire.getChild().getFirst())
+                        .getResponse().getFirst().getConditionFilter());
+    }
 
-	@Test
+    @Test
     void testConditionReadOnlyInDatatypeInTableResponse() throws JAXBException {
-		String json = """
-				{
-				   "Child": [
-				     {
-				       "type": "QuestionType",
-				       "Response": [ { "conditionReadOnly": "$PRENOM$ = \\"Remi\\"" } ]
-				     }
-				   ]
-				 }
-				""";
-		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeString(json);
-		assertEquals(
-				"$PRENOM$ = \"Remi\"",
-				((QuestionType) questionnaire.getChild().getFirst())
-						.getResponse().getFirst().getConditionReadOnly());
-	}
+        String json = """
+                {
+                   "Child": [
+                     {
+                       "type": "QuestionType",
+                       "Response": [ { "conditionReadOnly": "$PRENOM$ = \\"Remi\\"" } ]
+                     }
+                   ]
+                 }
+                """;
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        assertEquals(
+                "$PRENOM$ = \"Remi\"",
+                ((QuestionType) questionnaire.getChild().getFirst())
+                        .getResponse().getFirst().getConditionReadOnly());
+    }
 
-	@Test
+    @Test
     void testLoopArrayToSingleLoopInRoundabout() throws JAXBException {
-		String json = """
-				{
-					"Child": [
-						{
-						  "type": "RoundaboutType",
-						  "Loop": [
-							{
-							  "Name": "RD_POINT_NAME",
-							  "MemberReference": ["id1", "id2"],
-							  "IterableReference": "TEST",
-							  "Filter": "NAME = \\"Laurent\\""
-							}
-						  ]
-						}
-					]
-				}
-				""";
-		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeString(json);
-		assertEquals(
-				"RD_POINT_NAME",
-				((RoundaboutType) questionnaire.getChild().getFirst())
-						.getLoop().getName());
-	}
+        String json = """
+                {
+                	"Child": [
+                		{
+                		  "type": "RoundaboutType",
+                		  "Loop": [
+                			{
+                			  "Name": "RD_POINT_NAME",
+                			  "MemberReference": ["id1", "id2"],
+                			  "IterableReference": "TEST",
+                			  "Filter": "NAME = \\"Laurent\\""
+                			}
+                		  ]
+                		}
+                	]
+                }
+                """;
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        assertEquals(
+                "RD_POINT_NAME",
+                ((RoundaboutType) questionnaire.getChild().getFirst())
+                        .getLoop().getName());
+    }
 
-	@Test
+    @Test
     void shouldConvertArrayLoopToSingleLoopInJson() throws JAXBException, UnsupportedEncodingException, JSONException {
-		String json = """
-				{
-					"Child": [
-						{
-						  "type": "RoundaboutType",
-						  "Locked": false,
-						  "Loop": [
-							{
-							  "Name": "RD_POINT_NAME",
-							  "MemberReference": ["id1", "id2"],
-							  "IterableReference": "TEST",
-							  "Filter": "NAME = \\"Laurent\\""
-							}
-						  ]
-						}
-					]
-				}
-				""";
+        String json = """
+                {
+                	"Child": [
+                		{
+                		  "type": "RoundaboutType",
+                		  "Locked": false,
+                		  "Loop": [
+                			{
+                			  "Name": "RD_POINT_NAME",
+                			  "MemberReference": ["id1", "id2"],
+                			  "IterableReference": "TEST",
+                			  "Filter": "NAME = \\"Laurent\\""
+                			}
+                		  ]
+                		}
+                	]
+                }
+                """;
 
-		String expectedJson = """
-				{
-					"Child": [
-						{
-						  "type": "RoundaboutType",
-						  "Locked": false,
-						  "Loop": {
-							  "Name": "RD_POINT_NAME",
-							  "MemberReference": ["id1", "id2"],
-							  "IterableReference": "TEST",
-							  "Filter": "NAME = \\"Laurent\\""
-							}
-						}
-					]
-				}
-				""";
-		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeString(json);
-		JSONSerializer serializer = new JSONSerializer(true);
-		String result = serializer.serialize(questionnaire);
-		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
-	}
+        String expectedJson = """
+                {
+                	"Child": [
+                		{
+                		  "type": "RoundaboutType",
+                		  "Locked": false,
+                		  "Loop": {
+                			  "Name": "RD_POINT_NAME",
+                			  "MemberReference": ["id1", "id2"],
+                			  "IterableReference": "TEST",
+                			  "Filter": "NAME = \\"Laurent\\""
+                			}
+                		}
+                	]
+                }
+                """;
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        JSONSerializer serializer = new JSONSerializer(true);
+        String result = serializer.serialize(questionnaire);
+        JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+    }
 
-	@Test
+    @Test
     void serializeMinMaxVTLInDimensionTable() throws JAXBException {
-		String json = """
+        String json = """
                 {
                     "Child": [
                       {
@@ -279,93 +280,93 @@ class JSONDeserializerTest {
                     ]
                   }
                 """;
-		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire questionnaire = deserializer.deserializeString(json);
-		assertEquals(
-				"count($PRENOM$)",
-				((QuestionType) questionnaire.getChild().getFirst())
-						.getResponseStructure().getDimension().getFirst()
-						.getMinimum().getValue());
-		assertEquals(
-				"count($PRENOM$) + 10",
-				((QuestionType) questionnaire.getChild().getFirst())
-						.getResponseStructure().getDimension().getFirst()
-						.getMaximum().getValue());
-	}
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        assertEquals(
+                "count($PRENOM$)",
+                ((QuestionType) questionnaire.getChild().getFirst())
+                        .getResponseStructure().getDimension().getFirst()
+                        .getMinimum().getValue());
+        assertEquals(
+                "count($PRENOM$) + 10",
+                ((QuestionType) questionnaire.getChild().getFirst())
+                        .getResponseStructure().getDimension().getFirst()
+                        .getMaximum().getValue());
+    }
 
-	@Test
+    @Test
     void shouldHandleMinMaxDynamicIteration_notCaseSensitive() throws JAXBException {
-		String oldJson = """
-				{
-				  "Iterations": {
-				  	"Iteration": [
-				  		{
-				  			"type": "DynamicIterationType",
-				  			"Minimum": "1",
-				  			"Maximum": "5"
-				  		}
-				  	]
-				  }
-				}
-				""";
+        String oldJson = """
+                {
+                  "Iterations": {
+                  	"Iteration": [
+                  		{
+                  			"type": "DynamicIterationType",
+                  			"Minimum": "1",
+                  			"Maximum": "5"
+                  		}
+                  	]
+                  }
+                }
+                """;
 
-		String newJson = """
-				{
-				  "Iterations": {
-				  	"Iteration": [
-				  		{
-				  			"type": "DynamicIterationType",
-				  			"minimum": "1",
-				  			"maximum": "5",
-				  			"shouldSplitIterations": true
-				  		}
-				  	]
-				  }
-				}
-				""";
-		JSONDeserializer deserializer = new JSONDeserializer();
-		Questionnaire oldQuestionnaire = deserializer.deserializeString(oldJson);
-		assertEquals(
-				"1",
-				((DynamicIterationType) oldQuestionnaire.getIterations().getIteration().getFirst())
-						.getDeprecatedMinimum().getValue());
-		assertEquals(
-				"5",
-				((DynamicIterationType) oldQuestionnaire.getIterations().getIteration().getFirst())
-						.getDeprecatedMaximum().getValue());
+        String newJson = """
+                {
+                  "Iterations": {
+                  	"Iteration": [
+                  		{
+                  			"type": "DynamicIterationType",
+                  			"minimum": "1",
+                  			"maximum": "5",
+                  			"shouldSplitIterations": true
+                  		}
+                  	]
+                  }
+                }
+                """;
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire oldQuestionnaire = deserializer.deserializeString(oldJson);
+        assertEquals(
+                "1",
+                ((DynamicIterationType) oldQuestionnaire.getIterations().getIteration().getFirst())
+                        .getDeprecatedMinimum().getValue());
+        assertEquals(
+                "5",
+                ((DynamicIterationType) oldQuestionnaire.getIterations().getIteration().getFirst())
+                        .getDeprecatedMaximum().getValue());
 
 
-		Questionnaire newQuestionnaire = deserializer.deserializeString(newJson);
-		assertEquals(
-				"1",
-				((DynamicIterationType) newQuestionnaire.getIterations().getIteration().getFirst())
-						.getMinimum().getValue());
-		assertEquals(
-				"5",
-				((DynamicIterationType) newQuestionnaire.getIterations().getIteration().getFirst())
-						.getMaximum().getValue());
-		assertTrue(
-				((DynamicIterationType) newQuestionnaire.getIterations().getIteration().getFirst())
-						.isShouldSplitIterations());
-	}
+        Questionnaire newQuestionnaire = deserializer.deserializeString(newJson);
+        assertEquals(
+                "1",
+                ((DynamicIterationType) newQuestionnaire.getIterations().getIteration().getFirst())
+                        .getMinimum().getValue());
+        assertEquals(
+                "5",
+                ((DynamicIterationType) newQuestionnaire.getIterations().getIteration().getFirst())
+                        .getMaximum().getValue());
+        assertTrue(
+                ((DynamicIterationType) newQuestionnaire.getIterations().getIteration().getFirst())
+                        .isShouldSplitIterations());
+    }
 
     @Test
     void testExternalVariableIsDeletedOnReset() throws JAXBException {
         String json = """
-            {
-                "Variables": {
-                    "Variable": [
-                        {
-                            "id": "ext1",
-                            "type": "ExternalVariableType",
-                            "Name": "NUMERO_MENAGE",
-                            "Label": "Numéro du ménage",
-                            "isDeletedOnReset": true
-                        }
-                    ]
+                {
+                    "Variables": {
+                        "Variable": [
+                            {
+                                "id": "ext1",
+                                "type": "ExternalVariableType",
+                                "Name": "NUMERO_MENAGE",
+                                "Label": "Numéro du ménage",
+                                "isDeletedOnReset": true
+                            }
+                        ]
+                    }
                 }
-            }
-            """;
+                """;
 
         JSONDeserializer deserializer = new JSONDeserializer();
         Questionnaire questionnaire = deserializer.deserializeString(json);
@@ -380,32 +381,158 @@ class JSONDeserializerTest {
 
     @Test
     void testPairwiseSourceVariableReferences() throws JAXBException {
-				// Given the JSON of a question with sourceVariableReferences
+        // Given the JSON of a question with sourceVariableReferences
         String json = """
-            {
-							"Child": [
-								{
-									"type": "QuestionType",
-									"sourceVariableReferences": {
-										"name": "var-name-id",
-										"gender": "var-gender-id",
-										"age": "var-age-id"
-									}
-								}
-							]
-            }
-            """;
+                     {
+                "Child": [
+                	{
+                		"type": "QuestionType",
+                		"sourceVariableReferences": {
+                			"name": "var-name-id",
+                			"gender": "var-gender-id",
+                			"age": "var-age-id"
+                		}
+                	}
+                ]
+                     }
+                """;
 
-				// When it is deserialized
+        // When it is deserialized
         JSONDeserializer deserializer = new JSONDeserializer();
         Questionnaire questionnaire = deserializer.deserializeString(json);
 
-				// Then the sourceVariableReferences are correctly deserialized
+        // Then the sourceVariableReferences are correctly deserialized
         QuestionType pairwiseQuestion = (QuestionType) questionnaire.getChild().getFirst();
 
         assertNotNull(pairwiseQuestion);
         assertEquals("var-name-id", pairwiseQuestion.getSourceVariableReferences().getName());
         assertEquals("var-gender-id", pairwiseQuestion.getSourceVariableReferences().getGender());
         assertEquals("var-age-id", pairwiseQuestion.getSourceVariableReferences().getAge());
+    }
+
+    @Test
+    void testChoiceTypeVariableResponses() throws JAXBException {
+        String json = """
+                {
+                   "Child": [
+                     {
+                       "type": "QuestionType",
+                       "choiceType": "VARIABLE_RESPONSES"
+                     }
+                   ]
+                 }
+                """;
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        assertEquals(ChoiceTypeEnum.VARIABLE_RESPONSES, ((QuestionType) questionnaire.getChild().getFirst()).getChoiceType());
+    }
+
+    @Test
+    void testChoiceTypeSuggester() throws JAXBException {
+        String json = """
+            {
+               "Child": [
+                 {
+                   "type": "QuestionType",
+                   "choiceType": "SUGGESTER"
+                 }
+               ]
+             }
+            """;
+
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        assertEquals(ChoiceTypeEnum.SUGGESTER, ((QuestionType) questionnaire.getChild().getFirst()).getChoiceType());
+    }
+
+    @Test
+    void testChoiceTypeDefaultValue() throws JAXBException {
+        String json = """
+                {
+                   "Child": [
+                     {
+                       "type": "QuestionType"
+                     }
+                   ]
+                 }
+                """;
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        assertEquals(ChoiceTypeEnum.CODE_LIST, ((QuestionType) questionnaire.getChild().getFirst()).getChoiceType());
+    }
+
+    @Test
+    void testOptionFilter() throws JAXBException {
+        String json = """
+                {
+                   "Child": [
+                     {
+                         "type": "QuestionType",
+                         "OptionFilter": "nvl($AGE$, 0) > 18"
+                     }
+                   ]
+                 }
+                """;
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        assertEquals("nvl($AGE$, 0) > 18", ((QuestionType) questionnaire.getChild().getFirst()).getOptionFilter());
+    }
+
+    @Test
+    void testVariableReferenceInResponse() throws JAXBException {
+        String json = """
+                {
+                   "Child": [
+                     {
+                       "type": "QuestionType",
+                       "Response": {
+                               "VariableReference": "id-loop-variable"
+                           }
+                     }
+                   ]
+                 }
+                """;
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        assertEquals(
+                "id-loop-variable",
+                ((QuestionType) questionnaire.getChild().getFirst())
+                        .getResponse().getFirst().getVariableReference());
+    }
+
+    @Test
+    void testVariableResponsesFullConfiguration() throws JAXBException {
+        String json = """
+            {
+               "Child": [
+                 {
+                   "type": "QuestionType",
+                   "questionType": "SINGLE_CHOICE",
+                   "choiceType": "VARIABLE_RESPONSES",
+                   "OptionFilter": "nvl($AGE$, 0) > 18",
+                   "Response": {
+                       "VariableReference": "id-loop-variable"
+                   }
+                 }
+               ]
+             }
+            """;
+
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+
+        QuestionType question =
+                (QuestionType) questionnaire.getChild().getFirst();
+
+
+        assertEquals(QuestionTypeEnum.SINGLE_CHOICE, question.getQuestionType());
+        assertEquals(ChoiceTypeEnum.VARIABLE_RESPONSES, question.getChoiceType());
+        assertEquals("nvl($AGE$, 0) > 18", question.getOptionFilter());
+        assertNotNull(question.getResponse());
+        assertFalse(question.getResponse().isEmpty());
+        assertEquals(
+                "id-loop-variable",
+                question.getResponse().getFirst().getVariableReference()
+        );
     }
 }
