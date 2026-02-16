@@ -684,7 +684,7 @@ class JSONSerializerTest {
 
         QuestionType question = new QuestionType();
         question.setQuestionType(QuestionTypeEnum.SINGLE_CHOICE);
-        question.setChoiceType(ChoiceTypeEnum.VARIABLE_RESPONSES);
+        question.setChoiceType(ChoiceTypeEnum.VARIABLE);
         question.setOptionFilter("nvl($AGE$, 0) > 18");
 
         ResponseType response = new ResponseType();
@@ -698,7 +698,7 @@ class JSONSerializerTest {
         JSONSerializer serializer = new JSONSerializer();
         String json = serializer.serialize(questionnaire);
 
-        assertTrue(json.contains("\"choiceType\":\"VARIABLE_RESPONSES\""));
+        assertTrue(json.contains("\"choiceType\":\"VARIABLE\""));
         assertTrue(json.contains("\"OptionFilter\":\"nvl($AGE$, 0) > 18\""));
         assertTrue(json.contains("\"VariableReference\":\"id-loop-variable\""));
     }
