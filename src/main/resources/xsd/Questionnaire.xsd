@@ -237,7 +237,7 @@
             <xs:annotation>
               <xs:documentation>
                 OptionFilter defines a VTL expression used to dynamically filter
-                response options when the choiceType is set to VARIABLE_RESPONSES.
+                response options when the choiceType is set to VARIABLE.
                 For CODE_LIST questions, filtering must be defined at the individual
                 option level.</xs:documentation>
             </xs:annotation>
@@ -249,7 +249,7 @@
             <xs:documentation>
             choiceType specifies whether the response options are defined by a static
             code list (CODE_LIST) or dynamically generated from a collected variable
-            (VARIABLE_RESPONSES). The default value is CODE_LIST.
+            (VARIABLE). The default value is CODE_LIST.
             </xs:documentation>
           </xs:annotation>
         </xs:attribute>
@@ -614,7 +614,7 @@
          <xs:documentation>
          VariableReference indicates the collected variable whose values
          dynamically define the response options when the question
-         choiceType is set to VARIABLE_RESPONSES.
+         choiceType is set to VARIABLE.
          It must not be used when choiceType is CODE_LIST.
          </xs:documentation>
        </xs:annotation>
@@ -1144,12 +1144,12 @@
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="VARIABLE_RESPONSES">
+      <xs:enumeration value="VARIABLE">
         <xs:annotation>
           <xs:documentation>
-          VARIABLE_RESPONSES indicates that the response options are
-          dynamically generated from the values of a collected variable,
-          typically defined in a loop.
+          VARIABLE indicates that the response options are dynamically
+          generated from the values of a collected variable, typically
+          defined in a loop.
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
