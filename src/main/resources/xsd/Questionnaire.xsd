@@ -1159,6 +1159,10 @@
           SUGGESTER (also referred to as nomenclature) indicates that
           the response options are provided through a suggester
           component based on a large external code list.
+
+          This value is kept for backward compatibility and is expected
+          to be deprecated in the future, as it will be replaced by the
+          choiceType mechanism.
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
