@@ -4,7 +4,6 @@ import fr.insee.pogues.conversion.JSONSerializer;
 import fr.insee.pogues.mock.*;
 import fr.insee.pogues.model.*;
 import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.core.util.Source;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -675,5 +674,44 @@ class JSONSerializerTest {
 
 				// Then the sourceVariableReferences are correctly serialized
         JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    void testSerializeVariableResponsesFullConfiguration() throws Exception {
+        QuestionType question = new QuestionType();
+        question.setQuestionType(QuestionTypeEnum.SINGLE_CHOICE);
+        question.setChoiceType(ChoiceTypeEnum.VARIABLE);
+        question.setOptionFilter("nvl($AGE$, 0) > 18");
+
+        ResponseType response = new ResponseType();
+        response.setVariableReference("id-loop-variable");
+
+        question.getResponse().add(response);
+
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.getChild().add(question);
+
+        JSONSerializer serializer = new JSONSerializer(true);
+        String json = serializer.serialize(questionnaire);
+
+        String expectedJson = """
+        {
+          "Child": [
+            {
+              "type": "QuestionType",
+              "questionType": "SINGLE_CHOICE",
+              "choiceType": "VARIABLE",
+              "OptionFilter": "nvl($AGE$, 0) > 18",
+              "Response": [
+                {
+                  "VariableReference": "id-loop-variable"
+                }
+              ]
+            }
+          ]
+        }
+        """;
+
+        JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.STRICT);
     }
 }
