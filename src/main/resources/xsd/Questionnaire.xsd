@@ -244,15 +244,6 @@
           </xs:element>
         </xs:sequence>
         <xs:attribute name="questionType" type="QuestionTypeEnum"/>
-        <xs:attribute name="choiceType" type="ChoiceTypeEnum" default="CODE_LIST">
-          <xs:annotation>
-            <xs:documentation>
-            choiceType specifies whether the response options are defined by a static
-            code list (CODE_LIST) or dynamically generated from a collected variable
-            (VARIABLE). The default value is CODE_LIST.
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
         <xs:attribute name="mandatory" type="xs:boolean">
           <xs:annotation>
             <xs:documentation>Whether the question is mandatory. Only used by multiple choice question for now:
@@ -662,6 +653,15 @@
         <xs:documentation>Whether the response is mandatory. Used by simple and single choice questions.
         Note that for QCM we use the mandatory attribute at the question root since it is not related
         to a single response.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="choiceType" type="ChoiceTypeEnum" default="CODE_LIST">
+      <xs:annotation>
+        <xs:documentation>
+          choiceType specifies whether the response options are defined by a static
+          code list (CODE_LIST) or dynamically generated from a collected variable
+          (VARIABLE). The default value is CODE_LIST.
+        </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
