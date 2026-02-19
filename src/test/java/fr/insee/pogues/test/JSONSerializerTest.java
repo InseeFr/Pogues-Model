@@ -680,11 +680,11 @@ class JSONSerializerTest {
     void testSerializeVariableResponsesFullConfiguration() throws Exception {
         QuestionType question = new QuestionType();
         question.setQuestionType(QuestionTypeEnum.SINGLE_CHOICE);
-        question.setChoiceType(ChoiceTypeEnum.VARIABLE);
         question.setOptionFilter("nvl($AGE$, 0) > 18");
 
         ResponseType response = new ResponseType();
         response.setVariableReference("id-loop-variable");
+		response.setChoiceType(ChoiceTypeEnum.VARIABLE);
 
         question.getResponse().add(response);
 
@@ -700,11 +700,11 @@ class JSONSerializerTest {
             {
               "type": "QuestionType",
               "questionType": "SINGLE_CHOICE",
-              "choiceType": "VARIABLE",
               "OptionFilter": "nvl($AGE$, 0) > 18",
               "Response": [
                 {
-                  "VariableReference": "id-loop-variable"
+                  "VariableReference": "id-loop-variable",
+              	  "choiceType": "VARIABLE"
                 }
               ]
             }

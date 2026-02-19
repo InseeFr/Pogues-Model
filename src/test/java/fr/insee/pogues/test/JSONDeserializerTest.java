@@ -417,14 +417,18 @@ class JSONDeserializerTest {
                    "Child": [
                      {
                        "type": "QuestionType",
-                       "choiceType": "VARIABLE"
+                       "Response": [
+                           {
+                                "choiceType": "VARIABLE"
+                           }
+                       ]
                      }
                    ]
                  }
                 """;
         JSONDeserializer deserializer = new JSONDeserializer();
         Questionnaire questionnaire = deserializer.deserializeString(json);
-        assertEquals(ChoiceTypeEnum.VARIABLE, ((QuestionType) questionnaire.getChild().getFirst()).getChoiceType());
+        assertEquals(ChoiceTypeEnum.VARIABLE, ((QuestionType) questionnaire.getChild().getFirst()).getResponse().getFirst().getChoiceType());
     }
 
     @Test
@@ -434,7 +438,11 @@ class JSONDeserializerTest {
                "Child": [
                  {
                    "type": "QuestionType",
-                   "choiceType": "SUGGESTER"
+                   "Response": [
+                        {
+                            "choiceType": "SUGGESTER"
+                        }
+                   ]
                  }
                ]
              }
@@ -442,7 +450,7 @@ class JSONDeserializerTest {
 
         JSONDeserializer deserializer = new JSONDeserializer();
         Questionnaire questionnaire = deserializer.deserializeString(json);
-        assertEquals(ChoiceTypeEnum.SUGGESTER, ((QuestionType) questionnaire.getChild().getFirst()).getChoiceType());
+        assertEquals(ChoiceTypeEnum.SUGGESTER, ((QuestionType) questionnaire.getChild().getFirst()).getResponse().getFirst().getChoiceType());
     }
 
     @Test
@@ -451,14 +459,15 @@ class JSONDeserializerTest {
                 {
                    "Child": [
                      {
-                       "type": "QuestionType"
+                       "type": "QuestionType",
+                       "Response": [{}]
                      }
                    ]
                  }
                 """;
         JSONDeserializer deserializer = new JSONDeserializer();
         Questionnaire questionnaire = deserializer.deserializeString(json);
-        assertEquals(ChoiceTypeEnum.CODE_LIST, ((QuestionType) questionnaire.getChild().getFirst()).getChoiceType());
+        assertEquals(ChoiceTypeEnum.CODE_LIST, ((QuestionType) questionnaire.getChild().getFirst()).getResponse().getFirst().getChoiceType());
     }
 
     @Test
@@ -508,9 +517,9 @@ class JSONDeserializerTest {
                  {
                    "type": "QuestionType",
                    "questionType": "SINGLE_CHOICE",
-                   "choiceType": "VARIABLE",
                    "OptionFilter": "nvl($AGE$, 0) > 18",
                    "Response": {
+                       "choiceType": "VARIABLE",
                        "VariableReference": "id-loop-variable"
                    }
                  }
@@ -526,7 +535,7 @@ class JSONDeserializerTest {
 
 
         assertEquals(QuestionTypeEnum.SINGLE_CHOICE, question.getQuestionType());
-        assertEquals(ChoiceTypeEnum.VARIABLE, question.getChoiceType());
+        assertEquals(ChoiceTypeEnum.VARIABLE, question.getResponse().getFirst().getChoiceType());
         assertEquals("nvl($AGE$, 0) > 18", question.getOptionFilter());
         assertNotNull(question.getResponse());
         assertFalse(question.getResponse().isEmpty());
