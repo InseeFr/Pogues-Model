@@ -360,6 +360,7 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element name="CodeListReference" type="xs:token" minOccurs="0"/>
+      <xs:element name="VariableReference" type="xs:token" minOccurs="0">
       <xs:element name="Datatype" type="DatatypeType">
         <xs:annotation>
           <xs:documentation>Variable representation type to characterize the variable (numeric,
