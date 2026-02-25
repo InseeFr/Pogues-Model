@@ -544,4 +544,34 @@ class JSONDeserializerTest {
                 question.getResponse().getFirst().getVariableReference()
         );
     }
+
+    @Test
+    void testDeserializeVariableReferenceInExternalVariable() throws JAXBException {
+
+        String json = """
+            {
+                "Variables": {
+                    "Variable": [
+                        {
+                            "id": "ext1",
+                            "type": "ExternalVariableType",
+                            "VariableReference": "id-variable-ref",
+                            "Name": "NUMERO_MENAGE",
+                            "Label": "Numéro du ménage"
+                        }
+                    ]
+                }
+            }
+            """;
+
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+
+        ExternalVariableType variable =
+                (ExternalVariableType) questionnaire.getVariables()
+                        .getVariable().getFirst();
+
+        assertNotNull(variable);
+        assertEquals("id-variable-ref", variable.getVariableReference());
+    }
 }
