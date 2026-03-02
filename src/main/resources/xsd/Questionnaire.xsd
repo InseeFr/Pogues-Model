@@ -363,10 +363,11 @@
       <xs:element name="VariableReference" type="xs:token" minOccurs="0">
         <xs:annotation>
           <xs:documentation>
-                VariableReference indicates the collected variable whose values
-                dynamically define the response options when the question
-                choiceType is set to VARIABLE.
-                It must not be used when choiceType is CODE_LIST.
+            Property defined on variables associated with a choice question, whose choices are 
+            dynamically defined by the responses of another question.
+            The value of the 'VariableRerference' property is the identifier of the variable defining 
+            these dynamic choices.
+            Therefore, it must only be used when the 'choiceType' in the associated question is 'VARIABLE'.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
