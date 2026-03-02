@@ -714,4 +714,40 @@ class JSONSerializerTest {
 
         JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.STRICT);
     }
+
+    @Test
+    void testSerializeVariableReferenceInExternalVariable() throws Exception {
+
+        ExternalVariableType variable = new ExternalVariableType();
+        variable.setId("ext1");
+        variable.setName("NUMERO_MENAGE");
+        variable.setLabel("Numéro du ménage");
+        variable.setVariableReference("id-variable-ref");
+
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setVariables(new Questionnaire.Variables());
+
+        questionnaire.getVariables().getVariable().add(variable);
+
+        JSONSerializer serializer = new JSONSerializer(true);
+        String json = serializer.serialize(questionnaire);
+
+        String expectedJson = """
+    {
+      "Variables": {
+        "Variable": [
+          {
+            "id": "ext1",
+            "type": "ExternalVariableType",
+            "VariableReference": "id-variable-ref",
+            "Name": "NUMERO_MENAGE",
+            "Label": "Numéro du ménage"
+          }
+        ]
+      }
+    }
+    """;
+
+        JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.STRICT);
+    }
 }
