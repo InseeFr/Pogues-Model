@@ -1,11 +1,11 @@
 # Detail response in choice questions
 
 A unique choice question or multiple choice question can have a _detail response_ ("Please, specify") attached to one 
-of its modality.
+of its option.
 
-This is represented by a `"ClarificationQuestion"`. The link between the detail response and its modality is 
+This is represented by a `"ClarificationQuestion"`. The link between the detail response and its option is 
 described using a magic formula in a `"FlowControl""` description with this syntax: 
-`"$MODALITY_VARIABLE$ = '1' : DETAIL_VARIABLE"` (see examples below).
+`"$OPTION_VARIABLE$ = '1' : DETAIL_VARIABLE"` (see examples below).
 
 ## Unique choice question
 
@@ -14,7 +14,7 @@ _todo_
 ## Multiple choice question
 
 Example: boolean multiple choice question with 2 modalities. The _detail response_ ("Please specify") is attached to 
-the 2nd modality.
+the 2nd option.
 
 ```json
 {
