@@ -666,7 +666,7 @@
         to a single response.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="choiceType" type="ChoiceTypeEnum" default="CODE_LIST">
+    <xs:attribute name="choiceType" type="ChoiceTypeEnum">
       <xs:annotation>
         <xs:documentation>
           choiceType specifies whether the response options are defined by a static
