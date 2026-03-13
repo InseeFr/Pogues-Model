@@ -666,12 +666,11 @@
         to a single response.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="choiceType" type="ChoiceTypeEnum" default="CODE_LIST">
+    <xs:attribute name="choiceType" type="ChoiceTypeEnum">
       <xs:annotation>
         <xs:documentation>
-          choiceType specifies whether the response options are defined by a static
-          code list (CODE_LIST) or dynamically generated from a collected variable
-          (VARIABLE). The default value is CODE_LIST.
+          'choiceType' is a property for choice responses. It specifies whether the response options are defined by a
+          static code list (CODE_LIST) or dynamically generated from a collected variable (VARIABLE).
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>

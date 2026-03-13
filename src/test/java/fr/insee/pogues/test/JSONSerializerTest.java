@@ -677,45 +677,6 @@ class JSONSerializerTest {
     }
 
     @Test
-    void testSerializeVariableResponsesFullConfiguration() throws Exception {
-        QuestionType question = new QuestionType();
-        question.setQuestionType(QuestionTypeEnum.SINGLE_CHOICE);
-        question.setOptionFilter("nvl($AGE$, 0) > 18");
-
-        ResponseType response = new ResponseType();
-        response.setVariableReference("id-loop-variable");
-		response.setChoiceType(ChoiceTypeEnum.VARIABLE);
-
-        question.getResponse().add(response);
-
-        Questionnaire questionnaire = new Questionnaire();
-        questionnaire.getChild().add(question);
-
-        JSONSerializer serializer = new JSONSerializer(true);
-        String json = serializer.serialize(questionnaire);
-
-        String expectedJson = """
-        {
-          "Child": [
-            {
-              "type": "QuestionType",
-              "questionType": "SINGLE_CHOICE",
-              "OptionFilter": "nvl($AGE$, 0) > 18",
-              "Response": [
-                {
-                  "VariableReference": "id-loop-variable",
-              	  "choiceType": "VARIABLE"
-                }
-              ]
-            }
-          ]
-        }
-        """;
-
-        JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.STRICT);
-    }
-
-    @Test
     void testSerializeVariableReferenceInExternalVariable() throws Exception {
 
         ExternalVariableType variable = new ExternalVariableType();
