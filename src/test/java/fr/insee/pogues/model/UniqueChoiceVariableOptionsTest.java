@@ -19,10 +19,10 @@ class UniqueChoiceVariableOptionsTest {
         // Given
         QuestionType question = new QuestionType();
         question.setQuestionType(QuestionTypeEnum.SINGLE_CHOICE);
-        question.setOptionFilter("nvl($AGE$, 0) > 18");
 
         ResponseType response = new ResponseType();
         response.setVariableReference("id-loop-variable");
+        response.setOptionFilter("nvl($AGE$, 0) > 18");
         response.setChoiceType(ChoiceTypeEnum.VARIABLE);
 
         question.getResponse().add(response);
@@ -40,10 +40,10 @@ class UniqueChoiceVariableOptionsTest {
             {
               "type": "QuestionType",
               "questionType": "SINGLE_CHOICE",
-              "OptionFilter": "nvl($AGE$, 0) > 18",
               "Response": [
                 {
                   "VariableReference": "id-loop-variable",
+                  "OptionFilter": "nvl($AGE$, 0) > 18",
                   "choiceType": "VARIABLE"
                 }
               ]
@@ -100,7 +100,7 @@ class UniqueChoiceVariableOptionsTest {
         QuestionType question = (QuestionType) questionnaire.getChild().getFirst();
         assertEquals(QuestionTypeEnum.SINGLE_CHOICE, question.getQuestionType());
         assertEquals(ChoiceTypeEnum.VARIABLE, question.getResponse().getFirst().getChoiceType());
-        assertNull(question.getOptionFilter());
+        assertNull(question.getResponse().getFirst().getOptionFilter());
         assertNotNull(question.getResponse());
         assertFalse(question.getResponse().isEmpty()) ;
         assertEquals("id-loop-variable", question.getResponse().getFirst().getVariableReference());
@@ -114,10 +114,10 @@ class UniqueChoiceVariableOptionsTest {
                  {
                    "type": "QuestionType",
                    "questionType": "SINGLE_CHOICE",
-                   "OptionFilter": "nvl($AGE$, 0) > 18",
                    "Response": {
                        "choiceType": "VARIABLE",
-                       "VariableReference": "id-loop-variable"
+                       "VariableReference": "id-loop-variable",
+                       "OptionFilter": "nvl($AGE$, 0) > 18"
                    }
                  }
                ]
@@ -130,7 +130,7 @@ class UniqueChoiceVariableOptionsTest {
         QuestionType question = (QuestionType) questionnaire.getChild().getFirst();
         assertEquals(QuestionTypeEnum.SINGLE_CHOICE, question.getQuestionType());
         assertEquals(ChoiceTypeEnum.VARIABLE, question.getResponse().getFirst().getChoiceType());
-        assertEquals("nvl($AGE$, 0) > 18", question.getOptionFilter());
+        assertEquals("nvl($AGE$, 0) > 18", question.getResponse().getFirst().getOptionFilter());
         assertNotNull(question.getResponse());
         assertFalse(question.getResponse().isEmpty()) ;
         assertEquals("id-loop-variable", question.getResponse().getFirst().getVariableReference());

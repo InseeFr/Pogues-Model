@@ -233,15 +233,6 @@
                 codeValue filtered according to a condition</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="OptionFilter" type="xs:string" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>
-                OptionFilter defines a VTL expression used to dynamically filter
-                response options when the choiceType is set to VARIABLE.
-                For CODE_LIST questions, filtering must be defined at the individual
-                option level.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
         </xs:sequence>
         <xs:attribute name="questionType" type="QuestionTypeEnum"/>
         <xs:attribute name="mandatory" type="xs:boolean">
@@ -620,6 +611,15 @@
          It must not be used when choiceType is CODE_LIST.
          </xs:documentation>
        </xs:annotation>
+      </xs:element>
+      <xs:element name="OptionFilter" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            OptionFilter defines a VTL expression used to dynamically filter
+            response options when the choiceType is set to VARIABLE.
+            For CODE_LIST questions, filtering must be defined at the individual
+            option level.</xs:documentation>
+        </xs:annotation>
       </xs:element>
       <xs:element name="Datatype" type="DatatypeType"/>
       <xs:element name="Value" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
