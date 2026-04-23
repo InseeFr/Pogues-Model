@@ -612,10 +612,10 @@
          </xs:documentation>
        </xs:annotation>
       </xs:element>
-      <xs:element name="OptionFilter" type="xs:string" minOccurs="0">
+      <xs:element name="optionFilter" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>
-            OptionFilter defines a VTL expression used to dynamically filter
+            optionFilter defines a VTL expression used to dynamically filter
             response options when the choiceType is set to VARIABLE.
             For CODE_LIST questions, filtering must be defined at the individual
             option level.</xs:documentation>

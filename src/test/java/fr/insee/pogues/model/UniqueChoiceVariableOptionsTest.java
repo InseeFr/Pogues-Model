@@ -43,7 +43,7 @@ class UniqueChoiceVariableOptionsTest {
               "Response": [
                 {
                   "VariableReference": "id-loop-variable",
-                  "OptionFilter": "nvl($AGE$, 0) > 18",
+                  "optionFilter": "nvl($AGE$, 0) > 18",
                   "choiceType": "VARIABLE"
                 }
               ]
@@ -117,7 +117,7 @@ class UniqueChoiceVariableOptionsTest {
                    "Response": {
                        "choiceType": "VARIABLE",
                        "VariableReference": "id-loop-variable",
-                       "OptionFilter": "nvl($AGE$, 0) > 18"
+                       "optionFilter": "nvl($AGE$, 0) > 18"
                    }
                  }
                ]
