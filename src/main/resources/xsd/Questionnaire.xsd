@@ -861,12 +861,33 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="Name" type="xs:token"/>
+        <xs:element name="Name" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>
+              @deprecated since 1.16.0
+              The Name attribute is now deprecated of the code.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="Label" type="xs:token"/>
         <xs:element name="Code" type="CodeType" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="SuggesterParameters" type="SuggesterParametersType" minOccurs="0"/>
       </xs:sequence>
       <xs:attribute name="id" type="xs:ID" use="required"/>
+      <xs:attribute name="theme" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Generic theme for the code list (stable between versions).</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="referenceYear" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Reference year (4 digits). Should be match pattern "\d{4}"</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="version"  type="xs:int">
+        <xs:annotation>
+          <xs:documentation>Version of the code list (auto-incremented)</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
       <xs:attribute name="Urn" type="xs:string" use="optional"/>
     </xs:complexType>
   </xs:element>
