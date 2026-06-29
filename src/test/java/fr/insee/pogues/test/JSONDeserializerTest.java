@@ -439,4 +439,38 @@ class JSONDeserializerTest {
         assertNotNull(variable);
         assertEquals("id-variable-ref", variable.getVariableReference());
     }
+
+    @Test
+    void deSerializeCodesListsWithMetadata() throws JAXBException {
+
+        String json = """
+            {
+              "CodeLists": {
+                "CodeList": [
+                  {
+                  	"id":"696216a3-59ee-4b46-bad8-f963e1eae6ec",
+                  	"theme":"COMMUNES",
+                  	"referenceYear":"2026",
+                  	"version":5,
+                  	"Urn":"urn:my-link-to-rmes",
+                  	"Name":"Deprecated Name",
+                  	"Label":"My super nomenclature"
+                  }
+                ]
+              }
+            }
+            """;
+
+        JSONDeserializer deserializer = new JSONDeserializer();
+        Questionnaire questionnaire = deserializer.deserializeString(json);
+        CodeList codeList = questionnaire.getCodeLists().getCodeList().getFirst();
+
+        assertEquals("696216a3-59ee-4b46-bad8-f963e1eae6ec", codeList.getId());
+        assertEquals("COMMUNES", codeList.getTheme());
+        assertEquals("2026", codeList.getReferenceYear());
+        assertEquals(5, codeList.getVersion());
+        assertEquals("urn:my-link-to-rmes", codeList.getUrn());
+        assertEquals("My super nomenclature", codeList.getLabel());
+
+    }
 }

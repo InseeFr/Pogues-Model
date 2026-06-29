@@ -711,4 +711,45 @@ class JSONSerializerTest {
 
         JSONAssert.assertEquals(expectedJson, json, JSONCompareMode.STRICT);
     }
+
+	@Test
+	void serializeCodesListsWithMetadata() throws JAXBException, UnsupportedEncodingException, JSONException {
+		Questionnaire questionnaire = new Questionnaire();
+
+		CodeLists codeLists = new CodeLists();
+		CodeList codeList = new CodeList();
+		codeList.setName("Deprecated Name");
+		codeList.setId("696216a3-59ee-4b46-bad8-f963e1eae6ec");
+		codeList.setUrn("urn:my-link-to-rmes");
+		codeList.setVersion(5);
+		codeList.setLabel("My super nomenclature");
+		codeList.setReferenceYear("2026");
+		codeList.setTheme("COMMUNES");
+		codeLists.getCodeList().add(codeList);
+
+		questionnaire.setCodeLists(codeLists);
+
+		JSONSerializer serializer = new JSONSerializer(true);
+		String result = serializer.serialize(questionnaire);
+
+		String expectedJson = """
+            {
+              "CodeLists": {
+                "CodeList": [
+                  {
+                  	"id":"696216a3-59ee-4b46-bad8-f963e1eae6ec",
+                  	"theme":"COMMUNES",
+                  	"referenceYear":"2026",
+                  	"version":5,
+                  	"Urn":"urn:my-link-to-rmes",
+                  	"Name":"Deprecated Name",
+                  	"Label":"My super nomenclature"
+                  }
+                ]
+              }
+            }
+            """;
+
+		JSONAssert.assertEquals(expectedJson, result, JSONCompareMode.STRICT);
+	}
 }
