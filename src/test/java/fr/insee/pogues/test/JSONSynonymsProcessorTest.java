@@ -74,6 +74,53 @@ class JSONSynonymsProcessorTest {
                   }
                 }""";
 
+    private String suggesterParametersSynonymsObject = """
+            {
+                          "fields": [
+                            {
+                              "name": "foo",
+                              "synonyms": {
+                                "foo": [
+                                  "BAR"
+                                ],
+                                "example": [
+                                  "INSTANCE",
+                                  "SAMPLE",
+                                  "ILLUSTRATION"
+                                ]
+                              }
+                            }
+                          ]
+                        }
+            """;
+
+
+    private String suggesterParametersSynonymsArray = """
+            {
+                "fields": [
+                    {
+                        "name": "foo",
+                        "synonyms": [
+                                {
+                                  "source": "foo",
+                                  "target": [
+                                    "BAR"
+                                  ]
+                                },
+                                {
+                                  "source": "example",
+                                  "target": [
+                                    "INSTANCE",
+                                    "SAMPLE",
+                                    "ILLUSTRATION"
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+            """;
+
     @Test
     void preProcessingTransformSynonyms() throws JSONException {
         JSONSynonymsPreProcessor jsonSynonymsPreProcessor = new JSONSynonymsPreProcessor();
@@ -102,6 +149,13 @@ class JSONSynonymsProcessorTest {
         JSONSynonymsPreProcessor jsonSynonymsPreProcessor = new JSONSynonymsPreProcessor();
         String result = jsonSynonymsPreProcessor.transform(jsonSynonymsPostProcessor.transform(questionnaireSynonymsArray));
         JSONAssert.assertEquals(questionnaireSynonymsArray, result, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    void preProcessingTransformSuggesterParameters() throws JSONException {
+        JSONSynonymsPreProcessor jsonSynonymsPreProcessor = new JSONSynonymsPreProcessor();
+        String result = jsonSynonymsPreProcessor.transformSuggesterParameters(suggesterParametersSynonymsObject);
+        JSONAssert.assertEquals(suggesterParametersSynonymsArray, result, JSONCompareMode.STRICT);
     }
 
 }

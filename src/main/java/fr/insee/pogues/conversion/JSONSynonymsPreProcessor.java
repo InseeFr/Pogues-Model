@@ -15,6 +15,8 @@ public class JSONSynonymsPreProcessor {
 
     private static final Logger logger  = LoggerFactory.getLogger(JSONSynonymsPreProcessor.class);
 
+    private static final String FIELDS_KEY = "fields";
+
     public String transform(String jsonQuestionnaireString) {
         // Should throw an exception, yet it may have impacts in Pogues-Back-Office
         if (jsonQuestionnaireString == null) {
@@ -57,6 +59,52 @@ public class JSONSynonymsPreProcessor {
         return result;
     }
 
+    public String transformSuggesterParameters(String jsonSuggesterParams){
+        // Should throw an exception, yet it may have impacts in Pogues-Back-Office
+        if (jsonSuggesterParams == null) {
+            logger.warn("null string given in JSON synonyms pre-processing method.");
+            return null;
+        }
+
+        return transformSuggesterParameters(new ByteArrayInputStream(jsonSuggesterParams.getBytes()));
+    }
+
+    public String transformSuggesterParameters(InputStream jsonSuggesterParamsIS){
+        // Should throw an exception, yet it may have impacts in Pogues-Back-Office
+        if (jsonSuggesterParamsIS == null) {
+            logger.warn("null input stream given in JSON synonyms pre-processing method.");
+            return null;
+        }
+
+        logger.debug("Pre-processing json suggesterParams stream source...");
+
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        try (JsonReader jsonReader = Json.createReader(jsonSuggesterParamsIS);
+             JsonWriter jsonWriter = Json.createWriter(outputStream)) {
+
+            JsonObject jsonSuggesterParams = jsonReader.readObject();
+
+            JsonObjectBuilder jsonSuggesterParamsBuilder = Json.createObjectBuilder();
+            jsonSuggesterParams.forEach((key, jsonValue)-> {
+                if (! FIELDS_KEY.equals(key)) {
+                    jsonSuggesterParamsBuilder.add(key, jsonValue);
+                } else {
+                    editFieldsArray(jsonSuggesterParamsBuilder, (JsonArray) jsonValue);
+                }
+            });
+            jsonWriter.writeObject(jsonSuggesterParamsBuilder.build());
+        }
+
+        String result = outputStream.toString();
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+            throw new PreProcessingException("IO exception occurred when trying to close pre processing output.", e);
+        }
+
+        return result;
+    }
 
     private static void editQuestionnaire(JsonObject jsonQuestionnaire, JsonObjectBuilder jsonQuestionnaireBuilder) {
         jsonQuestionnaire.forEach((key, jsonValue) -> {
@@ -99,7 +147,7 @@ public class JSONSynonymsPreProcessor {
     private static void editSuggesterParameters(JsonObjectBuilder jsonCodeListBuilder, JsonObject jsonSuggesterParameters) {
         JsonObjectBuilder jsonSuggesterParametersBuilder = Json.createObjectBuilder();
         jsonSuggesterParameters.forEach((key, jsonValue) -> {
-            if (! "fields".equals(key)) {
+            if (! FIELDS_KEY.equals(key)) {
                 jsonSuggesterParametersBuilder.add(key, jsonValue);
             } else {
                 editFieldsArray(jsonSuggesterParametersBuilder, (JsonArray) jsonValue);
@@ -114,7 +162,7 @@ public class JSONSynonymsPreProcessor {
             JsonObject jsonFields = (JsonObject) jsonValue;
             editFields(jsonFieldsArrayBuilder, jsonFields);
         }
-        jsonSuggesterParametersBuilder.add("fields", jsonFieldsArrayBuilder.build());
+        jsonSuggesterParametersBuilder.add(FIELDS_KEY, jsonFieldsArrayBuilder.build());
     }
 
     private static void editFields(JsonArrayBuilder jsonFieldsArrayBuilder, JsonObject jsonFields) {
