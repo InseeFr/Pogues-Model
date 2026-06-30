@@ -57,6 +57,52 @@ public class JSONSynonymsPreProcessor {
         return result;
     }
 
+    public String transformSuggesterParameters(String jsonSuggesterParams){
+        // Should throw an exception, yet it may have impacts in Pogues-Back-Office
+        if (jsonSuggesterParams == null) {
+            logger.warn("null string given in JSON synonyms pre-processing method.");
+            return null;
+        }
+
+        return transformSuggesterParameters(new ByteArrayInputStream(jsonSuggesterParams.getBytes()));
+    }
+
+    public String transformSuggesterParameters(InputStream jsonSuggesterParamsIS){
+        // Should throw an exception, yet it may have impacts in Pogues-Back-Office
+        if (jsonSuggesterParamsIS == null) {
+            logger.warn("null input stream given in JSON synonyms pre-processing method.");
+            return null;
+        }
+
+        logger.debug("Pre-processing json suggesterParams stream source...");
+
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        try (JsonReader jsonReader = Json.createReader(jsonSuggesterParamsIS);
+             JsonWriter jsonWriter = Json.createWriter(outputStream)) {
+
+            JsonObject jsonSuggesterParams = jsonReader.readObject();
+
+            JsonObjectBuilder jsonSuggesterParamsBuilder = Json.createObjectBuilder();
+            jsonSuggesterParams.forEach((key, jsonValue)-> {
+                if (! "fields".equals(key)) {
+                    jsonSuggesterParamsBuilder.add(key, jsonValue);
+                } else {
+                    editFieldsArray(jsonSuggesterParamsBuilder, (JsonArray) jsonValue);
+                }
+            });
+            jsonWriter.writeObject(jsonSuggesterParamsBuilder.build());
+        }
+
+        String result = outputStream.toString();
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+            throw new PreProcessingException("IO exception occurred when trying to close pre processing output.", e);
+        }
+
+        return result;
+    }
 
     private static void editQuestionnaire(JsonObject jsonQuestionnaire, JsonObjectBuilder jsonQuestionnaireBuilder) {
         jsonQuestionnaire.forEach((key, jsonValue) -> {
