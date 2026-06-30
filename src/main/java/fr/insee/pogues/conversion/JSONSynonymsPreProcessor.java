@@ -15,6 +15,8 @@ public class JSONSynonymsPreProcessor {
 
     private static final Logger logger  = LoggerFactory.getLogger(JSONSynonymsPreProcessor.class);
 
+    private static final String FIELDS_KEY = "fields";
+
     public String transform(String jsonQuestionnaireString) {
         // Should throw an exception, yet it may have impacts in Pogues-Back-Office
         if (jsonQuestionnaireString == null) {
@@ -85,7 +87,7 @@ public class JSONSynonymsPreProcessor {
 
             JsonObjectBuilder jsonSuggesterParamsBuilder = Json.createObjectBuilder();
             jsonSuggesterParams.forEach((key, jsonValue)-> {
-                if (! "fields".equals(key)) {
+                if (! FIELDS_KEY.equals(key)) {
                     jsonSuggesterParamsBuilder.add(key, jsonValue);
                 } else {
                     editFieldsArray(jsonSuggesterParamsBuilder, (JsonArray) jsonValue);
@@ -145,7 +147,7 @@ public class JSONSynonymsPreProcessor {
     private static void editSuggesterParameters(JsonObjectBuilder jsonCodeListBuilder, JsonObject jsonSuggesterParameters) {
         JsonObjectBuilder jsonSuggesterParametersBuilder = Json.createObjectBuilder();
         jsonSuggesterParameters.forEach((key, jsonValue) -> {
-            if (! "fields".equals(key)) {
+            if (! FIELDS_KEY.equals(key)) {
                 jsonSuggesterParametersBuilder.add(key, jsonValue);
             } else {
                 editFieldsArray(jsonSuggesterParametersBuilder, (JsonArray) jsonValue);
@@ -160,7 +162,7 @@ public class JSONSynonymsPreProcessor {
             JsonObject jsonFields = (JsonObject) jsonValue;
             editFields(jsonFieldsArrayBuilder, jsonFields);
         }
-        jsonSuggesterParametersBuilder.add("fields", jsonFieldsArrayBuilder.build());
+        jsonSuggesterParametersBuilder.add(FIELDS_KEY, jsonFieldsArrayBuilder.build());
     }
 
     private static void editFields(JsonArrayBuilder jsonFieldsArrayBuilder, JsonObject jsonFields) {
