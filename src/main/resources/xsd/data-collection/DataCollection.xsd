@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:complexType name="DataCollection">
+        <xs:sequence>
+            <xs:element name="serie" type="Serie" minOccurs="0"/>
+            <xs:element name="operations" type="Operation" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Serie">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="uri" type="xs:anyURI" />
+            <xs:element name="label" type="xs:string" />
+            <xs:element name="altLabel" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Operation">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="uri" type="xs:anyURI" />
+            <xs:element name="label" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

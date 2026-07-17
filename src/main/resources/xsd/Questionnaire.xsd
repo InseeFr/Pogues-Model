@@ -7,6 +7,7 @@
   <xs:include schemaLocation="articulation/Articulation.xsd"/>
   <xs:include schemaLocation="multimode/Multimode.xsd"/>
   <xs:include schemaLocation="pairwise/Pairwise.xsd"/>
+  <xs:include schemaLocation="data-collection/DataCollection.xsd"/>
   <xs:include schemaLocation="TypesUtils.xsd"/>
 
   <xs:annotation>
@@ -15,42 +16,7 @@
       https://ddialliance.org/Specification/DDI-Lifecycle/3.3/XMLSchema/FieldLevelDocumentation/</xs:documentation>
   </xs:annotation>
 
-  <xs:element name="DataCollection">
-    <xs:annotation>
-      <xs:documentation> DataCollection : A data collection (or a data collection campaign) is a
-        survey data collection realization period. Each data collection can contain one ore several
-        questionnaire. It's characterised by a statistical operation and a period (M01 -
-        January,...,T02 - Second quarter,etc.). All these concepts are created outside Pogues.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="Name" type="xs:token">
-          <xs:annotation>
-            <xs:documentation>Datacollection name (label). Ex
-                emple : "Enquête sectorielle annuelle
-              2018"</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-      </xs:sequence>
-      <xs:attribute name="id" type="xs:ID" use="required">
-        <xs:annotation>
-          <xs:documentation>Datacollection Id.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="uri" type="xs:anyURI" use="required">
-        <xs:annotation>
-          <xs:documentation>URI to external datacollection reference.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-      <xs:attribute name="agency" type="xs:token" default="com.example">
-        <xs:annotation>
-          <xs:documentation>Agency of Datacollection. It's optional. Exemple :
-            "fr.insee".</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
-    </xs:complexType>
-  </xs:element>
+  <xs:element name="DataCollection" type="DataCollection"/>
 
   <xs:element name="Questionnaire">
     <xs:annotation>
@@ -61,7 +27,7 @@
       <xs:complexContent>
         <xs:extension base="SequenceType">
           <xs:sequence>
-            <xs:element ref="DataCollection" maxOccurs="unbounded"/>
+            <xs:element ref="DataCollection" minOccurs="0"/>
             <xs:element ref="ComponentGroup" minOccurs="0" maxOccurs="unbounded">
               <xs:annotation>
                 <xs:documentation>ComponentGroup currently contains the references of all objects in
