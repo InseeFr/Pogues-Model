@@ -26,22 +26,12 @@ class DataCollectionTest {
         return serie;
     }
 
-    private Operation createOperation(String id){
-        Operation operation = new Operation();
-        operation.setId(id);
-        operation.setUri("http://id.insee.fr/operation/"+id);
-        operation.setLabel(id +" - operation label");
-        return operation;
-    }
-
     @Test
     void serializeDataCollection() throws JAXBException, UnsupportedEncodingException, JSONException {
         Questionnaire questionnaire = new Questionnaire();
         DataCollection dataCollection = new DataCollection();
 
         Serie serie = createSerie();
-        dataCollection.getOperations().add(createOperation("op-1"));
-        dataCollection.getOperations().add(createOperation("op-2"));
         dataCollection.setSerie(serie);
         questionnaire.setDataCollection(dataCollection);
         JSONSerializer serializer = new JSONSerializer(true);
@@ -54,19 +44,7 @@ class DataCollectionTest {
                              "uri": "http://id.insee.fr/serie/s001",
                              "label": "s001 - serie label",
                              "altLabel": "S001_ALT_LABEL"
-                         },
-                         "operations": [
-                             {
-                                 "id": "op-1",
-                                 "uri": "http://id.insee.fr/operation/op-1",
-                                 "label": "op-1 - operation label"
-                             },
-                             {
-                                 "id": "op-2",
-                                 "uri": "http://id.insee.fr/operation/op-2",
-                                 "label": "op-2 - operation label"
-                             }
-                         ]
+                         }
                      }
                  }
 				""";
@@ -83,19 +61,7 @@ class DataCollectionTest {
                              "uri": "http://id.insee.fr/serie/s001",
                              "label": "s001 - serie label",
                              "altLabel": "S001_ALT_LABEL"
-                         },
-                         "operations": [
-                             {
-                                 "id": "op-1",
-                                 "uri": "http://id.insee.fr/operation/op-1",
-                                 "label": "op-1 - operation label"
-                             },
-                             {
-                                 "id": "op-2",
-                                 "uri": "http://id.insee.fr/operation/op-2",
-                                 "label": "op-2 - operation label"
-                             }
-                         ]
+                         }
                      }
                  }
 				""";
@@ -108,12 +74,6 @@ class DataCollectionTest {
         assertEquals("http://id.insee.fr/serie/s001", serie.getUri());
         assertEquals("s001 - serie label", serie.getLabel());
         assertEquals("S001_ALT_LABEL", serie.getAltLabel());
-
-        assertEquals(2, questionnaire.getDataCollection().getOperations().size());
-        Operation secondOpe = questionnaire.getDataCollection().getOperations().get(1);
-        assertEquals("op-2", secondOpe.getId());
-        assertEquals("op-2 - operation label", secondOpe.getLabel());
-        assertEquals("http://id.insee.fr/operation/op-2", secondOpe.getUri());
     }
 
     @Test
@@ -131,6 +91,5 @@ class DataCollectionTest {
         JSONDeserializer deserializer = new JSONDeserializer();
         Questionnaire questionnaire = deserializer.deserializeString(json);
         assertNull(questionnaire.getDataCollection().getSerie());
-        assertEquals(0, questionnaire.getDataCollection().getOperations().size());
     }
 }
